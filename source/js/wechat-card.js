@@ -1,0 +1,30 @@
+/**
+ * 微信公众号引流卡片 - 自动注入文章底部
+ * 公众号: 区块链编程
+ * 作者: 区块链编程
+ * 更新: 2026-07-08
+ */
+(function () {
+  'use strict';
+
+  // 只在文章页注入
+  var articleContainer = document.querySelector('#post .article-container, .post-content');
+  if (!articleContainer) return;
+
+  // 检查是否已经注入过
+  if (document.querySelector('.wechat-promo-card')) return;
+
+  // 构建卡片 HTML
+  var card = document.createElement('div');
+  card.className = 'wechat-promo-card';
+  card.innerHTML = [
+    '<div class="promo-title">📱 关注公众号「区块链编程」</div>',
+    '<div class="promo-desc">更多区块链技术干货、Web3 开发实战、量化交易策略<br>第一时间推送，关注「区块链编程」公众号</div>',
+    '<img class="promo-qr" src="/img/wechat-qr.svg" alt="区块链编程公众号二维码" onerror="this.style.display=\'none\'">',
+    '<br>',
+    '<a class="promo-cta" href="/about/">扫码关注</a>'
+  ].join('');
+
+  // 插入到文章内容后面
+  articleContainer.appendChild(card);
+})();

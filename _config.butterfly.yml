@@ -1,0 +1,296 @@
+# Butterfly 主题配置 - 区块链编程博客
+# 文档: https://butterfly.js.org/posts/configure/
+
+# =======================
+# 导航菜单
+# =======================
+menu:
+  首页: / || fas fa-home
+  归档: /archives/ || fas fa-archive
+  分类: /categories/ || fas fa-folder-open
+  标签: /tags/ || fas fa-tags
+  关于: /about/ || fas fa-heart
+
+# =======================
+# 代码块设置
+# =======================
+highlight_theme: mac # 代码高亮主题: mac | mac light | vscode
+copy_button:
+  enable: true
+  style: mac
+
+# =======================
+# 代码滚动条
+# =======================
+code_word_wrap: false
+
+# =======================
+# 头像
+# =======================
+avatar:
+  img: /img/avatar.svg
+  effect: false
+
+# =======================
+# 网站图标
+# =======================
+favicon: /img/favicon.ico
+
+# =======================
+# 社交链接（页脚图标）
+# =======================
+social:
+  fab fa-github: https://github.com/RenRenWuDi || GitHub
+  fab fa-weixin: /about/ || 微信公众号
+  fas fa-rss: /atom.xml || RSS
+
+# =======================
+# 文章页设置
+# =======================
+post_meta:
+  page:
+    date_type: both # 显示创建日期和更新日期
+    date_format: relative # 相对时间
+    categories: true
+    tags: true
+    label: true
+  post:
+    position: left # meta 信息位置
+    date_type: both
+    date_format: relative
+    categories: true
+    tags: true
+    label: true
+
+# 文章封面
+cover:
+  index_enable: true
+  aside_enable: true
+  archives_enable: true
+  position: both # 封面位置: left | right | both
+  default_cover:
+    - /img/cover-default.svg
+
+# 文章置顶
+top_img: true
+
+# 文章页顶部图
+post_top_img: true
+
+# =======================
+# 文章底部公众号卡片（通过 inject 注入）
+# =======================
+# 见 _config.yml 中的 inject 配置
+
+# =======================
+# 评论系统 - Giscus
+# =======================
+comments:
+  use: giscus
+  text: true
+  lazyload: true
+  count: true
+  card_post_count: true
+
+giscus:
+  repo: RenRenWuDi/RenRenWuDi.github.io
+  repo_id: # 需要开启 Discussions 后填入
+  category: Announcements
+  category_id: # 需要开启 Discussions 后填入
+  reactions:
+    enable: true
+  light_theme: light
+  dark_theme: dark
+  mapping: pathname
+  input_position: top
+  loading: lazy
+
+# =======================
+# 分享按钮
+# =======================
+sharejs:
+  enable: true
+  sites: weibo,wechat,twitter,qq
+
+# =======================
+# 搜索
+# =======================
+local_search:
+  enable: true
+  labels:
+    input_placeholder: 搜索文章...
+    empty: "没有找到任何搜索结果"
+    hits: "找到 ${total} 条搜索结果"
+
+# =======================
+# 字数统计
+# =======================
+wordcount:
+  enable: true
+  post_wordcount: true
+  min2read: true
+  total_wordcount: true
+
+# =======================
+# 不蒜子访问统计
+# =======================
+busuanzi:
+  site_uv: true
+  site_pv: true
+  page_pv: true
+
+# =======================
+# 图片懒加载
+# =======================
+lazyload:
+  enable: true
+  field: site # site | post
+  placeholder:
+  loading_img:
+
+# =======================
+# TOC 目录
+# =======================
+toc:
+  post:
+    enable: true
+    number: true
+    wrap: true
+    expand_all: false
+    max_depth: 4
+  page:
+    enable: true
+    number: true
+    wrap: true
+    expand_all: false
+    max_depth: 4
+
+# =======================
+# 阅读进度条
+# =======================
+reading_progress:
+  enable: true
+  position: top
+  color: "#37c2fb"
+  height: 3px
+
+# =======================
+# 返回顶部
+# =======================
+rightside:
+  enable: true
+  scroll_percent: true
+  position: bottom
+  color: "#37c2fb"
+
+# =======================
+# 暗色模式
+# =======================
+dark_mode:
+  enable: true
+  default: auto
+  toggle: true
+
+# =======================
+# 侧边栏
+# =======================
+aside:
+  position: right
+  card_author: true
+  card_author_enable: true
+  card_author_icon:
+  card_author_shape: circle
+  card_post_series: true
+  card_announcement: true
+  card_announcement_content: 欢迎关注公众号「区块链编程」
+  card_recent_post: true
+  card_newest_comments: false
+  card_categories: true
+  card_categories_depth: 3
+  card_tags: true
+  card_tags_amount: 20
+  card_archives: true
+  card_archives_type: monthly
+  card_archives_format: MMMM YYYY
+  card_webinfo: true
+  webinfo_article_num: true
+  webinfo_runtime:
+    enable: true
+    date: 2026/07/08
+  webinfo_site_uv: true
+  webinfo_site_pv: true
+
+# =======================
+# 文章版权信息
+# =======================
+post_copyright:
+  enable: true
+  decode: false
+  author_href:
+  license: CC BY-NC-SA 4.0
+  license_url: https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+# =======================
+# 文章打赏
+# =======================
+reward:
+  enable: false # 后续可开启
+
+# =======================
+# 页脚设置
+# =======================
+footer:
+  owner:
+    enable: true
+    since: 2026
+  custom_text: 本文由 <a href="https://renrenwudi.github.io">区块链编程</a> 发布 · 转载请注明出处
+  copyright_agreement: true
+
+# =======================
+# SEO 优化
+# =======================
+seo:
+  canonical: true
+  og: true
+  twitter: true
+
+# =======================
+# Inject 注入（GA4 + AdSense + 公众号卡片 + 自定义CSS）
+# =======================
+inject:
+  head:
+    # Google Analytics 4
+    - <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    - <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
+    # Google AdSense（审核通过后取消注释）
+    - <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+    # 自定义样式
+    - <link rel="stylesheet" href="/css/custom.css">
+  bottom:
+    # 公众号引流卡片（文章页底部自动注入）
+    - <script src="/js/wechat-card.js"></script>
+
+# =======================
+# CDN
+# =======================
+CDN:
+  internal_provider: none
+  third_party_provider: none
+
+# =======================
+# 颜色主题
+# =======================
+theme_color:
+  enable: true
+  main: "#37c2fb"
+  paginator: "#37c2fb"
+  button_hover: "#37c2fb"
+  text_selection: "#37c2fb"
+  link_color: "#37c2fb"
+  meta_theme_color: "#37c2fb"
+  meta_theme_color_dark: "#37c2fb"
+
+# =======================
+# 网站背景
+# =======================
+background: ''
