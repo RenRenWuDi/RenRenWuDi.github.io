@@ -1,93 +1,25 @@
-#!/usr/bin/env python3
-"""修正已生成的文章标题：从正文提取真正的标题替换文件名标题"""
+"""修复标题 - 去掉 '——' 后的重复部分（如果副标题包含主标题则用 —— 合并）"""
+import os, re, glob
 
-import os
-import glob
-import re
-
-POSTS_DIR = r"F:\tech-blog\source\_posts"
-
-def extract_real_title(content_after_fm):
-    """从 front matter 之后的正文提取真正的标题"""
-    lines = content_after_fm.strip().split("\n")
-    for line in lines:
-        line = line.strip()
-        if not line:
-            continue
-        # 去掉 markdown 标题符号
-        clean = re.sub(r'^#+\s*', '', line)
-        # 去掉前面的编号如 "1-1 " 或 "1. "
-        clean = re.sub(r'^[\d]+[-\.][\d]*\s*', '', clean)
-        if clean and len(clean) > 2:
-            return clean
-    return None
-
-def process_file(filepath):
-    with open(filepath, 'r', encoding='utf-8') as f:
-        content = f.read()
-    
-    # 分离 front matter 和正文
-    parts = content.split('---\n', 2)
-    if len(parts) < 3:
-        return False, "no front matter"
-    
-    fm = parts[1]
-    body = parts[2]
-    
-    # 提取当前 title
-    title_match = re.search(r'^title:\s*(.+)$', fm, re.MULTILINE)
-    if not title_match:
-        return False, "no title in fm"
-    
-    old_title = title_match.group(1).strip()
-    
-    # 从正文提取真正的标题
-    real_title = extract_real_title(body)
-    if not real_title:
-        return False, "no real title found in body"
-    
-    # 如果标题一样就不改
-    if real_title == old_title:
-        return False, f"same title: {old_title}"
-    
-    # 替换 title
-    new_fm = fm.replace(f"title: {old_title}", f"title: {real_title}")
-    
-    # 同时更新 description
-    new_fm = re.sub(
-        r'description: .+',
-        f'description: {real_title} - 技术文章',
-        new_fm
-    )
-    
-    with open(filepath, 'w', encoding='utf-8') as f:
-        f.write('---\n' + new_fm + '---\n' + body)
-    
-    return True, f"{old_title} -> {real_title}"
-
-def main():
-    md_files = sorted(glob.glob(os.path.join(POSTS_DIR, "*.md")))
-    print(f"Found {len(md_files)} files")
-    print("=" * 60)
-    
-    updated = 0
-    skipped = 0
-    
-    for md_path in md_files:
-        basename = os.path.basename(md_path)
-        try:
-            changed, msg = process_file(md_path)
-            if changed:
-                print(f"[UPD] {basename}: {msg}")
-                updated += 1
-            else:
-                print(f"[SKIP] {basename}: {msg}")
-                skipped += 1
-        except Exception as e:
-            print(f"[ERR] {basename}: {e}")
-    
-    print("=" * 60)
-    print(f"Done: updated={updated}, skipped={skipped}")
-
-if __name__ == "__main__":
-    main()
+posts_dir = r'F:\tech-blog\source\_posts'
+files = glob.glob(os.path.join(posts_dir, '*.md'))
+fixed = 0
+for f in files:
+    content = open(f, encoding='utf-8').read()
+    m = re.search(r"^title:\s*(.+)$", content, re.M)
+    if not m:
+        continue
+    title = m.group(1).strip()
+    # 处理 "A——B：C" → "A——B"  (如果 B 已经包含了 A 的核心概念就只保留长版)
+    # 模式：A——B：C  且 C 与 A 或 B 高度相似
+    m2 = re.match(r'^(.+?——.+?)[：:](.+)$', title)
+    if m2:
+        prefix = m2.group(1)  # A——B
+        suffix = m2.group(2)  # C
+        # 如果 prefix 已经够长(>=15字)且 suffix 较短(<=25字)，则用 prefix
+        if len(prefix) >= 12 and len(suffix) <= 30:
+            new_title = prefix
+            content = content.replace(m.group(0), f'title: {new_title}', 1)
+            open(f, 'w', encoding='utf-8').write(content)
+            fixed += 1
+print(f'Fixed {fixed} titles')
