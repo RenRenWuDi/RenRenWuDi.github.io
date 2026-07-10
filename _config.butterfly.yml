@@ -28,7 +28,7 @@ code_word_wrap: false
 # 头像
 # =======================
 avatar:
-  img: /img/avatar.svg
+  img: /img/avatar.png
   effect: false
 
 # =======================
@@ -260,8 +260,8 @@ seo:
 inject:
   head:
     # Google Analytics 4
-    - <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    - <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
+    - <script async src="https://www.googletagmanager.com/gtag/js?id=G-41F4NYXQZQ"></script>
+    - <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-41F4NYXQZQ');</script>
     # Google AdSense（审核通过后取消注释）
     - <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
     # 自定义样式
