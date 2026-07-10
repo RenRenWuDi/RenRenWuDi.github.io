@@ -1,5 +1,5 @@
 ---
-title: 你好，区块链编程
+title: 🚀 博客上线了
 date: 2026-07-08 10:00:00
 tags:
   - 区块链
@@ -7,7 +7,7 @@ tags:
   - 博客说明
 categories:
   - 区块链基础
-description: 欢迎来到「区块链编程」技术博客！这里是用代码读懂区块链的地方，专注区块链技术深度分享。
+description: 🚀 博客上线了 - 技术文章
 cover: /img/cover-default.svg
 top_img: /img/cover-default.svg
 ---
