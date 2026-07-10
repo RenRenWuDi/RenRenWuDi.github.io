@@ -29,7 +29,7 @@ code_word_wrap: false
 # =======================
 avatar:
   img: /img/avatar.png
-  effect: false
+  effect: true
 
 # =======================
 # 网站图标
@@ -196,29 +196,36 @@ dark_mode:
 # =======================
 aside:
   position: right
-  card_author: true
-  card_author_enable: true
+  card_author:
+    enable: true
+    description: 区块链技术博主，专注 Web3 开发、DeFi 协议与智能合约安全
   card_author_icon:
   card_author_shape: circle
   card_post_series: true
-  card_announcement: true
-  card_announcement_content: 欢迎关注公众号「区块链编程」
-  card_recent_post: true
-  card_newest_comments: false
-  card_categories: true
-  card_categories_depth: 3
-  card_tags: true
-  card_tags_amount: 20
-  card_archives: true
-  card_archives_type: monthly
-  card_archives_format: MMMM YYYY
-  card_webinfo: true
-  webinfo_article_num: true
-  webinfo_runtime:
+  card_announcement:
     enable: true
-    date: 2026/07/08
-  webinfo_site_uv: true
-  webinfo_site_pv: true
+    content: 欢迎关注公众号「区块链编程」
+  card_recent_post:
+    enable: true
+  card_newest_comments: false
+  card_categories:
+    enable: true
+    depth: 3
+  card_tags:
+    enable: true
+    amount: 20
+  card_archives:
+    enable: true
+    type: monthly
+    format: MMMM YYYY
+  card_webinfo:
+    enable: true
+    article_num: true
+    runtime:
+      enable: true
+      date: 2026/07/08
+    site_uv: true
+    site_pv: true
 
 # =======================
 # 文章版权信息

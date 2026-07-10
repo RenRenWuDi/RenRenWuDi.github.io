@@ -1,0 +1,12 @@
+[6] fonts={'微软雅黑'} sizes={'139700'} | text='很多人做DeFi，第一件事是找"高APY"的项目，第二件事是算"能赚多'
+[11] fonts={'微软雅黑'} sizes={'139700'} | text='LTV = 借款额 ÷ 抵押物价值'
+[12] fonts={'微软雅黑'} sizes={'139700'} | text='清算线：LTV超过这个比例，抵押物就会被强制清算'
+[13] fonts={'微软雅黑'} sizes={'114300'} | text='LiquidationChecker.sol'
+[14] fonts={'Consolas'} sizes={'120650'} | text='// 清算风险计算合约'
+[15] fonts={'Consolas'} sizes={'120650'} | text='contract LiquidationChecker {'
+[27] fonts={'Consolas'} sizes={'120650'} | text='        liquidationThreshold[0xC02.'
+[50] fonts={'Consolas'} sizes={'120650'} | text='}'
+
+=== Font distribution across paragraphs ===
+  ['微软雅黑']: 42
+  ['Consolas']: 33

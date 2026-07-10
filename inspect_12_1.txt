@@ -1,0 +1,51 @@
+=== PARAGRAPHS (style | text preview) ===
+[00]                        | DeFi风险管理
+[01]                        | 从仓位计算开始
+[02]                        | 系列十二「DeFi进阶：策略与风控」第1篇
+[03]                        | 💡 清算线、LTV、滑点、gas费——你必须知道的核心参数
+[04]                        | ⏱️ 阅读时间：约12分钟
+[05]                        | 1. 仓位管理是DeFi的第一课
+[06]                        | 很多人做DeFi，第一件事是找"高APY"的项目，第二件事是算"能赚多少"。很少有人先问自己一个问题：我会不会亏？
+[07]                        | DeFi的风险不是黑天鹅，而是你每天都在面对的东西：清算、爆仓、无常损失、滑点损耗。这些不是小概率事件——在波动市况下，它们每天都在发生。
+[08]                        | 一个真实案例：  某用户在Aave抵押了ETH，借出USDC再买入ETH做多。ETH突然下跌20%，加上gas消耗和利息累积，账户被清算，还倒欠了Aa
+[09]                        | 2. 理解清算线与LTV
+[10]                        | 清算线和LTV是DeFi借贷最核心的两个参数。
+[11] List Paragraph         | LTV = 借款额 ÷ 抵押物价值
+[12] List Paragraph         | 清算线：LTV超过这个比例，抵押物就会被强制清算
+[13]                        | LiquidationChecker.sol
+[14]                        | // 清算风险计算合约
+[15]                        | contract LiquidationChecker {
+[16]                        | struct Position {
+[17]                        | uint256 collateralAmount;
+[18]                        | address collateralToken;
+[19]                        | uint256 borrowAmount;
+[20]                        | address borrowToken;
+[21]                        | }
+[22]                        | 
+[23]                        | // 各抵押物的清算线（基点）
+[24]                        | mapping(address => uint256) public liquidationThreshold;
+[25]                        | 
+[26]                        | function init() internal {
+[27]                        | liquidationThreshold[0xC02...] = 7500; // ETH 75% LTV
+[28]                        | liquidationThreshold[0x226...] = 7000; // WBTC 70% LTV
+[29]                        | }
+[30]                        | 
+[31]                        | function checkHealth(
+[32]                        | Position memory pos,
+[33]                        | uint256 collateralPrice,
+[34]                        | uint256 borrowPrice
+[35]                        | ) public pure returns(bool healthy, uint256 currentLTV) {
+[36]                        | uint256 collateralValue = pos.collateralAmount * collateralPrice;
+[37]                        | uint256 debtValue = pos.borrowAmount * borrowPrice;
+[38]                        | currentLTV = (debtValue * 10000) / collateralValue;
+[39]                        | uint256 threshold = liquidationThreshold[pos.collateralToken];
+[40]                        | healthy = currentLTV < threshold;
+[41]                        | }
+[42]                        | 
+[43]                        | function maxBorrowable(
+[44]                        | uint256 collateral,
+
+=== total paragraphs: 83
+
+=== CODE DETECTION (paragraphs with monospace/code style) ===
+Code-related styles found: set()
