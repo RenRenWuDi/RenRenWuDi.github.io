@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>你好，区块链编程</title>
+    <url>/2026/07/hello-blockchain-programming/</url>
+    <content><![CDATA[<h2 id="🚀-博客上线了"><a href="#🚀-博客上线了" class="headerlink" title="🚀 博客上线了"></a>🚀 博客上线了</h2><p>欢迎来到「<strong>区块链编程</strong>」技术博客！这里记录区块链技术学习、Web3 开发实战和量化交易编程。</p>
+<h2 id="📝-为什么做这个博客？"><a href="#📝-为什么做这个博客？" class="headerlink" title="📝 为什么做这个博客？"></a>📝 为什么做这个博客？</h2><p>微信公众号「区块链编程」写了一段时间的科普文章，但公众号有个局限——<strong>代码展示体验不好</strong>，排版也受限。</p>
+<p>所以把技术文章搬到这里来了。博客有以下优势：</p>
+<ul>
+<li><strong>代码高亮</strong>：支持各种编程语言的语法高亮</li>
+<li><strong>阅读体验</strong>：无干扰的纯净阅读环境</li>
+<li><strong>搜索功能</strong>：可以搜索历史文章</li>
+<li><strong>永久链接</strong>：每篇文章都有固定 URL，方便收藏和分享</li>
+</ul>
+<h2 id="📚-你能在这里读到什么？"><a href="#📚-你能在这里读到什么？" class="headerlink" title="📚 你能在这里读到什么？"></a>📚 你能在这里读到什么？</h2><h3 id="区块链基础"><a href="#区块链基础" class="headerlink" title="区块链基础"></a>区块链基础</h3><p>用大白话讲清楚区块链核心技术：共识机制、智能合约、Layer2、零知识证明等。</p>
+<h3 id="Web3-开发实战"><a href="#Web3-开发实战" class="headerlink" title="Web3 开发实战"></a>Web3 开发实战</h3><p>从零搭建区块链项目：Solidity 智能合约开发、DApp 前端对接、DeFi 协议源码解析。</p>
+<h3 id="量化交易编程"><a href="#量化交易编程" class="headerlink" title="量化交易编程"></a>量化交易编程</h3><p>交易策略实现、回测系统搭建、交易所 API 对接（币安&#x2F;OKX&#x2F;Bybit 等）。</p>
+<h2 id="🔗-公众号与博客的关系"><a href="#🔗-公众号与博客的关系" class="headerlink" title="🔗 公众号与博客的关系"></a>🔗 公众号与博客的关系</h2><p>博客发布<strong>完整技术文章</strong>，公众号发布<strong>精华摘要 + 原文链接</strong>。两者互补：</p>
+<ul>
+<li>公众号：快速推送，碎片化阅读</li>
+<li>博客：深度阅读，代码查看，搜索引擎可索引</li>
+</ul>
+<h2 id="⚠️-免责声明"><a href="#⚠️-免责声明" class="headerlink" title="⚠️ 免责声明"></a>⚠️ 免责声明</h2><blockquote>
+<p>本博客所有文章仅为个人学习和分享，不构成任何投资建议。加密货币市场风险极高，投资需谨慎。</p>
+</blockquote>
+<h2 id="💬-联系"><a href="#💬-联系" class="headerlink" title="💬 联系"></a>💬 联系</h2><p>有任何问题或建议，欢迎在文章下方评论区留言，或者关注微信公众号「<strong>区块链编程</strong>」与我交流。</p>
+<hr>
+<p><em>这是博客的第一篇文章，后续会持续更新。感谢你的关注！</em></p>
+]]></content>
+      <categories>
+        <category>区块链基础</category>
+      </categories>
+      <tags>
+        <tag>区块链</tag>
+        <tag>Web3</tag>
+        <tag>博客说明</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2026/07/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+</search>
