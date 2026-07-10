@@ -1,0 +1,317 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Web3产品设计：产品经理视角 | 区块链编程</title><meta name="author" content="区块链编程"><meta name="copyright" content="区块链编程"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1. Web3产品和Web2有什么不同？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web3产品设计：产品经理视角">
+<meta property="og:url" content="https://renrenwudi.github.io/2026/05/9-1-Web3%E4%BA%A7%E5%93%81%E8%AE%BE%E8%AE%A1/index.html">
+<meta property="og:site_name" content="区块链编程">
+<meta property="og:description" content="1. Web3产品和Web2有什么不同？">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://renrenwudi.github.io/img/avatar.png">
+<meta property="article:published_time" content="2026-05-16T02:00:00.000Z">
+<meta property="article:modified_time" content="2026-07-10T09:03:27.061Z">
+<meta property="article:author" content="区块链编程">
+<meta property="article:tag" content="实战项目">
+<meta property="article:tag" content="实战项目开发">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://renrenwudi.github.io/img/avatar.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Web3产品设计：产品经理视角",
+  "url": "https://renrenwudi.github.io/2026/05/9-1-Web3%E4%BA%A7%E5%93%81%E8%AE%BE%E8%AE%A1/",
+  "image": "https://renrenwudi.github.io/img/avatar.png",
+  "datePublished": "2026-05-16T02:00:00.000Z",
+  "dateModified": "2026-07-10T09:03:27.061Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "区块链编程",
+      "url": "https://renrenwudi.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://renrenwudi.github.io/2026/05/9-1-Web3%E4%BA%A7%E5%93%81%E8%AE%BE%E8%AE%A1/index.html"><link rel="preconnect"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="/"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#37c2fb')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: '/',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Web3产品设计：产品经理视角',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-41F4NYXQZQ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-41F4NYXQZQ');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 8.1.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">85</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">36</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">区块链编程</span></a><a class="nav-page-title" href="/"><span class="site-name">Web3产品设计：产品经理视角</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Web3产品设计：产品经理视角</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-05-16T02:00:00.000Z" title="发表于 2026-05-16 10:00:00">2026-05-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-07-10T09:03:27.061Z" title="更新于 2026-07-10 17:03:27">2026-07-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE/">实战项目</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="Web3产品设计"><a href="#Web3产品设计" class="headerlink" title="Web3产品设计"></a>Web3产品设计</h2><h2 id="产品经理视角"><a href="#产品经理视角" class="headerlink" title="产品经理视角"></a>产品经理视角</h2><h2 id="Web3产品和Web2有什么不同？"><a href="#Web3产品和Web2有什么不同？" class="headerlink" title="Web3产品和Web2有什么不同？"></a>Web3产品和Web2有什么不同？</h2><p>做Web3产品和做传统互联网产品，表面上看都是做App、做功能、做体验，但底层逻辑完全不同。Web2产品的护城河是数据和网络效应，Web3产品的护城河是协议和网络效应。</p>
+<p>最核心的区别：Web2产品自己拥有数据和规则，Web3产品只是协议的前端，数据和规则都在链上。这意味着产品可以一夜之间被复制，但协议一旦建立就很难被颠覆。</p>
+<p>Web3产品的核心特征：</p>
+<ul>
+<li>数据在链上，产品只是展示层</li>
+<li>规则是开源合约，无法单方面修改</li>
+<li>用户真正拥有数据和资产</li>
+<li>协议比产品更重要</li>
+</ul>
+<h2 id="Web2-PM-vs-Web3-PM"><a href="#Web2-PM-vs-Web3-PM" class="headerlink" title="Web2 PM vs Web3 PM"></a>Web2 PM vs Web3 PM</h2><p>Web2产品经理的核心能力是增长和商业化——如何获取用户、如何变现。但Web3产品经理的技能树完全不同。</p>
+<p>Web3产品经理的三大核心能力：</p>
+<ul>
+<li>理解协议机制：知道合约逻辑和链上数据</li>
+<li>设计Token经济：代币的发行、分发、使用场景</li>
+<li>平衡去中心化和效率：完全去中心化体验差，完全中心化违背Web3精神</li>
+</ul>
+<h2 id="钱包优先设计（Wallet-First-Design）"><a href="#钱包优先设计（Wallet-First-Design）" class="headerlink" title="钱包优先设计（Wallet-First Design）"></a>钱包优先设计（Wallet-First Design）</h2><p>Web3产品的第一个设计挑战：用户没有账户体系。用户进来第一步是连接钱包，而不是注册登录。这意味着你不知道用户是谁，只能通过链上行为来理解他们。</p>
+<p>钱包设计的最佳实践：</p>
+<ul>
+<li>提供清晰的连接引导：告诉用户用什么钱包</li>
+<li>支持多种钱包：MetaMask、Coinbase Wallet、手机钱包</li>
+<li>处理钱包切换：用户更换钱包时优雅处理</li>
+<li>考虑无钱包用户：社交登录+钱包映射</li>
+</ul>
+<h2 id="Gas费是用户体验的杀手"><a href="#Gas费是用户体验的杀手" class="headerlink" title="Gas费是用户体验的杀手"></a>Gas费是用户体验的杀手</h2><p>Gas费是Web3产品最难解决的体验问题。用户操作要付Gas，但这笔钱对普通用户来说既难理解又难以接受。</p>
+<p>解决Gas体验的方案：</p>
+<ul>
+<li>抽象Gas（Account Abstraction）：用户不知道有Gas这回事</li>
+<li>Gas代付：协议帮用户付Gas（如Biconomy）</li>
+<li>打包交易：合并多笔操作减少Gas</li>
+<li>免费操作区：某些操作不上链，批量结算</li>
+</ul>
+<p>最好的方案是Account Abstraction（ERC-4337）。用户完全感受不到Gas的存在，后台自动处理。</p>
+<h2 id="Token经济模型设计"><a href="#Token经济模型设计" class="headerlink" title="Token经济模型设计"></a>Token经济模型设计</h2><p>Token是Web3产品的心脏。一个好的Token经济模型，既要激励用户行为，又要防止代币价值崩溃。这是Web3产品经理最重要的技能之一。</p>
+<p>Token经济模型三问：</p>
+<ul>
+<li>为什么需要Token？（功能权益、治理权益、价值捕获）</li>
+<li>Token从哪里来？（初始发行、通胀分发）</li>
+<li>Token流向哪里？（锁定、消耗、激励）</li>
+</ul>
+<h2 id="Token的基础类型"><a href="#Token的基础类型" class="headerlink" title="Token的基础类型"></a>Token的基础类型</h2><p><strong>治理代币（Governance Token）：持有者投票决定协议方向</strong></p>
+<p><strong>功能代币（Utility Token）：用于支付费用、享受折扣</strong></p>
+<p><strong>证券型代币（Security Token）：代表权益和收益</strong></p>
+<h2 id="Token的经济机制"><a href="#Token的经济机制" class="headerlink" title="Token的经济机制"></a>Token的经济机制</h2><p>通胀模型：新代币不断发行，激励长期参与</p>
+<p>通缩模型：定期回购销毁，减少供应</p>
+<p>质押模型：锁仓获得收益，减少流通</p>
+<p>混合模型：通胀+质押+销毁组合</p>
+<h2 id="流动性和激励机制"><a href="#流动性和激励机制" class="headerlink" title="流动性和激励机制"></a>流动性和激励机制</h2><p>Web3产品最难解的问题之一：冷启动。协议需要流动性，用户需要激励，而激励需要流动性。这是一个鸡生蛋蛋生鸡的问题。</p>
+<p>流动性激励的设计：</p>
+<ul>
+<li>流动性挖矿：提供流动性获得代币奖励</li>
+<li>激励机制设计：让早期用户提供流动性的收益&gt;风险</li>
+<li>防止女巫攻击：要求真实资产质押</li>
+<li>退出成本：让退出比参与成本更高</li>
+</ul>
+<h2 id="Web2团队转Web3的常见错误"><a href="#Web2团队转Web3的常见错误" class="headerlink" title="Web2团队转Web3的常见错误"></a>Web2团队转Web3的常见错误</h2><p>错误1：把代币当股权发——代币≠股票，法律合规很重要</p>
+<p>错误2：完全去中心化——先做产品，再逐步去中心化</p>
+<p>错误3：忽视Gas体验——Gas费高是用户流失的主要原因</p>
+<p>错误4：Token经济模型不合理——代币通胀失控导致死亡螺旋</p>
+<p>错误5：产品体验向Web2看齐——Web3产品需要新的交互范式</p>
+<h2 id="好产品的标准：PMF-in-Web3"><a href="#好产品的标准：PMF-in-Web3" class="headerlink" title="好产品的标准：PMF in Web3"></a>好产品的标准：PMF in Web3</h2><p>Web2讲PMF（Product-Market Fit），Web3也讲PMF，但定义不同。Web2 PMF是用户说”我每天都在用”，Web3 PMF是用户说”我的资产在这里，我的身份在这里”。</p>
+<p>Web3 PMF的三个信号：</p>
+<ul>
+<li>用户把资产放在你的协议里（而不是只是路过）</li>
+<li>用户参与治理并认真投票</li>
+<li>开发者愿意在你的协议上构建</li>
+</ul>
+<p><strong>9. 总结</strong></p>
+<p>①  Web3产品&#x3D;协议的前端，数据和规则在链上</p>
+<p>②  Web3 PM的核心能力：协议理解、Token经济、去中心化平衡</p>
+<p>③  钱包优先设计是Web3产品的起点</p>
+<p>④  Gas体验是Web3产品最难解决的问题，ERC-4337是解决方案</p>
+<p>⑤  Token经济模型是Web3产品的核心资产</p>
+<p>⑥  Web3 PMF &#x3D; 用户把资产和身份放在你的协议里</p>
+<p>AMM、流动性池、Swap路由、前端开发</p>
+<p>━━━━━━━━━━━━━━━━━━━━━</p>
+<p>未经授权，禁止转载</p>
+<p>如有转载需求，请联系作者</p>
+<p>关注我，解锁更多可能</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io">区块链编程</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io/2026/05/9-1-Web3%E4%BA%A7%E5%93%81%E8%AE%BE%E8%AE%A1/">https://renrenwudi.github.io/2026/05/9-1-Web3%E4%BA%A7%E5%93%81%E8%AE%BE%E8%AE%A1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://renrenwudi.github.io" target="_blank">区块链编程</a>！</span></div></div><div id="wechat-card-insert"><div class="wechat-promo-card"><div class="promo-title">📱 关注公众号「区块链编程」</div><div class="promo-desc">更多区块链技术干货、Web3开发实战、量化交易策略<br>第一时间推送，关注「区块链编程」公众号</div><img class="promo-qr" src="/img/wechat-qr.png" data-lazy-src="/img/wechat-qr.png" alt="区块链编程公众号二维码"><a class="promo-cta" href="/about/">扫码关注</a></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE/">实战项目</a><a class="post-meta__tags" href="/tags/%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91/">实战项目开发</a></div><div class="post-share"><div class="social-share" data-image="/img/avatar.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="/" media="print" onload="this.media='all'"><script src="/" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/05/9-4-Web3%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" title="Web3数据分析：Dune Analytics实战"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Web3数据分析：Dune Analytics实战</div></div><div class="info-2"><div class="info-item-1">Web3数据分析Dune Analytics实战链上数据为什么重要？链上数据是Web3的”真相来源”。不像传统公司的数据藏在服务器里，区块链上的每一笔交易都是公开的。懂链上数据，你就有了信息优势。 链上数据的价值：  投资决策：追踪巨鲸钱包、庄家动向 项目调研：看真实用户数、TVL、交易量 竞品分析：对比各协议的活跃度 市场营销：量化增长指标  Dune Analytics是什么？Dune是链上数据的Google。你可以用SQL查询以太坊、Solana等链上的交易数据，然后做成漂亮的可视化面板。 Dune的核心概念：  Tables：链上数据表（如ethereum.transfers） Decoded Contracts：解码后的合约（如Uniswap V2） Queries：SQL查询 Visualizations：可视化图表 Dashboards：面板整合  Dune数据表结构Dune的数据分几类：raw data（原始事件）、decoded data（解码后的合约调用）、spells（聚合表）。 常用表：  ethereum.transactions：所有交易 ethere...</div></div></div></a><a class="pagination-related" href="/2026/05/8-4-Bitcoin-L2/" title="Bitcoin L2：Stacks与闪电网络"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Bitcoin L2：Stacks与闪电网络</div></div><div class="info-2"><div class="info-item-1">Bitcoin L2Stacks与闪电网络比特币为什么需要L2？比特币是最安全的区块链，但它的脚本能力非常有限。比特币只能做简单的转账，无法运行复杂的智能合约。这让比特币在DeFi、NFT等应用上落后于以太坊。 比特币L2的目标：  扩展比特币的功能：智能合约、DeFi 继承比特币的安全性 提高比特币的吞吐量 降低交易费用  Stacks是什么？Stacks是一条比特币L2，它使用Clarity语言编写智能合约，通过Proof of Transfer（PoX）共识机制继承比特币的安全性。 Stacks核心特点：  Clarity语言：可预测、可分析、无图灵完备 PoX共识：用比特币质押生产Stacks区块 比特币锚定：所有Stacks区块锚定比特币区块 读取比特币状态：合约可以读取比特币链上数据  Clarity语言Clarity是Stacks的智能合约语言，设计目标是安全性和可预测性。它不是图灵完备的——没有循环，但可以用递归实现重复逻辑。 Clarity特点：  解释执行：不编译，直接解释运行 可预测：没有Gas，执行成本可预测 可分析：可以形式化验证 无递归限制：但有最大深...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/05/9-3-NFT%E4%BA%A4%E6%98%93%E5%B8%82%E5%9C%BA%E5%BC%80%E5%8F%91/" title="NFT交易市场开发：挂单、拍卖与版税"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-05-16</div><div class="info-item-2">NFT交易市场开发：挂单、拍卖与版税</div></div><div class="info-2"><div class="info-item-1">NFT交易市场开发挂单、拍卖与版税NFT交易市场的基础架构NFT交易市场是NFT生态的核心基础设施。OpenSea、Blur、Magic Eden本质上都是”撮合NFT买卖”的平台，但合约设计各不相同。 NFT市场的三种模式：  中心化订单簿：OpenSea早期模式 链上挂单：订单存储在合约里 合约直接购买：Blur模式，合约原子成交  ERC-721标准回顾NFT基于ERC-721标准。每个NFT有唯一的tokenId，有owner，可以转移。Marketplace合约通过approve将NFT托管在合约中。 固定价格挂单合约最简单的NFT市场是固定价格挂单。卖家设置价格，买家支付后NFT转移。 FixedPriceMarket.sol 123456789101112131415161718192021222324252627282930contract NFTMarket &#123;struct Order &#123;address seller;address nft;uint256 tokenId;uint256 price;&#125;mapping(bytes32...</div></div></div></a><a class="pagination-related" href="/2026/05/9-4-Web3%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" title="Web3数据分析：Dune Analytics实战"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-05-16</div><div class="info-item-2">Web3数据分析：Dune Analytics实战</div></div><div class="info-2"><div class="info-item-1">Web3数据分析Dune Analytics实战链上数据为什么重要？链上数据是Web3的”真相来源”。不像传统公司的数据藏在服务器里，区块链上的每一笔交易都是公开的。懂链上数据，你就有了信息优势。 链上数据的价值：  投资决策：追踪巨鲸钱包、庄家动向 项目调研：看真实用户数、TVL、交易量 竞品分析：对比各协议的活跃度 市场营销：量化增长指标  Dune Analytics是什么？Dune是链上数据的Google。你可以用SQL查询以太坊、Solana等链上的交易数据，然后做成漂亮的可视化面板。 Dune的核心概念：  Tables：链上数据表（如ethereum.transfers） Decoded Contracts：解码后的合约（如Uniswap V2） Queries：SQL查询 Visualizations：可视化图表 Dashboards：面板整合  Dune数据表结构Dune的数据分几类：raw data（原始事件）、decoded data（解码后的合约调用）、spells（聚合表）。 常用表：  ethereum.transactions：所有交易 ethere...</div></div></div></a><a class="pagination-related" href="/2026/05/9-2-%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AADEX/" title="从零开发一个DEX：Uniswap克隆实战"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-05-16</div><div class="info-item-2">从零开发一个DEX：Uniswap克隆实战</div></div><div class="info-2"><div class="info-item-1">从零开发一个DEXUniswap克隆实战DEX是什么？DEX（去中心化交易所）允许用户直接在链上交易代币，不需要中心化平台。Uniswap是AMM（自动做市商）DEX的代表，靠流动性池和算法定价，改变了交易的游戏规则。 AMM vs 订单簿：  订单簿：传统交易，买卖双方报价撮合 AMM：流动性池自动定价，无需对手方 AMM优势：无需做市商、无需订单簿、7x24交易 Uniswap V2是学习AMM最好的起点  AMM恒定乘积公式AMM的核心是恒定乘积公式：x * y &#x3D; k。其中x和y是两种资产的数量，k是常数。交易改变x和y，但k不变，价格随之变化。 公式解读：  x*y&#x3D;k，k不变时，x增加则y减少 买入TokenA，TokenA数量增加，价格上升 卖出TokenA，TokenA数量减少，价格下降 滑点&#x3D;交易量&#x2F;池子总量，越大滑点越大  Pair合约（交易对）Pair（交易对）是Uniswap的核心。每个Pair包含两种ERC20代币，维护一个流动性池。 Pair.sol 1234567891011121314151617181920...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">区块链编程</div><div class="author-info-description">区块链技术布道者，分享 DeFi、Layer2、智能合约开发等前沿技术。</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">85</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">36</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/RenRenWuDi/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/RenRenWuDi" target="_blank" title="GitHub"><i class="fab fa-github"></i></a><a class="social-icon" href="/about/" target="_blank" title="微信公众号"><i class="fab fa-weixin"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎关注公众号「区块链编程」</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Web3%E4%BA%A7%E5%93%81%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.</span> <span class="toc-text">Web3产品设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A7%E5%93%81%E7%BB%8F%E7%90%86%E8%A7%86%E8%A7%92"><span class="toc-number">2.</span> <span class="toc-text">产品经理视角</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Web3%E4%BA%A7%E5%93%81%E5%92%8CWeb2%E6%9C%89%E4%BB%80%E4%B9%88%E4%B8%8D%E5%90%8C%EF%BC%9F"><span class="toc-number">3.</span> <span class="toc-text">Web3产品和Web2有什么不同？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Web2-PM-vs-Web3-PM"><span class="toc-number">4.</span> <span class="toc-text">Web2 PM vs Web3 PM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%92%B1%E5%8C%85%E4%BC%98%E5%85%88%E8%AE%BE%E8%AE%A1%EF%BC%88Wallet-First-Design%EF%BC%89"><span class="toc-number">5.</span> <span class="toc-text">钱包优先设计（Wallet-First Design）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gas%E8%B4%B9%E6%98%AF%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C%E7%9A%84%E6%9D%80%E6%89%8B"><span class="toc-number">6.</span> <span class="toc-text">Gas费是用户体验的杀手</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Token%E7%BB%8F%E6%B5%8E%E6%A8%A1%E5%9E%8B%E8%AE%BE%E8%AE%A1"><span class="toc-number">7.</span> <span class="toc-text">Token经济模型设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Token%E7%9A%84%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B"><span class="toc-number">8.</span> <span class="toc-text">Token的基础类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Token%E7%9A%84%E7%BB%8F%E6%B5%8E%E6%9C%BA%E5%88%B6"><span class="toc-number">9.</span> <span class="toc-text">Token的经济机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%81%E5%8A%A8%E6%80%A7%E5%92%8C%E6%BF%80%E5%8A%B1%E6%9C%BA%E5%88%B6"><span class="toc-number">10.</span> <span class="toc-text">流动性和激励机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Web2%E5%9B%A2%E9%98%9F%E8%BD%ACWeb3%E7%9A%84%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF"><span class="toc-number">11.</span> <span class="toc-text">Web2团队转Web3的常见错误</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A5%BD%E4%BA%A7%E5%93%81%E7%9A%84%E6%A0%87%E5%87%86%EF%BC%9APMF-in-Web3"><span class="toc-number">12.</span> <span class="toc-text">好产品的标准：PMF in Web3</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/17-2-%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%AE%A1%E8%AE%A1%E5%85%A5%E9%97%A8/" title="智能合约审计入门：从读代码到用Slither——自己动手做安全审计">智能合约审计入门：从读代码到用Slither——自己动手做安全审计</a><time datetime="2026-07-11T02:00:00.000Z" title="发表于 2026-07-11 10:00:00">2026-07-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/17-1-Web3%E8%BA%AB%E4%BB%BD%E9%AA%97%E5%B1%80/" title="Web3里的&quot;身份骗局&quot;：签名授权那些坑——从假网站到恶意授权的识别与防御">Web3里的&quot;身份骗局&quot;：签名授权那些坑——从假网站到恶意授权的识别与防御</a><time datetime="2026-07-11T02:00:00.000Z" title="发表于 2026-07-11 10:00:00">2026-07-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/17-3-%E9%92%B1%E5%8C%85%E5%AE%89%E5%85%A8%E5%AE%9E%E6%88%98/" title="钱包安全实战：从硬件钱包到多签方案——资产安全的最后一道防线">钱包安全实战：从硬件钱包到多签方案——资产安全的最后一道防线</a><time datetime="2026-07-11T02:00:00.000Z" title="发表于 2026-07-11 10:00:00">2026-07-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/17-5-Web3%E5%AE%89%E5%85%A8%E6%B8%85%E5%8D%95/" title="Web3安全清单：从新人到老手的自检表——系列十七完结篇">Web3安全清单：从新人到老手的自检表——系列十七完结篇</a><time datetime="2026-07-11T02:00:00.000Z" title="发表于 2026-07-11 10:00:00">2026-07-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/17-4-%E6%8E%88%E6%9D%83%E7%AE%A1%E7%90%86/" title="授权管理：用Revoke.cash守护你的钱包——ERC-20授权的坑与对策">授权管理：用Revoke.cash守护你的钱包——ERC-20授权的坑与对策</a><time datetime="2026-07-11T02:00:00.000Z" title="发表于 2026-07-11 10:00:00">2026-07-11</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By 区块链编程</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">本文由 <a href="https://renrenwudi.github.io">区块链编程</a> 发布 · 转载请注明出处</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/"></script><script src="/"></script><script src="/"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'RenRenWuDi/RenRenWuDi.github.io',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !true) {
+    if (true) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="/js/wechat-card.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

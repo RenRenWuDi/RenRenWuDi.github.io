@@ -1,0 +1,280 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>符文协议：比特币Runes协议深度解析 | 区块链编程</title><meta name="author" content="区块链编程"><meta name="copyright" content="区块链编程"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1. BRC-20的混乱与Runes的诞生">
+<meta property="og:type" content="article">
+<meta property="og:title" content="符文协议：比特币Runes协议深度解析">
+<meta property="og:url" content="https://renrenwudi.github.io/2026/05/7-4-%E7%AC%A6%E6%96%87%E5%8D%8F%E8%AE%AE/index.html">
+<meta property="og:site_name" content="区块链编程">
+<meta property="og:description" content="1. BRC-20的混乱与Runes的诞生">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://renrenwudi.github.io/img/avatar.png">
+<meta property="article:published_time" content="2026-05-06T02:00:00.000Z">
+<meta property="article:modified_time" content="2026-07-10T09:03:26.797Z">
+<meta property="article:author" content="区块链编程">
+<meta property="article:tag" content="前沿技术">
+<meta property="article:tag" content="前沿技术与新协议">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://renrenwudi.github.io/img/avatar.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "符文协议：比特币Runes协议深度解析",
+  "url": "https://renrenwudi.github.io/2026/05/7-4-%E7%AC%A6%E6%96%87%E5%8D%8F%E8%AE%AE/",
+  "image": "https://renrenwudi.github.io/img/avatar.png",
+  "datePublished": "2026-05-06T02:00:00.000Z",
+  "dateModified": "2026-07-10T09:03:26.797Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "区块链编程",
+      "url": "https://renrenwudi.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://renrenwudi.github.io/2026/05/7-4-%E7%AC%A6%E6%96%87%E5%8D%8F%E8%AE%AE/index.html"><link rel="preconnect"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="/"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#37c2fb')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: '/',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '符文协议：比特币Runes协议深度解析',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-41F4NYXQZQ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-41F4NYXQZQ');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 8.1.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">85</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">36</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">区块链编程</span></a><a class="nav-page-title" href="/"><span class="site-name">符文协议：比特币Runes协议深度解析</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">符文协议：比特币Runes协议深度解析</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-05-06T02:00:00.000Z" title="发表于 2026-05-06 10:00:00">2026-05-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-07-10T09:03:26.797Z" title="更新于 2026-07-10 17:03:26">2026-07-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E6%B2%BF%E6%8A%80%E6%9C%AF/">前沿技术</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">961</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p><strong>符文协议</strong></p>
+<h2 id="比特币Runes协议深度解析"><a href="#比特币Runes协议深度解析" class="headerlink" title="比特币Runes协议深度解析"></a>比特币Runes协议深度解析</h2><h2 id="BRC-20的混乱与Runes的诞生"><a href="#BRC-20的混乱与Runes的诞生" class="headerlink" title="BRC-20的混乱与Runes的诞生"></a>BRC-20的混乱与Runes的诞生</h2><p>2023年，比特币社区见证了一场”实验”：BRC-20协议把任意文本写入比特币区块链，声称可以创建可替代代币。但实际上，BRC-20是基于Ordinals理论的”实验”，代币转账没有真正的技术保证，链上充满了”无效”交易。</p>
+<p>BRC-20的混乱给了符文协议（Runes Protocol）诞生的机会。由Ordinals创始人Casey Rodarmor设计的Runes，在2024年4月的比特币减半时正式上线，成为比特币生态代币的新标准。</p>
+<p>Runes的核心理念：</p>
+<p>• 为比特币原生设计的代币协议<br>• 利用比特币UTXO模型的全部能力<br>• 避免BRC-20的混乱和无用数据<br>• 让代币交易在比特币链上真正有效</p>
+<h2 id="UTXO模型回顾"><a href="#UTXO模型回顾" class="headerlink" title="UTXO模型回顾"></a>UTXO模型回顾</h2><p>比特币使用UTXO（未花费交易输出）模型。简单说：每一笔比特币交易由输入和输出组成。输入消耗之前的输出，输出创建新的未花费输出。</p>
+<p>BRC-20的问题在于：它把代币数据写在比特币的见证数据（Witness Data）里，但比特币节点不一定需要保存这些数据。这导致很多BRC-20”转账”实际上并没有真正更新代币状态。</p>
+<p>Runes的解决方案：</p>
+<p>• 把代币状态存储在OP_RETURN输出中<br>• 比特币全节点必须验证OP_RETURN数据<br>• 每个Runes转移都通过标准的比特币交易完成<br>• 真正的UTXO代币，不是”模拟”的代币</p>
+<h2 id="符文是什么？"><a href="#符文是什么？" class="headerlink" title="符文是什么？"></a>符文是什么？</h2><p>符文是Runes协议创建的代币。每个符文都有一个符号（如 DOGE）、一个名字（如 DOG GO TO THE MOON）和总量。</p>
+<p>符文的特点：</p>
+<p>• 符号：短标识符（如 DOGE）<br>• 名字：完整名称<br>• 总量：代币最大供应量<br>• 可分割性：每个符文可分割到小数点后一定位数</p>
+<h2 id="创建符文：etch命令"><a href="#创建符文：etch命令" class="headerlink" title="创建符文：etch命令"></a>创建符文：etch命令</h2><p>用比特币命令行工具创建符文叫做”etch”（刻蚀）。</p>
+<p>etch.sh</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># etch命令创建符文</span></span><br><span class="line">OP_RETURN</span><br><span class="line">RUNE_PROTOCOL</span><br><span class="line">etch</span><br><span class="line">DOGE</span><br><span class="line">max: 1000000000</span><br><span class="line">divisibility: 8</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="符文转移流程"><a href="#符文转移流程" class="headerlink" title="符文转移流程"></a>符文转移流程</h2><p>符文通过比特币交易转移。发送符文时，需要指定符文的输出位置和数量。</p>
+<p>transfer.sh</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 符文转移交易</span></span><br><span class="line">INPUT: 消耗含有符文的UTXO</span><br><span class="line">OUTPUT:</span><br><span class="line">- 20 BTC to address_1  (找零)</span><br><span class="line">- 100 DOGE to address_2</span><br><span class="line">- OP_RETURN containing transfer data</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Runes-vs-BRC-20-vs-OMNI"><a href="#Runes-vs-BRC-20-vs-OMNI" class="headerlink" title="Runes vs BRC-20 vs OMNI"></a>Runes vs BRC-20 vs OMNI</h2><p>BRC-20：文本写入Witness，简单但不可靠，链上混乱</p>
+<p>OMNI Layer：早期比特币代币协议，2014年Tether用过，但占用UTXO空间</p>
+<p>Runes：利用OP_RETURN和UTXO，真正的比特币代币</p>
+<h2 id="Runes的生态"><a href="#Runes的生态" class="headerlink" title="Runes的生态"></a>Runes的生态</h2><p>Runes上线后迅速火遍比特币生态。Unisat是最大的符文市场，用户可以交易和转让符文。市场上涌现了大量符文交易工具和钱包。</p>
+<p>Runes生态现状：</p>
+<p>• 符文交易市场：Unisat、Magic Eden（比特币版）<br>• 符文钱包：Unisat Browser Wallet<br>• 符文协议工具：Runes Terminal<br>• 符文挖矿：符文在比特币区块中按顺序分配</p>
+<h2 id="Runes-vs-Ordinal-Theory"><a href="#Runes-vs-Ordinal-Theory" class="headerlink" title="Runes vs Ordinal Theory"></a>Runes vs Ordinal Theory</h2><p>Ordinals理论（中本聪藏品）和Runes都利用了比特币的Taproot升级，但目标不同：Ordinals把比特币本身变成NFT，每个聪（Satoshi）都是独一无二的；Runes则是在比特币上发行代币。</p>
+<p>Ordinals适合创建NFT，Runes适合发行FT（可替代代币）。两者可以共存：比特币既可以做NFT，也可以发符文。</p>
+<p><strong>9. 总结</strong></p>
+<p>①  BRC-20的混乱催生了Runes协议</p>
+<p>②  Runes利用比特币UTXO模型，真正的链上代币</p>
+<p>③  etch命令用于创建符文，transfer用于转移</p>
+<p>④  Runes比BRC-20更规范，链上数据有效</p>
+<p>⑤  Ordinals适合NFT，Runes适合FT代币</p>
+<p>⑥  Runes是比特币生态代币的新标准</p>
+<p>Intent vs Transaction、Solver网络、荷兰拍卖</p>
+<p>━━━━━━━━━━━━━━━━━━━━━</p>
+<p>未经授权，禁止转载</p>
+<p>如有转载需求，请联系作者</p>
+<p>关注我，解锁更多可能</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io">区块链编程</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io/2026/05/7-4-%E7%AC%A6%E6%96%87%E5%8D%8F%E8%AE%AE/">https://renrenwudi.github.io/2026/05/7-4-%E7%AC%A6%E6%96%87%E5%8D%8F%E8%AE%AE/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://renrenwudi.github.io" target="_blank">区块链编程</a>！</span></div></div><div id="wechat-card-insert"><div class="wechat-promo-card"><div class="promo-title">📱 关注公众号「区块链编程」</div><div class="promo-desc">更多区块链技术干货、Web3开发实战、量化交易策略<br>第一时间推送，关注「区块链编程」公众号</div><img class="promo-qr" src="/img/wechat-qr.png" data-lazy-src="/img/wechat-qr.png" alt="区块链编程公众号二维码"><a class="promo-cta" href="/about/">扫码关注</a></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%89%8D%E6%B2%BF%E6%8A%80%E6%9C%AF/">前沿技术</a><a class="post-meta__tags" href="/tags/%E5%89%8D%E6%B2%BF%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%96%B0%E5%8D%8F%E8%AE%AE/">前沿技术与新协议</a></div><div class="post-share"><div class="social-share" data-image="/img/avatar.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="/" media="print" onload="this.media='all'"><script src="/" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/05/7-5-Intent%E6%9E%B6%E6%9E%84/" title="Intent架构：Uniswap X、Across与意图经济"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Intent架构：Uniswap X、Across与意图经济</div></div><div class="info-2"><div class="info-item-1">Intent架构Uniswap X、Across与意图经济为什么需要Intent？传统DeFi的交易方式是”Transaction”（交易）：用户指定精确的操作步骤——从哪个DEX买、买多少、价格多少、滑点多少。系统照单执行。 但这种模式对普通用户来说太复杂了。你要手动比较Uniswap、Curve、SushiSwap的价格，还要考虑gas、滑点、最佳路径。而Intent（意图）模式把这一切交给了专业的人。 Transaction vs Intent： • Transaction：你说”怎么做到”• Intent：你说”我想要什么” 从”告诉机器怎么做”到”告诉机器你想要什么”，这是用户体验的根本转变 Intent的核心原理Intent的本质是：你声明一个”愿望”，而不是写一个”程序”。Solver（求解器）看到你的愿望后，会找到最好的方式来满足它。 这和点外卖很像：你只说”我想要一碗牛肉面”，不需要告诉厨师怎么切牛肉、用什么火候。外包平台帮你匹配最优解。 Intent的工作流程： • 用户签署Intent（包含目的地、金额、期限）• Solver网络竞争执行Intent• 最佳...</div></div></div></a><a class="pagination-related" href="/2026/05/7-2-ZK%E5%BA%94%E7%94%A8/" title="ZK应用：zkEVM、隐私交易与可验证计算"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">ZK应用：zkEVM、隐私交易与可验证计算</div></div><div class="info-2"><div class="info-item-1">ZK应用 zkEVM、隐私交易与可验证计算ZK的世界正在扩张零知识证明（ZK）在以太坊生态中的应用已经从L2扩容扩展到了更广阔的领域：zkEVM让以太坊原生支持ZK验证，隐私协议让链上交易无法追踪，可验证计算让链下计算可以被信任。 ZK不再只是Layer2的技术，它是整个Web3基础设施的重要组成部分。 ZK应用全景图： • L2扩容：zkSync、StarkNet、Polygon zkEVM• zkEVM：以太坊原生的ZK验证• 隐私交易：Aztec、zkmoney• 可验证计算：Modulus Labs、Risc Zero• 身份认证：Worldcoin、zkID zkEVM的四种类zkEVM是将EVM执行环境用零知识证明来验证的技术。根据与EVM的兼容程度，分为四种类型。 Type1（以太坊等效）： 完全兼容以太坊，可以验证以太坊区块。包括官方Ethereum Foundation的zkEVM。兼容性最高，但证明生成最慢。 Type2（EVM等效）： 完全兼容EVM字节码，但修改了状态树和哈希函数。包括Scroll、PolygonzkEVM。兼容性高，证明速度中等。 Typ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/05/7-1-ERC-4337%E8%B4%A6%E6%88%B7%E6%8A%BD%E8%B1%A1/" title="ERC-4337账户抽象：告别EOA，拥抱Smart Account"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-05-06</div><div class="info-item-2">ERC-4337账户抽象：告别EOA，拥抱Smart Account</div></div><div class="info-2"><div class="info-item-1">ERC-4337账户抽象告别EOA，拥抱Smart Account什么是EOA？目前以太坊有两种账户：EOA（外部拥有账户）和合约账户。EOA由私钥控制，可以发起交易；合约账户只能被动接收交易，无法主动发起。 你的MetaMask钱包就是EOA。每次你签名一笔交易，就是用私钥对这个交易签名，然后发送到以太坊网络。 EOA的特点： • 由私钥控制• 可以发起任何交易• 无法自定义逻辑（比如多签）• 私钥丢失 &#x3D; 资产永久丢失• gas必须由EOA支付 EOA的局限性EOA看起来简单，但这恰恰是它的限制。日常生活中很多场景，EOA根本支持不了。 没有社交恢复：私钥丢了，资产就没了 没有多签：一个私钥掌控一切 无法批量执行：N笔交易需要N次签名 没有会话密钥：每次操作都要钱包授权 无法代付gas：想让朋友帮你付gas做不到 账户抽象的愿景账户抽象（Account Abstraction）的目标很简单：让合约账户可以像EOA一样发起交易，从而获得完全的灵活性。 理想情况下，你的账户可以是一个智能合约——它可以设定复杂的验证规则（多签、社交恢复），支持代付gas，甚至可以设置会话...</div></div></div></a><a class="pagination-related" href="/2026/05/7-2-ZK%E5%BA%94%E7%94%A8/" title="ZK应用：zkEVM、隐私交易与可验证计算"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-05-06</div><div class="info-item-2">ZK应用：zkEVM、隐私交易与可验证计算</div></div><div class="info-2"><div class="info-item-1">ZK应用 zkEVM、隐私交易与可验证计算ZK的世界正在扩张零知识证明（ZK）在以太坊生态中的应用已经从L2扩容扩展到了更广阔的领域：zkEVM让以太坊原生支持ZK验证，隐私协议让链上交易无法追踪，可验证计算让链下计算可以被信任。 ZK不再只是Layer2的技术，它是整个Web3基础设施的重要组成部分。 ZK应用全景图： • L2扩容：zkSync、StarkNet、Polygon zkEVM• zkEVM：以太坊原生的ZK验证• 隐私交易：Aztec、zkmoney• 可验证计算：Modulus Labs、Risc Zero• 身份认证：Worldcoin、zkID zkEVM的四种类zkEVM是将EVM执行环境用零知识证明来验证的技术。根据与EVM的兼容程度，分为四种类型。 Type1（以太坊等效）： 完全兼容以太坊，可以验证以太坊区块。包括官方Ethereum Foundation的zkEVM。兼容性最高，但证明生成最慢。 Type2（EVM等效）： 完全兼容EVM字节码，但修改了状态树和哈希函数。包括Scroll、PolygonzkEVM。兼容性高，证明速度中等。 Typ...</div></div></div></a><a class="pagination-related" href="/2026/05/7-3-%E6%A8%A1%E5%9D%97%E5%8C%96%E5%8C%BA%E5%9D%97%E9%93%BE/" title="模块化区块链：Celestia与数据可用性革命"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-05-06</div><div class="info-item-2">模块化区块链：Celestia与数据可用性革命</div></div><div class="info-2"><div class="info-item-1">模块化区块链Celestia与数据可用性革命单体区块链的困境以太坊比特币这样的单体区块链，所有功能都放在一层：执行交易、验证共识、存储数据。这带来了一个不可能三角：去中心化、安全性、可扩展性，三者只能取其二。 当以太坊上DeFi和NFT同时热闘时，所有交易都在争抢同一个执行空间，gas费飙升，用户体验急剧下降。 单体区块链的问题： • 所有交易争抢同一执行层• 数据可用性和执行绑在一起• 无法独立升级某个组件• 扩容只能在一条链上做文章 模块化架构的诞生模块化区块链的思路很简单：不再把所有功能放在一层，而是把”执行”、”共识”、”数据可用性”、”结算”分开，让每层专门做一件事。 这就好比计算机的演进：从大型机到客户端-服务器再到微服务，每次分离都带来了性能和灵活性的飞跃。 三层模块化架构执行层（Execution）：处理交易、执行智能合约。Rollup是执行层的代表。 结算层（Settlement）：验证证明、解决争议。Ethereum是天然的结算层。 数据可用性层（DA层）：确保数据可用。Celestia是专门做这一层的项目。 Celestia是什么？Celestia是第一个专...</div></div></div></a><a class="pagination-related" href="/2026/05/7-5-Intent%E6%9E%B6%E6%9E%84/" title="Intent架构：Uniswap X、Across与意图经济"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-05-06</div><div class="info-item-2">Intent架构：Uniswap X、Across与意图经济</div></div><div class="info-2"><div class="info-item-1">Intent架构Uniswap X、Across与意图经济为什么需要Intent？传统DeFi的交易方式是”Transaction”（交易）：用户指定精确的操作步骤——从哪个DEX买、买多少、价格多少、滑点多少。系统照单执行。 但这种模式对普通用户来说太复杂了。你要手动比较Uniswap、Curve、SushiSwap的价格，还要考虑gas、滑点、最佳路径。而Intent（意图）模式把这一切交给了专业的人。 Transaction vs Intent： • Transaction：你说”怎么做到”• Intent：你说”我想要什么” 从”告诉机器怎么做”到”告诉机器你想要什么”，这是用户体验的根本转变 Intent的核心原理Intent的本质是：你声明一个”愿望”，而不是写一个”程序”。Solver（求解器）看到你的愿望后，会找到最好的方式来满足它。 这和点外卖很像：你只说”我想要一碗牛肉面”，不需要告诉厨师怎么切牛肉、用什么火候。外包平台帮你匹配最优解。 Intent的工作流程： • 用户签署Intent（包含目的地、金额、期限）• Solver网络竞争执行Intent• 最佳...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">区块链编程</div><div class="author-info-description">区块链技术布道者，分享 DeFi、Layer2、智能合约开发等前沿技术。</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">85</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">36</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/RenRenWuDi/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/RenRenWuDi" target="_blank" title="GitHub"><i class="fab fa-github"></i></a><a class="social-icon" href="/about/" target="_blank" title="微信公众号"><i class="fab fa-weixin"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎关注公众号「区块链编程」</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AF%94%E7%89%B9%E5%B8%81Runes%E5%8D%8F%E8%AE%AE%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text">比特币Runes协议深度解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BRC-20%E7%9A%84%E6%B7%B7%E4%B9%B1%E4%B8%8ERunes%E7%9A%84%E8%AF%9E%E7%94%9F"><span class="toc-number">2.</span> <span class="toc-text">BRC-20的混乱与Runes的诞生</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UTXO%E6%A8%A1%E5%9E%8B%E5%9B%9E%E9%A1%BE"><span class="toc-number">3.</span> <span class="toc-text">UTXO模型回顾</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%A6%E6%96%87%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">4.</span> <span class="toc-text">符文是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%AC%A6%E6%96%87%EF%BC%9Aetch%E5%91%BD%E4%BB%A4"><span class="toc-number">5.</span> <span class="toc-text">创建符文：etch命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%A6%E6%96%87%E8%BD%AC%E7%A7%BB%E6%B5%81%E7%A8%8B"><span class="toc-number">6.</span> <span class="toc-text">符文转移流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Runes-vs-BRC-20-vs-OMNI"><span class="toc-number">7.</span> <span class="toc-text">Runes vs BRC-20 vs OMNI</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Runes%E7%9A%84%E7%94%9F%E6%80%81"><span class="toc-number">8.</span> <span class="toc-text">Runes的生态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Runes-vs-Ordinal-Theory"><span class="toc-number">9.</span> <span class="toc-text">Runes vs Ordinal Theory</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/17-2-%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%AE%A1%E8%AE%A1%E5%85%A5%E9%97%A8/" title="智能合约审计入门：从读代码到用Slither——自己动手做安全审计">智能合约审计入门：从读代码到用Slither——自己动手做安全审计</a><time datetime="2026-07-11T02:00:00.000Z" title="发表于 2026-07-11 10:00:00">2026-07-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/17-1-Web3%E8%BA%AB%E4%BB%BD%E9%AA%97%E5%B1%80/" title="Web3里的&quot;身份骗局&quot;：签名授权那些坑——从假网站到恶意授权的识别与防御">Web3里的&quot;身份骗局&quot;：签名授权那些坑——从假网站到恶意授权的识别与防御</a><time datetime="2026-07-11T02:00:00.000Z" title="发表于 2026-07-11 10:00:00">2026-07-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/17-3-%E9%92%B1%E5%8C%85%E5%AE%89%E5%85%A8%E5%AE%9E%E6%88%98/" title="钱包安全实战：从硬件钱包到多签方案——资产安全的最后一道防线">钱包安全实战：从硬件钱包到多签方案——资产安全的最后一道防线</a><time datetime="2026-07-11T02:00:00.000Z" title="发表于 2026-07-11 10:00:00">2026-07-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/17-5-Web3%E5%AE%89%E5%85%A8%E6%B8%85%E5%8D%95/" title="Web3安全清单：从新人到老手的自检表——系列十七完结篇">Web3安全清单：从新人到老手的自检表——系列十七完结篇</a><time datetime="2026-07-11T02:00:00.000Z" title="发表于 2026-07-11 10:00:00">2026-07-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/17-4-%E6%8E%88%E6%9D%83%E7%AE%A1%E7%90%86/" title="授权管理：用Revoke.cash守护你的钱包——ERC-20授权的坑与对策">授权管理：用Revoke.cash守护你的钱包——ERC-20授权的坑与对策</a><time datetime="2026-07-11T02:00:00.000Z" title="发表于 2026-07-11 10:00:00">2026-07-11</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By 区块链编程</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">本文由 <a href="https://renrenwudi.github.io">区块链编程</a> 发布 · 转载请注明出处</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/"></script><script src="/"></script><script src="/"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'RenRenWuDi/RenRenWuDi.github.io',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !true) {
+    if (true) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="/js/wechat-card.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
