@@ -1,0 +1,248 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>模块化区块链 | 区块链编程</title><meta name="author" content="区块链编程"><meta name="copyright" content="区块链编程"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="模块化区块链 - 技术文章">
+<meta property="og:type" content="article">
+<meta property="og:title" content="模块化区块链">
+<meta property="og:url" content="https://renrenwudi.github.io/2026/04/7-3-%E6%A8%A1%E5%9D%97%E5%8C%96%E5%8C%BA%E5%9D%97%E9%93%BE/index.html">
+<meta property="og:site_name" content="区块链编程">
+<meta property="og:description" content="模块化区块链 - 技术文章">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://renrenwudi.github.io/img/posts/7-3-%E6%A8%A1%E5%9D%97%E5%8C%96%E5%8C%BA%E5%9D%97%E9%93%BE.jpg">
+<meta property="article:published_time" content="2026-04-06T03:41:00.000Z">
+<meta property="article:modified_time" content="2026-07-10T07:08:14.832Z">
+<meta property="article:author" content="区块链编程">
+<meta property="article:tag" content="区块链">
+<meta property="article:tag" content="模块化区块链">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://renrenwudi.github.io/img/posts/7-3-%E6%A8%A1%E5%9D%97%E5%8C%96%E5%8C%BA%E5%9D%97%E9%93%BE.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "模块化区块链",
+  "url": "https://renrenwudi.github.io/2026/04/7-3-%E6%A8%A1%E5%9D%97%E5%8C%96%E5%8C%BA%E5%9D%97%E9%93%BE/",
+  "image": "https://renrenwudi.github.io/img/posts/7-3-%E6%A8%A1%E5%9D%97%E5%8C%96%E5%8C%BA%E5%9D%97%E9%93%BE.jpg",
+  "datePublished": "2026-04-06T03:41:00.000Z",
+  "dateModified": "2026-07-10T07:08:14.832Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "区块链编程",
+      "url": "https://renrenwudi.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://renrenwudi.github.io/2026/04/7-3-%E6%A8%A1%E5%9D%97%E5%8C%96%E5%8C%BA%E5%9D%97%E9%93%BE/index.html"><link rel="preconnect"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="/"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#37c2fb')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: '/',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '模块化区块链',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-41F4NYXQZQ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-41F4NYXQZQ');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 8.1.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">55</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">60</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/posts/7-3-%E6%A8%A1%E5%9D%97%E5%8C%96%E5%8C%BA%E5%9D%97%E9%93%BE.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">区块链编程</span></a><a class="nav-page-title" href="/"><span class="site-name">模块化区块链</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">模块化区块链</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-04-06T03:41:00.000Z" title="发表于 2026-04-06 11:41:00">2026-04-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-07-10T07:08:14.832Z" title="更新于 2026-07-10 15:08:14">2026-07-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E6%B2%BF%E6%8A%80%E6%9C%AF/">前沿技术</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>模块化区块链<br>Celestia与数据可用性革命<br>系列七「新兴协议与趋势」第3篇<br>💡 你将学到：模块化架构、Celestia DA、数据可用性采样DAS、主权Rollup<br>⏱ 阅读时间：约12分钟</p>
+<ol>
+<li>单体区块链的困境<br>以太坊比特币这样的单体区块链，所有功能都放在一层：执行交易、验证共识、存储数据。这带来了一个不可能三角：去中心化、安全性、可扩展性，三者只能取其二。<br>当以太坊上DeFi和NFT同时热闘时，所有交易都在争抢同一个执行空间，gas费飙升，用户体验急剧下降。<br>单体区块链的问题：</li>
+</ol>
+<p>• 所有交易争抢同一执行层<br>• 数据可用性和执行绑在一起<br>• 无法独立升级某个组件<br>• 扩容只能在一条链上做文章<br>2. 模块化架构的诞生<br>模块化区块链的思路很简单：不再把所有功能放在一层，而是把”执行”、”共识”、”数据可用性”、”结算”分开，让每层专门做一件事。<br>这就好比计算机的演进：从大型机到客户端-服务器再到微服务，每次分离都带来了性能和灵活性的飞跃。<br>三层模块化架构<br>执行层（Execution）：处理交易、执行智能合约。Rollup是执行层的代表。<br>结算层（Settlement）：验证证明、解决争议。Ethereum是天然的结算层。<br>数据可用性层（DA层）：确保数据可用。Celestia是专门做这一层的项目。<br>3. Celestia是什么？<br>Celestia是第一个专门的模块化数据可用性（DA）网络。它不执行交易，只负责一件事：确保Rollup发布的数据可以被所有人获取。<br>这是关键创新：Celestia把”执行”和”数据可用性”完全分离。其他链需要自己存储数据，Celestia把这个职责外包了。<br>Celestia的核心创新：</p>
+<p>• 专门做数据可用性<br>• 使用数据可用性采样（DAS）降低轻节点负担<br>• 支持主权Rollup（可以有自己的执行层）<br>• 开发者可以一键发链<br>4. 数据可用性采样（DAS）<br>传统区块链中，轻节点需要信任全节点才能获取数据可用性保证。Celestia用数学保证：只需下载一小部分数据片段，就能高概率确认整个数据块是完整的。<br>DAS的工作原理：</p>
+<p>• 将数据分成很多小块<br>• 每个轻节点随机下载其中一小部分<br>• 如果所有节点总共下载了足够多的块<br>• 就能高概率确认数据完整<br>• 不需要信任任何中心化服务器<br>5. 主权Rollup<br>在Celestia上运行的Rollup叫做”主权Rollup”（Sovereign Rollup）。和以太坊上的Rollup不同，主权Rollup可以独立升级自己的执行层，不需要经过任何父链的许可。<br>主权Rollup vs 以太坊Rollup：</p>
+<p>• 以太坊Rollup：执行层，以以太坊为DA层和结算层<br>• 主权Rollup：以Celestia为DA层，有自己的结算规则<br>• 主权Rollup可以硬分叉升级，以太坊Rollup不能<br>• 主权Rollup适合需要完全独立性的应用<br>6. 模块化生态版图<br>DA层：Celestia、Ethereum（Blob）、Avail<br>结算层：Ethereum、Cosmos Hub<br>执行层：Optimism、Arbitrum、zkSync（OP Stack、Arbitrum Orbit）<br>共享安全：EigenLayer、Polychain Capital<br>7. Danksharding<br>以太坊自身也在向模块化演进。Danksharding（EIP-4844引入的Proto-Danksharding）是第一步，它添加了Blob Transaction，把大量L2数据存储在链外（DAS网络），大幅降低L2的数据成本。<br>未来的Full Danksharding将进一步优化数据可用性，让以太坊原生支持更高效的模块化。<br>8. 总结</p>
+<p>①  模块化将区块链拆分为执行、结算、DA三层<br>②  Celestia是第一个专门的模块化DA网络<br>③  数据可用性采样（DAS）让轻节点无需信任全节点<br>④  主权Rollup可以独立升级，不受制于父链<br>⑤  Danksharding让以太坊原生支持模块化<br>⑥  模块化是区块链扩容的长期方向<br>📖 下篇预告：符文协议——比特币Runes协议深度解析<br>Runes vs BRC-20、UTXO模型、符文代币标准</p>
+<p>━━━━━━━━━━━━━━━━━━━━━<br>📢 本文由「区块链编程」原创出品<br>未经授权，禁止转载<br>如有转载需求，请联系作者<br>👉 关注「区块链编程」<br>关注我，解锁更多可能</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io">区块链编程</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io/2026/04/7-3-%E6%A8%A1%E5%9D%97%E5%8C%96%E5%8C%BA%E5%9D%97%E9%93%BE/">https://renrenwudi.github.io/2026/04/7-3-%E6%A8%A1%E5%9D%97%E5%8C%96%E5%8C%BA%E5%9D%97%E9%93%BE/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://renrenwudi.github.io" target="_blank">区块链编程</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><a class="post-meta__tags" href="/tags/%E6%A8%A1%E5%9D%97%E5%8C%96%E5%8C%BA%E5%9D%97%E9%93%BE/">模块化区块链</a></div><div class="post-share"><div class="social-share" data-image="/img/posts/7-3-%E6%A8%A1%E5%9D%97%E5%8C%96%E5%8C%BA%E5%9D%97%E9%93%BE.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="/" media="print" onload="this.media='all'"><script src="/" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/04/7-4-%E7%AC%A6%E6%96%87%E5%8D%8F%E8%AE%AE/" title="符文协议"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/7-4-%E7%AC%A6%E6%96%87%E5%8D%8F%E8%AE%AE.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">符文协议</div></div><div class="info-2"><div class="info-item-1">符文协议比特币Runes协议深度解析系列七「新兴协议与趋势」第4篇💡 你将学到：Runes vs BRC-20、UTXO代币、符文铸造、符文协议原理⏱ 阅读时间：约12分钟  BRC-20的混乱与Runes的诞生2023年，比特币社区见证了一场”实验”：BRC-20协议把任意文本写入比特币区块链，声称可以创建可替代代币。但实际上，BRC-20是基于Ordinals理论的”实验”，代币转账没有真正的技术保证，链上充满了”无效”交易。BRC-20的混乱给了符文协议（Runes Protocol）诞生的机会。由Ordinals创始人Casey Rodarmor设计的Runes，在2024年4月的比特币减半时正式上线，成为比特币生态代币的新标准。Runes的核心理念：  • 为比特币原生设计的代币协议• 利用比特币UTXO模型的全部能力• 避免BRC-20的混乱和无用数据• 让代币交易在比特币链上真正有效2. UTXO模型回顾比特币使用UTXO（未花费交易输出）模型。简单说：每一笔比特币交易由输入和输出组成。输入消耗之前的输出，输出创建新的未花费输出。BRC-20的问题在于：它把代币数...</div></div></div></a><a class="pagination-related" href="/2026/04/7-2-ZK%E5%BA%94%E7%94%A8/" title="ZK应用"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/7-2-ZK%E5%BA%94%E7%94%A8.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">ZK应用</div></div><div class="info-2"><div class="info-item-1">ZK应用zkEVM、隐私交易与可验证计算系列七「新兴协议与趋势」第2篇💡 你将学到：zkEVM类型对比、隐私交易、链上ZK应用、可验证计算场景⏱ 阅读时间：约13分钟  ZK的世界正在扩张零知识证明（ZK）在以太坊生态中的应用已经从L2扩容扩展到了更广阔的领域：zkEVM让以太坊原生支持ZK验证，隐私协议让链上交易无法追踪，可验证计算让链下计算可以被信任。ZK不再只是Layer2的技术，它是整个Web3基础设施的重要组成部分。ZK应用全景图：  • L2扩容：zkSync、StarkNet、Polygon zkEVM• zkEVM：以太坊原生的ZK验证• 隐私交易：Aztec、zkmoney• 可验证计算：Modulus Labs、Risc Zero• 身份认证：Worldcoin、zkID2. zkEVM的四种类zkEVM是将EVM执行环境用零知识证明来验证的技术。根据与EVM的兼容程度，分为四种类型。Type1（以太坊等效）： 完全兼容以太坊，可以验证以太坊区块。包括官方Ethereum Foundation的zkEVM。兼容性最高，但证明生成最慢。 Type2（EVM等效...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/07/hello-blockchain-programming/" title="🚀 博客上线了"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-default.svg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-08</div><div class="info-item-2">🚀 博客上线了</div></div><div class="info-2"><div class="info-item-1">🚀 博客上线了欢迎来到「区块链编程」技术博客！这里记录区块链技术学习、Web3 开发实战和量化交易编程。 📝 为什么做这个博客？微信公众号「区块链编程」写了一段时间的科普文章，但公众号有个局限——代码展示体验不好，排版也受限。 所以把技术文章搬到这里来了。博客有以下优势：  代码高亮：支持各种编程语言的语法高亮 阅读体验：无干扰的纯净阅读环境 搜索功能：可以搜索历史文章 永久链接：每篇文章都有固定 URL，方便收藏和分享  📚 你能在这里读到什么？区块链基础用大白话讲清楚区块链核心技术：共识机制、智能合约、Layer2、零知识证明等。 Web3 开发实战从零搭建区块链项目：Solidity 智能合约开发、DApp 前端对接、DeFi 协议源码解析。 量化交易编程交易策略实现、回测系统搭建、交易所 API 对接（币安&#x2F;OKX&#x2F;Bybit 等）。 🔗 公众号与博客的关系博客发布完整技术文章，公众号发布精华摘要 + 原文链接。两者互补：  公众号：快速推送，碎片化阅读 博客：深度阅读，代码查看，搜索引擎可索引  ⚠️ 免责声明 本博客所有文章仅为个人学习和分...</div></div></div></a><a class="pagination-related" href="/2026/04/9-2-%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AADEX/" title="从零开发一个DEX"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/9-2-%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AADEX.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-22</div><div class="info-item-2">从零开发一个DEX</div></div><div class="info-2"><div class="info-item-1">从零开发一个DEXUniswap克隆实战系列九「Web3产品与DApp实战」第2篇💡 你将学到：AMM原理、Pair合约、Factory合约、Swap路由、前端集成⏱ 阅读时间：约15分钟  DEX是什么？DEX（去中心化交易所）允许用户直接在链上交易代币，不需要中心化平台。Uniswap是AMM（自动做市商）DEX的代表，靠流动性池和算法定价，改变了交易的游戏规则。AMM vs 订单簿：   订单簿：传统交易，买卖双方报价撮合 AMM：流动性池自动定价，无需对手方 AMM优势：无需做市商、无需订单簿、7x24交易 Uniswap V2是学习AMM最好的起点   AMM恒定乘积公式AMM的核心是恒定乘积公式：x * y &#x3D; k。其中x和y是两种资产的数量，k是常数。交易改变x和y，但k不变，价格随之变化。公式解读：   x*y&#x3D;k，k不变时，x增加则y减少 买入TokenA，TokenA数量增加，价格上升 卖出TokenA，TokenA数量减少，价格下降 滑点&#x3D;交易量&#x2F;池子总量，越大滑点越大   Pair合约（交易对）Pair（交易对）是...</div></div></div></a><a class="pagination-related" href="/2026/04/2-4-%E4%BA%8B%E4%BB%B6%E4%B8%8E%E6%97%A5%E5%BF%97/" title="事件与日志"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-default.svg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-05</div><div class="info-item-2">事件与日志</div></div><div class="info-2"><div class="info-item-1">事件与日志Event定义、indexed参数、前端监听与订阅系列二「Solidity智能合约开发」第4篇💡 你将学到：Event定义与使用、indexed参数的作用、前端订阅事件、历史事件查询⏱ 阅读时间：约12分钟  什么是Event（事件）？Event是以太坊日志系统的一部分。合约可以发出事件，事件被记录在交易的日志中。Event的作用：  • 记录重要状态变化• 提供链外获取链上数据的途径• 比storage读取更省gas• 前端可以实时监听Event vs Storage  Event: 375-3750 Gas    Storage: 2万&#x2F;写入数据访问  Event: 仅链外可读    Storage: 链上可读2. 定义与发出事件基本语法Events.sol&#x2F;&#x2F; 定义事件event Transfer(address indexed from, address indexed to, uint256 value); &#x2F;&#x2F; 发出事件（需要emit关键字）function transfer(address to, uin...</div></div></div></a><a class="pagination-related" href="/2026/04/2-2-%E5%90%88%E7%BA%A6%E7%BB%93%E6%9E%84%E4%B8%8E%E7%BB%A7%E6%89%BF/" title="合约结构与继承"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-default.svg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-04</div><div class="info-item-2">合约结构与继承</div></div><div class="info-2"><div class="info-item-1">合约结构与继承合约定义、继承、接口、库系列二「Solidity智能合约开发」第2篇💡 你将学到：合约结构、继承机制、抽象合约、接口、库的使用⏱ 阅读时间：约15分钟  合约的基本结构一个完整的Solidity合约包含以下部分：Inheritance.sol&#x2F;&#x2F; SPDX-License-Identifier: MITpragma solidity ^0.8.0;  &#x2F;&#x2F; 导入其他合约import “.&#x2F;OtherContract.sol”; &#x2F;&#x2F; 合约定义contract MyContract {&#x2F;&#x2F; 1. 状态变量uint256 public value;address public owner; &#x2F;&#x2F; 2. 事件event ValueChanged(uint256 newValue); &#x2F;&#x2F; 3. 修饰器modifier onlyOwner() {require(msg.sender &#x3D;&#x3D; owner, “Not owner”...</div></div></div></a><a class="pagination-related" href="/2026/04/2-3-%E5%AD%98%E5%82%A8%E4%B8%8E%E5%86%85%E5%AD%98/" title="存储与内存"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/2-3-%E5%AD%98%E5%82%A8%E4%B8%8E%E5%86%85%E5%AD%98.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-04</div><div class="info-item-2">存储与内存</div></div><div class="info-2"><div class="info-item-1">存储与内存storage、memory、calldata的区别与使用场景系列二「Solidity智能合约开发」第3篇💡 你将学到：三种数据位置的区别、Gas成本、常见错误与最佳实践⏱ 阅读时间：约12分钟  三种数据位置概述Solidity中，复杂类型（数组、结构体、映射）需要指定数据位置。三种数据位置：  • storage：永久存储在区块链上，最昂贵• memory：临时存储在内存中，函数执行完释放• calldata：只读，存储函数参数，最省gas对比表生命周期  storage: 永久    memory: 临时    calldata: 临时Gas成本  storage: 最高（2万&#x2F;字）    memory: 中等    calldata: 最低可修改性  storage: 可读写    memory: 可读写    calldata: 只读使用场景  storage: 状态变量    memory: 临时计算    calldata: 函数参数2. storage：永久存储storage用于存储合约的状态变量，数据永久保存在区块链上。storage特点：...</div></div></div></a><a class="pagination-related" href="/2026/04/8-4-Bitcoin-L2/" title="Bitcoin L2"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/8-4-Bitcoin-L2.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-06</div><div class="info-item-2">Bitcoin L2</div></div><div class="info-2"><div class="info-item-1">Bitcoin L2Stacks与闪电网络系列八「多链开发实战」第4篇💡 你将学到：Stacks智能合约、闪电网络原理、RGB协议、比特币L2生态⏱ 阅读时间：约13分钟  比特币为什么需要L2？比特币是最安全的区块链，但它的脚本能力非常有限。比特币只能做简单的转账，无法运行复杂的智能合约。这让比特币在DeFi、NFT等应用上落后于以太坊。比特币L2的目标：   扩展比特币的功能：智能合约、DeFi 继承比特币的安全性 提高比特币的吞吐量 降低交易费用   Stacks是什么？Stacks是一条比特币L2，它使用Clarity语言编写智能合约，通过Proof of Transfer（PoX）共识机制继承比特币的安全性。Stacks核心特点：   Clarity语言：可预测、可分析、无图灵完备 PoX共识：用比特币质押生产Stacks区块 比特币锚定：所有Stacks区块锚定比特币区块 读取比特币状态：合约可以读取比特币链上数据   Clarity语言Clarity是Stacks的智能合约语言，设计目标是安全性和可预测性。它不是图灵完备的——没有循环，但可以用递归实现重复逻辑。C...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By 区块链编程</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">本文由 <a href="https://renrenwudi.github.io">区块链编程</a> 发布 · 转载请注明出处</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/"></script><script src="/"></script><script src="/"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'RenRenWuDi/RenRenWuDi.github.io',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !true) {
+    if (true) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="/js/wechat-card.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

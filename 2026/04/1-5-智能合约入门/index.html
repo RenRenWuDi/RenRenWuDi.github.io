@@ -1,0 +1,276 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>智能合约入门 | 区块链编程</title><meta name="author" content="区块链编程"><meta name="copyright" content="区块链编程"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="智能合约入门 - 技术文章">
+<meta property="og:type" content="article">
+<meta property="og:title" content="智能合约入门">
+<meta property="og:url" content="https://renrenwudi.github.io/2026/04/1-5-%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="区块链编程">
+<meta property="og:description" content="智能合约入门 - 技术文章">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://renrenwudi.github.io/img/cover-default.svg">
+<meta property="article:published_time" content="2026-04-04T07:42:01.000Z">
+<meta property="article:modified_time" content="2026-07-10T07:08:14.187Z">
+<meta property="article:author" content="区块链编程">
+<meta property="article:tag" content="智能合约">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://renrenwudi.github.io/img/cover-default.svg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "智能合约入门",
+  "url": "https://renrenwudi.github.io/2026/04/1-5-%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%85%A5%E9%97%A8/",
+  "image": "https://renrenwudi.github.io/img/cover-default.svg",
+  "datePublished": "2026-04-04T07:42:01.000Z",
+  "dateModified": "2026-07-10T07:08:14.187Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "区块链编程",
+      "url": "https://renrenwudi.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://renrenwudi.github.io/2026/04/1-5-%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%85%A5%E9%97%A8/index.html"><link rel="preconnect"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="/"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#37c2fb')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: '/',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '智能合约入门',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-41F4NYXQZQ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-41F4NYXQZQ');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 8.1.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">55</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">60</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/cover-default.svg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">区块链编程</span></a><a class="nav-page-title" href="/"><span class="site-name">智能合约入门</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">智能合约入门</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-04-04T07:42:01.000Z" title="发表于 2026-04-04 15:42:01">2026-04-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-07-10T07:08:14.187Z" title="更新于 2026-07-10 15:08:14">2026-07-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%9F%BA%E7%A1%80/">区块链基础</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>智能合约入门<br>代码即法律<br>EVM、Solidity基础、部署你的第一个合约<br>💡 你将学到：智能合约概念、EVM原理、Solidity基础语法、部署流程<br>⏱ 阅读时间：约15分钟</p>
+<ol>
+<li>什么是智能合约？<br>智能合约（Smart Contract）这个概念最早由密码学家Nick Szabo在1994年提出。<br>智能合约是运行在区块链上的程序，当预设条件满足时自动执行。</li>
+</ol>
+<p>就像自动售货机：投币 → 选商品 → 自动出货。不需要店员，代码自动执行。<br>智能合约的特点：</p>
+<p>• 自动执行：条件触发，代码自动运行<br>• 不可篡改：部署后代码不可修改<br>• 透明公开：所有人都能查看代码逻辑<br>• 去信任：不需要第三方中介<br>“代码即法律”的含义<br>一旦智能合约部署到区块链，它就会严格按照代码逻辑执行，不受任何人控制。<br>这意味着：<br>合约写的是什么，执行的就是什么<br>即使代码有bug，也会按bug执行<br>没有”管理员”可以暂停或修改合约<br>⚠️ 警告：The DAO事件（2016年）就是因为智能合约漏洞，导致360万ETH被盗。这提醒我们：写合约必须极其谨慎，代码审计必不可少。<br>2. EVM：以太坊虚拟机<br>智能合约跑在哪里？答案是EVM（Ethereum Virtual Machine）。<br>EVM是什么？</p>
+<p>• 以太坊的”操作系统”<br>• 每个节点都运行EVM<br>• 执行智能合约的字节码<br>• 保证所有节点执行结果一致<br>EVM执行流程<br>📝  开发者用Solidity编写合约  ↓<br>🔧  编译器将Solidity编译为EVM字节码  ↓<br>📡  部署交易广播到网络  ↓<br>⛏  矿工&#x2F;验证者执行EVM字节码  ↓<br>💾  执行结果更新状态树<br>Gas机制<br>执行合约需要消耗计算资源，以太坊用Gas来计量。<br>Gas Limit：交易最多能用的Gas量<br>Gas Price：每单位Gas的价格（Gwei）<br>交易费 &#x3D; Gas Used × Gas Price<br>SimpleStorage.sol<br>&#x2F;&#x2F; 交易费用计算<br>const gasUsed &#x3D; 21000           &#x2F;&#x2F; 转账消耗的Gas<br>const gasPrice &#x3D; 20             &#x2F;&#x2F; 20 Gwei<br>const fee &#x3D; gasUsed * gasPrice  &#x2F;&#x2F; 420000 Gwei &#x3D; 0.00042 ETH</p>
+<p>&#x2F;&#x2F; 复杂合约调用可能消耗几十万Gas<br>&#x2F;&#x2F; Gas费防止无限循环攻击（跑不完就耗尽Gas）</p>
+<ol start="3">
+<li>Solidity：智能合约编程语言<br>Solidity是以太坊最常用的智能合约语言，语法类似JavaScript。<br>你的第一个合约<br>SimpleStorage.sol<br>&#x2F;&#x2F; SPDX-License-Identifier: MIT<br>pragma solidity ^0.8.0;</li>
+</ol>
+<p>contract SimpleStorage {<br>uint256 private storedData;</p>
+<p>&#x2F;&#x2F; 存储一个数字<br>function set(uint256 x) public {<br>storedData &#x3D; x;<br>}</p>
+<p>&#x2F;&#x2F; 读取存储的数字<br>function get() public view returns (uint256) {<br>return storedData;<br>}<br>}</p>
+<p>代码解析<br>SPDX-License-Identifier：开源许可证声明<br>pragma solidity ^0.8.0：指定编译器版本<br>contract：定义合约，类似class<br>uint256：无符号256位整数<br>public：函数可被外部调用<br>view：只读函数，不修改状态<br>关键概念<br>Storage vs Memory</p>
+<p>• Storage：永久存储在区块链上（贵）<br>• Memory：临时存储，函数执行完释放（便宜）<br>• Calldata：函数参数，只读</p>
+<p>默认情况下，状态变量存在Storage，局部变量存在Memory。<br>4. 部署你的第一个合约<br>部署合约也是一笔交易，只是to地址为空。<br>部署流程<br>1️⃣  编写Solidity代码  ↓<br>2️⃣  使用Remix或Hardhat编译  ↓<br>3️⃣  获取编译后的字节码和ABI  ↓<br>4️⃣  发送部署交易（data字段放字节码）  ↓<br>5️⃣  交易确认后，获得合约地址<br>代码示例：用Ethers.js部署<br>SimpleStorage.sol<br>const { ethers } &#x3D; require(‘ethers’)</p>
+<p>&#x2F;&#x2F; 连接网络（这里用测试网）<br>const provider &#x3D; new ethers.JsonRpcProvider(‘<a target="_blank" rel="noopener" href="https://goerli.infura.io/v3/YOUR_KEY">https://goerli.infura.io/v3/YOUR_KEY</a>‘)</p>
+<p>&#x2F;&#x2F; 加载钱包<br>const privateKey &#x3D; ‘0x…’<br>const wallet &#x3D; new ethers.Wallet(privateKey, provider)</p>
+<p>&#x2F;&#x2F; 合约字节码和ABI（从编译结果获取）<br>const bytecode &#x3D; “0x60806040…”<br>const abi &#x3D; [<br>“function set(uint256 x)”,<br>“function get() view returns (uint256)”<br>]</p>
+<p>&#x2F;&#x2F; 部署合约<br>async function deploy() {<br>const factory &#x3D; new ethers.ContractFactory(abi, bytecode, wallet)<br>const contract &#x3D; await factory.deploy()<br>await contract.waitForDeployment()</p>
+<p>console.log(‘合约地址:’, await contract.getAddress())<br>}</p>
+<p>deploy()</p>
+<ol start="5">
+<li>与合约交互<br>部署后，任何人都可以调用合约的public函数。<br>两种调用方式<br>Transaction（交易）</li>
+</ol>
+<p>• 修改合约状态的函数<br>• 需要签名、支付Gas<br>• 被打包进区块后才生效</p>
+<p>Call（调用）</p>
+<p>• 只读函数（view&#x2F;pure）<br>• 不需要签名，不消耗Gas<br>• 本地执行，立即返回结果<br>代码示例：调用合约<br>SimpleStorage.sol<br>const { ethers } &#x3D; require(‘ethers’)</p>
+<p>&#x2F;&#x2F; 已部署的合约地址<br>const contractAddress &#x3D; ‘0x123…’</p>
+<p>&#x2F;&#x2F; 创建合约实例（只读，不需要私钥）<br>const contract &#x3D; new ethers.Contract(contractAddress, abi, provider)</p>
+<p>&#x2F;&#x2F; 调用view函数（免费）<br>async function readData() {<br>const value &#x3D; await contract.get()<br>console.log(“存储的值:”, value.toString())<br>}</p>
+<p>&#x2F;&#x2F; 发送交易修改状态（需要私钥）<br>async function writeData() {<br>const contractWithSigner &#x3D; contract.connect(wallet)<br>const tx &#x3D; await contractWithSigner.set(42)<br>await tx.wait()<br>console.log(“交易已确认”)<br>}</p>
+<ol start="6">
+<li>智能合约安全：避坑指南<br>智能合约一旦部署就无法修改，安全至关重要。<br>常见漏洞<br>重入攻击：合约在转账时被递归调用<br>整数溢出：数值计算超出范围<br>访问控制：敏感函数没有权限检查<br>随机数问题：区块链上无法生成真随机数<br>安全最佳实践<br>使用Checks-Effects-Interactions模式：先检查条件，再修改状态，最后交互<br>使用SafeMath库防止溢出（Solidity 0.8+已内置）<br>敏感函数加onlyOwner修饰符<br>部署前进行专业审计<br>考虑使用代理合约模式，允许升级</li>
+<li>总结</li>
+</ol>
+<p>①  智能合约是运行在区块链上的自动执行程序<br>②  EVM是以太坊的执行环境，Gas机制防止资源滥用<br>③  Solidity是智能合约的主要编程语言<br>④  部署合约需要编译、发送交易、获得合约地址<br>⑤  合约安全至关重要，审计和最佳实践必不可少<br>🎉 系列一「区块链入门」完结<br>下系列预告：Solidity智能合约开发（6篇）</p>
+<p>━━━━━━━━━━━━━━━━━━━━━<br>📢 本文由「区块链编程」原创出品<br>未经授权，禁止转载<br>如有转载需求，请联系作者<br>👉 关注「区块链编程」<br>关注我，解锁更多可能</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io">区块链编程</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io/2026/04/1-5-%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%85%A5%E9%97%A8/">https://renrenwudi.github.io/2026/04/1-5-%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%85%A5%E9%97%A8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://renrenwudi.github.io" target="_blank">区块链编程</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/">智能合约</a></div><div class="post-share"><div class="social-share" data-image="/img/cover-default.svg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="/" media="print" onload="this.media='all'"><script src="/" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/04/2-1-Solidity%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" title="Solidity基础语法"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-default.svg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Solidity基础语法</div></div><div class="info-2"><div class="info-item-1">Solidity基础语法数据类型、变量与函数系列二「Solidity智能合约开发」第1篇💡 你将学到：Solidity数据类型、变量声明、函数定义、可见性修饰符⏱ 阅读时间：约15分钟  基础数据类型Solidity是静态类型语言，每个变量都需要声明类型。整型（Integer）uint8 到 uint256：无符号整数（默认uint256）int8 到 int256：有符号整数常用：uint256（最大值 2^256-1）BasicTypes.soluint256 public positiveNumber &#x3D; 100;int256 public negativeNumber &#x3D; -50;uint8 public smallNumber &#x3D; 255;  &#x2F;&#x2F; 最大255  布尔型（Boolean）BasicTypes.solbool public isActive &#x3D; true;bool public hasPermission &#x3D; false; 地址类型（Address）address：以太坊地址（20字节...</div></div></div></a><a class="pagination-related" href="/2026/04/1-4-%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%B4%A6%E6%88%B7%E6%A8%A1%E5%9E%8B/" title="以太坊账户模型"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-default.svg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">以太坊账户模型</div></div><div class="info-2"><div class="info-item-1">以太坊账户模型EOA vs 合约账户状态树与nonce机制详解💡 你将学到：EOA与合约账户区别、nonce机制、状态存储原理⏱ 阅读时间：约12分钟  以太坊的两种账户比特币只有UTXO，没有账户概念。但以太坊不同，它采用了账户模型。以太坊有两种账户：EOA：外部拥有账户（Externally Owned Account）由私钥控制，对应真实用户可以发起交易（转账或调用合约）有余额（balance）和交易计数（nonce）没有代码，不能执行逻辑合约账户（Contract Account）由代码控制，没有私钥不能主动发起交易，只能被动响应有余额、nonce、代码（code）和存储（storage）可以执行复杂的业务逻辑关键区别：  • EOA有私钥，人可以控制• 合约账户有代码，逻辑控制• 只有EOA能主动发起交易2. 账户状态：以太坊存储了什么？每个以太坊账户都有以下状态：EOA状态ethereum-account.js{nonce: 5,           &#x2F;&#x2F; 交易计数（防重放攻击）balance: 1000000000000000000,  &#x...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/04/6-5-%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/" title="智能合约安全工具"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/6-5-%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-06</div><div class="info-item-2">智能合约安全工具</div></div><div class="info-2"><div class="info-item-1">智能合约安全工具Slither、Certora、Mythril实战系列六「智能合约安全攻防」第5篇（完结篇）💡 你将学到：Slither静态分析、Mythril符号执行、Certora形式化验证、安全审计流程⏱ 阅读时间：约13分钟  为什么需要安全工具？智能合约一旦部署就无法修改，任何bug都可能导致资金损失。传统代码可以打补丁升级，但合约不行——上线前的安全审计至关重要。自动化安全工具可以在几秒钟内扫描整个合约代码库，发现常见漏洞。它们不能替代专业审计，但可以大幅减少低级错误。安全审计的层次：  自动化工具扫描（CI&#x2F;CD集成）  人工代码审计  第三方专业审计公司  Bug Bounty（漏洞赏金）   自动化工具是第一道防线，也是成本最低的。2. Slither（Trail of Bits）Slither是以太坊生态最流行的静态分析工具，由Trail of Bits开发。它用Python编写，基于Solidity编译器的中间表示（IR），分析精确度高。安装与运行Terminal命令pip install slither-analyzerslither .  #...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By 区块链编程</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">本文由 <a href="https://renrenwudi.github.io">区块链编程</a> 发布 · 转载请注明出处</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/"></script><script src="/"></script><script src="/"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'RenRenWuDi/RenRenWuDi.github.io',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !true) {
+    if (true) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="/js/wechat-card.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

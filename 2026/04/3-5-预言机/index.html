@@ -1,0 +1,258 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>预言机 | 区块链编程</title><meta name="author" content="区块链编程"><meta name="copyright" content="区块链编程"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="预言机 - 技术文章">
+<meta property="og:type" content="article">
+<meta property="og:title" content="预言机">
+<meta property="og:url" content="https://renrenwudi.github.io/2026/04/3-5-%E9%A2%84%E8%A8%80%E6%9C%BA/index.html">
+<meta property="og:site_name" content="区块链编程">
+<meta property="og:description" content="预言机 - 技术文章">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://renrenwudi.github.io/img/posts/3-5-%E9%A2%84%E8%A8%80%E6%9C%BA.jpg">
+<meta property="article:published_time" content="2026-04-06T02:19:41.000Z">
+<meta property="article:modified_time" content="2026-07-10T07:08:14.557Z">
+<meta property="article:author" content="区块链编程">
+<meta property="article:tag" content="Oracle">
+<meta property="article:tag" content="预言机">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://renrenwudi.github.io/img/posts/3-5-%E9%A2%84%E8%A8%80%E6%9C%BA.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "预言机",
+  "url": "https://renrenwudi.github.io/2026/04/3-5-%E9%A2%84%E8%A8%80%E6%9C%BA/",
+  "image": "https://renrenwudi.github.io/img/posts/3-5-%E9%A2%84%E8%A8%80%E6%9C%BA.jpg",
+  "datePublished": "2026-04-06T02:19:41.000Z",
+  "dateModified": "2026-07-10T07:08:14.557Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "区块链编程",
+      "url": "https://renrenwudi.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://renrenwudi.github.io/2026/04/3-5-%E9%A2%84%E8%A8%80%E6%9C%BA/index.html"><link rel="preconnect"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="/"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#37c2fb')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: '/',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '预言机',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-41F4NYXQZQ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-41F4NYXQZQ');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 8.1.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">55</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">60</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/posts/3-5-%E9%A2%84%E8%A8%80%E6%9C%BA.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">区块链编程</span></a><a class="nav-page-title" href="/"><span class="site-name">预言机</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">预言机</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-04-06T02:19:41.000Z" title="发表于 2026-04-06 10:19:41">2026-04-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-07-10T07:08:14.557Z" title="更新于 2026-07-10 15:08:14">2026-07-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/DeFi%E5%8D%8F%E8%AE%AE/">DeFi协议</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">878</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>预言机<br>Chainlink的数据喂价机制<br>系列三「DeFi原理与实战」第5篇（完结篇）<br>💡 你将学到：预言机原理、Chainlink、去中心化数据源、数据安全问题<br>⏱ 阅读时间：约12分钟</p>
+<ol>
+<li>什么是预言机？<br>区块链是确定性的——同样的输入永远产生同样的输出。但DeFi需要知道真实世界的数据，如ETH&#x2F;USD价格。<br>预言机（Oracle）的作用：</li>
+</ol>
+<p>• 将链外数据引入区块链<br>• 提供价格、天气、体育比分等外部信息<br>• 区块链无法直接访问互联网<br>• 预言机是DeFi的基础设施<br>2. 预言机问题<br>预言机引入了一个根本矛盾：去中心化区块链如何信任中心化的数据源？<br>单点预言机的问题：</p>
+<p>• 数据源单一，容易被操纵<br>• 服务器宕机导致数据不可用<br>• 恶意数据源可能提供错误价格<br>• 2021年BSC被攻击：预言机被操纵，损失5600万美元<br>3. Chainlink去中心化方案<br>Chainlink是区块链预言机领域的领导者，通过去中心化解决单点故障问题。<br>Chainlink核心机制：</p>
+<p>• 数据聚合：多个数据源计算中位数<br>• 节点运营商：全球分布式的独立节点<br>• 信誉系统：基于历史表现评分<br>• 加密传输：数据不被篡改<br>POC（数据请求流程）<br>Chainlink.js<br>&#x2F;&#x2F; Chainlink的数据请求流程<br>&#x2F;&#x2F; 1. 合约发起数据请求<br>Chainlink.Request memory request &#x3D; chainlink.requestData(jobId, url, path, multiplier);<br>&#x2F;&#x2F; 2. Chainlink节点监听到请求<br>&#x2F;&#x2F; 3. 节点从多个API获取数据<br>&#x2F;&#x2F; 4. 节点返回聚合后的数据<br>&#x2F;&#x2F; 5. 合约收到链上数据<br>fulfill(requestId, price);</p>
+<ol start="4">
+<li><p>使用Chainlink获取价格<br>PriceConsumer.sol<br>&#x2F;&#x2F; SPDX-License-Identifier: MIT<br>pragma solidity ^0.8.0;<br>import “@chainlink&#x2F;contracts&#x2F;src&#x2F;v0.8&#x2F;interfaces&#x2F;AggregatorV3Interface.sol”;<br>contract PriceConsumer {<br>AggregatorV3Interface public priceFeed;<br>constructor(address _priceFeed) {<br>priceFeed &#x3D; AggregatorV3Interface(_priceFeed);<br>}<br>function getLatestPrice() public view returns (int) {<br>(, int price, , , ) &#x3D; priceFeed.latestRoundData();<br>return price;  &#x2F;&#x2F; ETH&#x2F;USD价格<br>}<br>}</p>
+</li>
+<li><p>简单预言机实现<br>SimpleOracle.sol<br>contract SimpleOracle {<br>address public owner;<br>int256 public price;<br>mapping(address &#x3D;&gt; bool) public reporters;<br>event PriceUpdated(int256 newPrice);<br>constructor() { owner &#x3D; msg.sender; }<br>modifier onlyOwner() { require(msg.sender &#x3D;&#x3D; owner); _; }<br>function addReporter(address _reporter) external onlyOwner {<br>reporters[_reporter] &#x3D; true;<br>}<br>function updatePrice(int256 _price) external {<br>require(reporters[msg.sender], “Not reporter”);<br>price &#x3D; _price;<br>emit PriceUpdated(_price);<br>}<br>}</p>
+</li>
+<li><p>预言机的应用场景<br>DeFi借贷：清算需要准确的价格数据<br>合成资产：需要资产价格来铸造代币<br>保险协议：需要天气&#x2F;事件数据触发理赔<br>预测市场：需要比赛结果来判断输赢<br>游戏：随机数生成（Chainlink VRF）<br>Chainlink VRF（随机数）<br>VRF.js<br>&#x2F;&#x2F; Chainlink VRF提供可验证的随机数<br>function requestRandomNumber() public {<br>bytes32 requestId &#x3D; requestRandomness(keyHash, fee, user种子);<br>}<br>function fulfillRandomness(bytes32 requestId, uint256 randomness) internal override {<br>randomResult &#x3D; randomness;<br>}</p>
+</li>
+<li><p>预言机安全建议<br>使用预言机的安全建议：</p>
+</li>
+</ol>
+<p>• 使用去中心化预言机（Chainlink等）<br>• 监控价格偏离，设置熔断机制<br>• 使用时间加权平均价格（TWAP）<br>• 多预言机冗余<br>8. 总结</p>
+<p>①  预言机将链外数据引入区块链<br>②  单点预言机容易被操纵<br>③  Chainlink用去中心化解决信任问题<br>④  价格喂价、VRF是主要应用<br>⑤  预言机安全是DeFi安全的重要一环<br>🎉 系列三「DeFi原理与实战」完结<br>下个系列预告：Layer2与扩容技术（4篇）</p>
+<p>━━━━━━━━━━━━━━━━━━━━━<br>📢 本文由「区块链编程」原创出品<br>未经授权，禁止转载<br>如有转载需求，请联系作者<br>👉 关注「区块链编程」<br>关注我，解锁更多可能</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io">区块链编程</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io/2026/04/3-5-%E9%A2%84%E8%A8%80%E6%9C%BA/">https://renrenwudi.github.io/2026/04/3-5-%E9%A2%84%E8%A8%80%E6%9C%BA/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://renrenwudi.github.io" target="_blank">区块链编程</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%A2%84%E8%A8%80%E6%9C%BA/">预言机</a><a class="post-meta__tags" href="/tags/Oracle/">Oracle</a></div><div class="post-share"><div class="social-share" data-image="/img/posts/3-5-%E9%A2%84%E8%A8%80%E6%9C%BA.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="/" media="print" onload="this.media='all'"><script src="/" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/04/4-1-Rollup%E5%85%A5%E9%97%A8/" title="Rollup入门"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/4-1-Rollup%E5%85%A5%E9%97%A8.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Rollup入门</div></div><div class="info-2"><div class="info-item-1">Rollup入门L2的终极扩容方案系列四「Layer2与扩容技术」第1篇💡 你将学到：以太坊扩容问题、Layer2概念、Rollup原理、OP vs ZK对比⏱ 阅读时间：约12分钟  以太坊扩容问题以太坊主网（TPS约15笔&#x2F;秒）远远不够用。每次热门NFT铸造gas费飙升，DeFi交易滑点巨大。以太坊扩容的三难困境（Trilemma）：  • 去中心化：节点数量多• 安全性：共识机制健壮• 可扩展性：处理速度快 三者不可兼得，必须做取舍2. Layer2是什么？Layer2（L2）是建立在Layer1之上的扩展解决方案，在L2处理交易，只把最终结果提交到L1。Layer2核心思想： • 交易在L2批量处理• 只有状态根（证明）提交到L1• 继承L1安全性• 吞吐量提升100倍+Layer1 vs Layer2对比L1（以太坊主网）：去中心化、安全、但慢且贵L2（Arbitrum&#x2F;Optimism）：快、便宜、继承安全性3. Rollup核心原理Rollup是最主流的L2方案。核心是把大量交易”卷起来”提交到L1。Rollup的关键创新： • 在L2执行交易...</div></div></div></a><a class="pagination-related" href="/2026/04/3-4-%E8%B4%A8%E6%8A%BC%E4%B8%8E%E6%94%B6%E7%9B%8A%E8%81%9A%E5%90%88/" title="质押与收益聚合"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/3-4-%E8%B4%A8%E6%8A%BC%E4%B8%8E%E6%94%B6%E7%9B%8A%E8%81%9A%E5%90%88.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">质押与收益聚合</div></div><div class="info-2"><div class="info-item-1">质押与收益聚合Yearn的收益策略与Vault机制系列三「DeFi原理与实战」第4篇💡 你将学到：收益聚合原理、Yearn Vaults、自动策略、APY计算⏱ 阅读时间：约12分钟  什么是收益聚合器？收益聚合器（Yield Aggregator）自动帮用户找到DeFi中最高的收益，并将资金自动复利投资。为什么需要收益聚合器？  • DeFi协议众多，收益率随时变化• 手动切换需要频繁操作，Gas费高• 收益聚合器自动帮用户”打组合拳”• 小资金也能享受机构级收益策略2. Yearn Finance是什么？Yearn是以太坊上最知名的收益聚合协议，由Andre Cronje创建。Yearn的核心： • 自动将资金分配到最高收益的协议• 收益自动复利（Compound&#x2F;Aave存入）• 定期调整策略适应市场变化• 用户只需存款，自动获得收益3. Vault（机枪池）机制Yearn的Vault是自动策略执行器，用户存入资产，Yearn自动操作。策略切换Strategy.js&#x2F;&#x2F; Yearn定期评估各协议收益const strategies &#x3D...</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By 区块链编程</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">本文由 <a href="https://renrenwudi.github.io">区块链编程</a> 发布 · 转载请注明出处</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/"></script><script src="/"></script><script src="/"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'RenRenWuDi/RenRenWuDi.github.io',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !true) {
+    if (true) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="/js/wechat-card.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

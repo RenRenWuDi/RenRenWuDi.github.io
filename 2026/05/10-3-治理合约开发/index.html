@@ -1,0 +1,266 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>治理合约开发 | 区块链编程</title><meta name="author" content="区块链编程"><meta name="copyright" content="区块链编程"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="治理合约开发 - 技术文章">
+<meta property="og:type" content="article">
+<meta property="og:title" content="治理合约开发">
+<meta property="og:url" content="https://renrenwudi.github.io/2026/05/10-3-%E6%B2%BB%E7%90%86%E5%90%88%E7%BA%A6%E5%BC%80%E5%8F%91/index.html">
+<meta property="og:site_name" content="区块链编程">
+<meta property="og:description" content="治理合约开发 - 技术文章">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://renrenwudi.github.io/img/posts/10-3-%E6%B2%BB%E7%90%86%E5%90%88%E7%BA%A6%E5%BC%80%E5%8F%91.jpg">
+<meta property="article:published_time" content="2026-05-14T08:23:59.000Z">
+<meta property="article:modified_time" content="2026-07-10T07:08:14.221Z">
+<meta property="article:author" content="区块链编程">
+<meta property="article:tag" content="投票">
+<meta property="article:tag" content="治理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://renrenwudi.github.io/img/posts/10-3-%E6%B2%BB%E7%90%86%E5%90%88%E7%BA%A6%E5%BC%80%E5%8F%91.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "治理合约开发",
+  "url": "https://renrenwudi.github.io/2026/05/10-3-%E6%B2%BB%E7%90%86%E5%90%88%E7%BA%A6%E5%BC%80%E5%8F%91/",
+  "image": "https://renrenwudi.github.io/img/posts/10-3-%E6%B2%BB%E7%90%86%E5%90%88%E7%BA%A6%E5%BC%80%E5%8F%91.jpg",
+  "datePublished": "2026-05-14T08:23:59.000Z",
+  "dateModified": "2026-07-10T07:08:14.221Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "区块链编程",
+      "url": "https://renrenwudi.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://renrenwudi.github.io/2026/05/10-3-%E6%B2%BB%E7%90%86%E5%90%88%E7%BA%A6%E5%BC%80%E5%8F%91/index.html"><link rel="preconnect"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="/"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#37c2fb')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: '/',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '治理合约开发',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-41F4NYXQZQ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-41F4NYXQZQ');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 8.1.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">55</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">60</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/posts/10-3-%E6%B2%BB%E7%90%86%E5%90%88%E7%BA%A6%E5%BC%80%E5%8F%91.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">区块链编程</span></a><a class="nav-page-title" href="/"><span class="site-name">治理合约开发</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">治理合约开发</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-05-14T08:23:59.000Z" title="发表于 2026-05-14 16:23:59">2026-05-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-07-10T07:08:14.221Z" title="更新于 2026-07-10 15:08:14">2026-07-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/DAO%E6%B2%BB%E7%90%86/">DAO治理</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">717</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>治理合约开发<br>用Solidity实现一个简单DAO<br>系列十「DAO与治理机制」第3篇<br>💡 提案合约、Token投票、时间锁的Solidity实现<br>⏱ 阅读时间：约12分钟</p>
+<ol>
+<li>DAO合约的核心组件<br>DAO的链上合约通常由三个核心组件构成：治理Token、提案合约、执行合约。<br>为了便于理解，我们来动手实现一个简化版的DAO。它麻雀虽小，五脏俱全。</li>
+<li>治理Token：基于ERC20<br>首先需要一个治理Token。可以用OpenZeppelin的ERC20标准，稍作扩展，支持委托投票。<br>GovernanceToken.sol<br>&#x2F;&#x2F; SPDX-License-Identifier: MIT<br>pragma solidity ^0.8.20;</li>
+</ol>
+<p>import “@openzeppelin&#x2F;contracts&#x2F;token&#x2F;ERC20&#x2F;ERC20.sol”;<br>import “@openzeppelin&#x2F;contracts&#x2F;token&#x2F;ERC20&#x2F;extensions&#x2F;ERC20Votes.sol”;</p>
+<p>contract GovernanceToken is ERC20Votes {<br>uint256 public MAX_SUPPLY &#x3D; 1_000_000_000 * 10 ** 18;</p>
+<p>constructor() ERC20(“DAO Token”, “DAO”) EIP712(“GovernanceToken”,”1”) {<br>_mint(msg.sender, MAX_SUPPLY);<br>}<br>}</p>
+<p>ERC20Votes是OpenZeppelin提供的扩展，它内置了委托投票和历史快照功能，开箱即用。<br>3. 提案合约：记录投票状态<br>提案合约负责存储提案内容、投票状态、统计结果。<br>SimpleDAO.sol<br>enum ProposalState { Active, Defeated, Succeeded, Queued, Executed }</p>
+<p>struct Proposal {<br>string description;<br>uint256 votesFor;<br>uint256 votesAgainst;<br>uint256 startTime;<br>uint256 endTime;<br>ProposalState state;<br>bool executed;<br>}</p>
+<p>contract SimpleDAO {<br>GovernanceToken public token;<br>uint256 public votingPeriod &#x3D; 3 days;<br>uint256 public quorum &#x3D; 100_000 * 10 ** 18;<br>Proposal[] public proposals;</p>
+<p>mapping(uint256 &#x3D;&gt; mapping(address &#x3D;&gt; bool)) public hasVoted;</p>
+<p>event ProposalCreated(uint256 id, string description);<br>event VoteCast(uint256 id, address voter, bool support);<br>event ProposalExecuted(uint256 id);</p>
+<ol start="4">
+<li><p>发起提案：提交到链上<br>SimpleDAO.sol<br>function propose(string memory description) external returns (uint256) {<br>require(token.balanceOf(msg.sender) &gt;&#x3D; quorum, “Not enough tokens”);<br>proposals.push(Proposal({<br>description: description,<br>votesFor: 0,<br>votesAgainst: 0,<br>startTime: block.timestamp,<br>endTime: block.timestamp + votingPeriod,<br>state: ProposalState.Active,<br>executed: false<br>}));<br>emit ProposalCreated(proposals.length - 1, description);<br>return proposals.length - 1;<br>}</p>
+</li>
+<li><p>投票：统计票数<br>SimpleDAO.sol<br>function vote(uint256 proposalId, bool support) external {<br>Proposal storage proposal &#x3D; proposals[proposalId];<br>require(proposal.state &#x3D;&#x3D; ProposalState.Active, “Not active”);<br>require(block.timestamp &lt; proposal.endTime, “Voting ended”);<br>require(!hasVoted[proposalId][msg.sender], “Already voted”);</p>
+</li>
+</ol>
+<p>uint256 weight &#x3D; token.balanceOf(msg.sender);<br>if (support) {<br>proposal.votesFor +&#x3D; weight;<br>} else {<br>proposal.votesAgainst +&#x3D; weight;<br>}<br>hasVoted[proposalId][msg.sender] &#x3D; true;<br>emit VoteCast(proposalId, msg.sender, support);<br>}</p>
+<ol start="6">
+<li>结束提案：计算结果<br>SimpleDAO.sol<br>function closeProposal(uint256 proposalId) external {<br>Proposal storage proposal &#x3D; proposals[proposalId];<br>require(block.timestamp &gt;&#x3D; proposal.endTime, “Not ended”);<br>require(proposal.state &#x3D;&#x3D; ProposalState.Active, “Already closed”);</li>
+</ol>
+<p>if (proposal.votesFor &gt; proposal.votesAgainst &amp;&amp;<br>proposal.votesFor &gt;&#x3D; quorum) {<br>proposal.state &#x3D; ProposalState.Succeeded;<br>} else {<br>proposal.state &#x3D; ProposalState.Defeated;<br>}<br>}</p>
+<p>实际项目中，提案的执行通常是调用另一个合约（比如国库合约、参数配置合约）。这里我们简化了执行层，专注于治理流程本身。<br>7. 总结</p>
+<p>✅ 治理Token推荐用OpenZeppelin的ERC20Votes，省去大量开发工作<br>✅ 提案合约需要防重放：一个人不能重复投票<br>✅ 投票权重用Token余额快照，防止闪电贷攻击<br>✅ 实际项目中，提案和执行通常是两个不同的合约</p>
+<p>📖 下篇预告：国库管理——预算审批与多签安全</p>
+<p>━━━━━━━━━━━━━━━━━━━━━<br>📢 本文由「区块链编程」原创出品<br>未经授权，禁止转载<br>如有转载需求，请联系作者<br>👉 关注「区块链编程」<br>关注我，解锁更多可能</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io">区块链编程</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io/2026/05/10-3-%E6%B2%BB%E7%90%86%E5%90%88%E7%BA%A6%E5%BC%80%E5%8F%91/">https://renrenwudi.github.io/2026/05/10-3-%E6%B2%BB%E7%90%86%E5%90%88%E7%BA%A6%E5%BC%80%E5%8F%91/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://renrenwudi.github.io" target="_blank">区块链编程</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%B2%BB%E7%90%86/">治理</a><a class="post-meta__tags" href="/tags/%E6%8A%95%E7%A5%A8/">投票</a></div><div class="post-share"><div class="social-share" data-image="/img/posts/10-3-%E6%B2%BB%E7%90%86%E5%90%88%E7%BA%A6%E5%BC%80%E5%8F%91.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="/" media="print" onload="this.media='all'"><script src="/" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/05/10-2-%E6%B2%BB%E7%90%86%E6%9C%BA%E5%88%B6/" title="DAO治理机制"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/10-2-%E6%B2%BB%E7%90%86%E6%9C%BA%E5%88%B6.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">DAO治理机制</div></div><div class="info-2"><div class="info-item-1">DAO治理机制Token投票与链上治理流程系列十「DAO与治理机制」第2篇💡 Token投票、委托机制、时间锁与提案流程⏱ 阅读时间：约12分钟  治理的核心问题：谁来决策？DAO的治理，本质上要回答三个问题：谁可以提案？谁可以投票？投票结果怎么执行？不同的设计对应不同的权衡。没有绝对正确的答案，只有适合协议的方案。 Token投票：最基础的治理方式Token投票是最直接的机制——持有治理Token的人拥有投票权。投票权重通常与持有数量成正比（1 Token &#x3D; 1 票）。MakerDAO：用MKR代币投票，MKR越多，话语权越大Uniswap：用UNI代币投票，任何UNI持有者都可以参与Compound：用COMP代币投票，借款人&#x2F;出借人按比例获得COMPToken投票的优点是简单、门槛低。但问题也很明显：大户（巨鲸）可以主导投票结果，去中心化程度存疑。 委托投票：降低参与门槛委托投票（Democratic Delegation）允许Token持有者把自己的投票权委托给其他人。被委托者通常是社区信任的成员，可以是开发者、研究者或社区KOL。委托投票的价值：...</div></div></div></a><a class="pagination-related" href="/2026/05/10-4-DAO%E7%9A%84%E9%92%B1%E8%A2%8B%E5%AD%90/" title="DAO的钱袋子"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/10-4-DAO%E7%9A%84%E9%92%B1%E8%A2%8B%E5%AD%90.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">DAO的钱袋子</div></div><div class="info-2"><div class="info-item-1">DAO的钱袋子预算审批与多签安全系列十「DAO与治理机制」第4篇💡 多签钱包、预算审批链、资金透明度与链上实现⏱ 阅读时间：约12分钟  DAO国库到底是管什么？DAO国库（Treasure）是协议运作的”钱袋子”。它存放着Token授权、协议收入留存和战略资金。怎么管这笔钱，是治理里最敏感的话题——既要让团队有足够的钱可用，又要防止权力被滥用。说白了，国库管理要回答三个问题：谁来动钱、花多少、怎么监督。 多签钱包：最基础也是最重要的工具多签钱包（Multi-Sig Wallet）是最常见的国库管理工具。一笔转账需要多个私钥签名才能执行，这样即使一个签名者的私钥泄露，攻击者也无法单独转移资金。多签的核心参数：签名者数量 N，和通过门槛 M（M-of-N）。例如 3&#x2F;5 表示：5个签名者中，至少需要3人同意才能执行交易。以太坊上最流行的多签钱包是Safe（原Gnosis Safe），支持任意 M-of-N 配置。MakerDAO 用的是 5&#x2F;9 多签，Uniswap 社区用的是 4&#x2F;7。如果你想快速搭建一个多签合约，可以用OpenZeppelin的S...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/04/10-1-DAO%E4%B8%8E%E6%B2%BB%E7%90%86%E6%9C%BA%E5%88%B6/" title="DAO与治理机制"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/10-1-DAO%E4%B8%8E%E6%B2%BB%E7%90%86%E6%9C%BA%E5%88%B6.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-22</div><div class="info-item-2">DAO与治理机制</div></div><div class="info-2"><div class="info-item-1">DAO与治理机制去中心化自治组织的艺术系列十「DAO与治理机制」第1篇💡 你将学到：DAO基础、Token投票、Governor合约、Quadratic Funding、真实案例⏱ 阅读时间：约14分钟  DAO是什么？DAO（去中心化自治组织）是用代码治理的组织。没有CEO，没有董事会，所有规则写在智能合约里，重大决策由Token持有者投票决定。DAO的核心特征：   无中心化控制：规则由代码执行 Token持有者治理：1 token &#x3D; 1 vote（或加权） 公开透明：所有提案和投票链上可查 自动执行：投票通过后合约自动执行   DAO vs 传统公司传统公司靠法律合同约束，DAO靠智能合约约束。传统公司的”公司章程”是PDF文件，DAO的”公司章程”是代码。DAO vs 传统公司的关键区别：   准入：任何人持有Token即可参与 决策：链上投票取代董事会 执行：合约自动执行取代人工 透明度：所有操作公开透明   DAO的类型协议DAO：Uniswap、Compound，治理协议本身投资DAO：BitDAO、MetaCartel，DAO做VC投资社交DAO：F...</div></div></div></a><a class="pagination-related" href="/2026/05/10-2-%E6%B2%BB%E7%90%86%E6%9C%BA%E5%88%B6/" title="DAO治理机制"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/10-2-%E6%B2%BB%E7%90%86%E6%9C%BA%E5%88%B6.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-05-14</div><div class="info-item-2">DAO治理机制</div></div><div class="info-2"><div class="info-item-1">DAO治理机制Token投票与链上治理流程系列十「DAO与治理机制」第2篇💡 Token投票、委托机制、时间锁与提案流程⏱ 阅读时间：约12分钟  治理的核心问题：谁来决策？DAO的治理，本质上要回答三个问题：谁可以提案？谁可以投票？投票结果怎么执行？不同的设计对应不同的权衡。没有绝对正确的答案，只有适合协议的方案。 Token投票：最基础的治理方式Token投票是最直接的机制——持有治理Token的人拥有投票权。投票权重通常与持有数量成正比（1 Token &#x3D; 1 票）。MakerDAO：用MKR代币投票，MKR越多，话语权越大Uniswap：用UNI代币投票，任何UNI持有者都可以参与Compound：用COMP代币投票，借款人&#x2F;出借人按比例获得COMPToken投票的优点是简单、门槛低。但问题也很明显：大户（巨鲸）可以主导投票结果，去中心化程度存疑。 委托投票：降低参与门槛委托投票（Democratic Delegation）允许Token持有者把自己的投票权委托给其他人。被委托者通常是社区信任的成员，可以是开发者、研究者或社区KOL。委托投票的价值：...</div></div></div></a><a class="pagination-related" href="/2026/05/10-4-DAO%E7%9A%84%E9%92%B1%E8%A2%8B%E5%AD%90/" title="DAO的钱袋子"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/10-4-DAO%E7%9A%84%E9%92%B1%E8%A2%8B%E5%AD%90.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-05-12</div><div class="info-item-2">DAO的钱袋子</div></div><div class="info-2"><div class="info-item-1">DAO的钱袋子预算审批与多签安全系列十「DAO与治理机制」第4篇💡 多签钱包、预算审批链、资金透明度与链上实现⏱ 阅读时间：约12分钟  DAO国库到底是管什么？DAO国库（Treasure）是协议运作的”钱袋子”。它存放着Token授权、协议收入留存和战略资金。怎么管这笔钱，是治理里最敏感的话题——既要让团队有足够的钱可用，又要防止权力被滥用。说白了，国库管理要回答三个问题：谁来动钱、花多少、怎么监督。 多签钱包：最基础也是最重要的工具多签钱包（Multi-Sig Wallet）是最常见的国库管理工具。一笔转账需要多个私钥签名才能执行，这样即使一个签名者的私钥泄露，攻击者也无法单独转移资金。多签的核心参数：签名者数量 N，和通过门槛 M（M-of-N）。例如 3&#x2F;5 表示：5个签名者中，至少需要3人同意才能执行交易。以太坊上最流行的多签钱包是Safe（原Gnosis Safe），支持任意 M-of-N 配置。MakerDAO 用的是 5&#x2F;9 多签，Uniswap 社区用的是 4&#x2F;7。如果你想快速搭建一个多签合约，可以用OpenZeppelin的S...</div></div></div></a><a class="pagination-related" href="/2026/05/10-5-DAO%E6%A1%88%E4%BE%8B%E5%A4%8D%E7%9B%98/" title="DAO案例复盘"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/10-5-DAO%E6%A1%88%E4%BE%8B%E5%A4%8D%E7%9B%98.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-05-14</div><div class="info-item-2">DAO案例复盘</div></div><div class="info-2"><div class="info-item-1">DAO案例复盘从Maker到Uniswap的治理教训系列十「DAO与治理机制」第5篇（完结篇）💡 MakerDAO、Compound、Uniswap的真实治理实践与教训⏱ 阅读时间：约12分钟  为什么研究DAO案例很重要？DAO治理没有标准答案。每个协议都有自己的治理结构和问题。研究真实案例，可以学到治理设计的关键教训，也能理解DAO在实际运行中会遇到哪些挑战。 MakerDAO：最老牌的稳定币DAOMakerDAO是2017年就上线的去中心化稳定币协议，治理代币MKR。它的治理演进可以分为三个阶段：第一阶段（2017-2020）：治理权集中在少数早期参与者手里，决策效率高但去中心化程度低第二阶段（2020-2022）：推出治理委托，让更多MKR持有者参与决策第三阶段（2022-至今）：引入宪法修正案和治理参与激励，解决投票率低的问题MakerDAO最重要的教训是：稳定币协议的安全风险极高，任何治理失误都可能影响整个生态。他们把关键参数（如清算比率）设为需要较长投票期的敏感参数，防止快速变更——这个设计思路值得所有涉及金融参数的DAO借鉴。 Compound：从治理漏洞到教科...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By 区块链编程</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">本文由 <a href="https://renrenwudi.github.io">区块链编程</a> 发布 · 转载请注明出处</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/"></script><script src="/"></script><script src="/"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'RenRenWuDi/RenRenWuDi.github.io',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !true) {
+    if (true) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="/js/wechat-card.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

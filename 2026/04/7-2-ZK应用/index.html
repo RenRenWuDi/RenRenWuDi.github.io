@@ -1,0 +1,254 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>ZK应用 | 区块链编程</title><meta name="author" content="区块链编程"><meta name="copyright" content="区块链编程"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="ZK应用 - 技术文章">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ZK应用">
+<meta property="og:url" content="https://renrenwudi.github.io/2026/04/7-2-ZK%E5%BA%94%E7%94%A8/index.html">
+<meta property="og:site_name" content="区块链编程">
+<meta property="og:description" content="ZK应用 - 技术文章">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://renrenwudi.github.io/img/posts/7-2-ZK%E5%BA%94%E7%94%A8.jpg">
+<meta property="article:published_time" content="2026-04-06T03:39:50.000Z">
+<meta property="article:modified_time" content="2026-07-10T07:08:14.813Z">
+<meta property="article:author" content="区块链编程">
+<meta property="article:tag" content="ZK">
+<meta property="article:tag" content="零知识证明">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://renrenwudi.github.io/img/posts/7-2-ZK%E5%BA%94%E7%94%A8.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "ZK应用",
+  "url": "https://renrenwudi.github.io/2026/04/7-2-ZK%E5%BA%94%E7%94%A8/",
+  "image": "https://renrenwudi.github.io/img/posts/7-2-ZK%E5%BA%94%E7%94%A8.jpg",
+  "datePublished": "2026-04-06T03:39:50.000Z",
+  "dateModified": "2026-07-10T07:08:14.813Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "区块链编程",
+      "url": "https://renrenwudi.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://renrenwudi.github.io/2026/04/7-2-ZK%E5%BA%94%E7%94%A8/index.html"><link rel="preconnect"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="/"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#37c2fb')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: '/',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ZK应用',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-41F4NYXQZQ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-41F4NYXQZQ');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 8.1.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">55</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">60</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/posts/7-2-ZK%E5%BA%94%E7%94%A8.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">区块链编程</span></a><a class="nav-page-title" href="/"><span class="site-name">ZK应用</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">ZK应用</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-04-06T03:39:50.000Z" title="发表于 2026-04-06 11:39:50">2026-04-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-07-10T07:08:14.813Z" title="更新于 2026-07-10 15:08:14">2026-07-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E6%B2%BF%E6%8A%80%E6%9C%AF/">前沿技术</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>ZK应用<br>zkEVM、隐私交易与可验证计算<br>系列七「新兴协议与趋势」第2篇<br>💡 你将学到：zkEVM类型对比、隐私交易、链上ZK应用、可验证计算场景<br>⏱ 阅读时间：约13分钟</p>
+<ol>
+<li>ZK的世界正在扩张<br>零知识证明（ZK）在以太坊生态中的应用已经从L2扩容扩展到了更广阔的领域：zkEVM让以太坊原生支持ZK验证，隐私协议让链上交易无法追踪，可验证计算让链下计算可以被信任。<br>ZK不再只是Layer2的技术，它是整个Web3基础设施的重要组成部分。<br>ZK应用全景图：</li>
+</ol>
+<p>• L2扩容：zkSync、StarkNet、Polygon zkEVM<br>• zkEVM：以太坊原生的ZK验证<br>• 隐私交易：Aztec、zkmoney<br>• 可验证计算：Modulus Labs、Risc Zero<br>• 身份认证：Worldcoin、zkID<br>2. zkEVM的四种类<br>zkEVM是将EVM执行环境用零知识证明来验证的技术。根据与EVM的兼容程度，分为四种类型。<br>Type1（以太坊等效）：</p>
+<p>完全兼容以太坊，可以验证以太坊区块。包括官方Ethereum Foundation的zkEVM。兼容性最高，但证明生成最慢。</p>
+<p>Type2（EVM等效）：</p>
+<p>完全兼容EVM字节码，但修改了状态树和哈希函数。包括Scroll、PolygonzkEVM。兼容性高，证明速度中等。<br>Type3（近乎EVM兼容）：</p>
+<p>接近EVM兼容性，有少量不一致。包括Hermez、Ryder。牺牲部分兼容性换取证明速度。</p>
+<p>Type4（高级语言兼容）：</p>
+<p>只兼容Solidity源代码，编译成自定义ZK电路。包括zkSync Era、StarkNet。证明最快，但Solidity代码写法有差异。<br>3. zkEVM vs EVM：有什么区别？<br>从开发者角度看，Type1&#x2F;Type2的zkEVM和原生以太坊几乎没有区别——你写的Solidity代码可以直接运行。但底层发生了根本变化：每个区块都附带零知识证明，证明区块的正确性。<br>Type4的zkSync则不同：你用Solidity写代码，但代码会经过特殊的编译器编译成ZK电路，这要求开发者注意一些写法限制（比如动态数组的大小要固定）。<br>4. 隐私交易协议<br>以太坊上的交易都是公开的——任何人可以看到你的地址、转了多少钱、买了什么代币。这对于注重隐私的用户来说是不可接受的。<br>ZK隐私协议通过零知识证明，让你可以证明”我有足够的钱”，但不需要透露具体金额和交易对手。<br>Aztec Network<br>Aztec是以太坊上最成熟的隐私协议。它使用ZK-SNARK，让用户可以在完全私密的情况下进行转账和DeFi操作。<br>Aztec的隐私原理：</p>
+<p>• 用户资金存在Aztec的rollup合约中<br>• 每一笔交易都用ZK证明验证：发送方有足够余额<br>• 交易金额和地址都是加密的<br>• 只有持有查看密钥的人才能解密交易<br>Tornado Cash（已制裁）<br>Tornado Cash是以太坊上最早的隐私混币协议。用户将ETH存入一个池子，之后可以提取到任意地址。零知识证明确保了”存款”和”取款”之间无法被关联。<br>2022年8月，美国OFAC将Tornado Cash列入制裁名单，理由是被用于洗钱。这在加密社区引发了激烈争论：隐私工具本身是中立的，不能因为被滥用就制裁所有用户。<br>5. 可验证计算<br>可验证计算（Verifiable Computation）是ZK的另一大应用：你可以让第三方进行计算，然后把计算结果和ZK证明一起提交到链上，链上只需验证证明的正确性，不需要重新计算。<br>可验证计算的应用场景：</p>
+<p>• 链下机器学习（ZKML）：证明模型推理结果<br>• 去中心化存储验证：证明数据确实存在<br>• 游戏状态证明：链上验证链下游戏状态<br>• 身份认证：零知识证明你的信用分数<br>ZKML（ZK + 机器学习）<br>Modulus Labs是ZKML的先驱。他们用ZK证明来验证链下运行的机器学习模型推理结果。这为链上AI应用打开了大门——你不需要在链上重新跑模型，只需要验证证明。<br>ZKML的价值：</p>
+<p>• 链上无法运行大模型（太贵）<br>• ZK证明验证推理结果只需很少gas<br>• 可以做链上AI预测市场<br>• 模型参数可以保密<br>6. Worldcoin的ZK身份<br>Worldcoin用零知识证明来实现”人格证明”——证明你是真实的人类，但不透露你的具体身份。<br>用户用Orb扫描虹膜，得到一个唯一身份哈希。这个哈希是零知识的——系统可以验证你是唯一用户，但不知道你是谁。这解决了Web3中”女巫攻击”（一个人控制大量账户）的问题。<br>7. 总结</p>
+<p>①  ZK已从L2扩展到隐私、可验证计算、身份等多个领域<br>②  zkEVM分四类：Type1完全等效，Type4速度快<br>③  Aztec等隐私协议让链上交易不可追踪<br>④  可验证计算让链下计算可以被链上信任<br>⑤  ZKML是链上AI应用的基础设施<br>⑥  Worldcoin用ZK实现人格证明而不暴露身份<br>📖 下篇预告：模块化区块链——Celestia与数据可用性<br>模块化堆栈、数据可用性采样（DAS）、主权Rollup</p>
+<p>━━━━━━━━━━━━━━━━━━━━━<br>📢 本文由「区块链编程」原创出品<br>未经授权，禁止转载<br>如有转载需求，请联系作者<br>👉 关注「区块链编程」<br>关注我，解锁更多可能</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io">区块链编程</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io/2026/04/7-2-ZK%E5%BA%94%E7%94%A8/">https://renrenwudi.github.io/2026/04/7-2-ZK%E5%BA%94%E7%94%A8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://renrenwudi.github.io" target="_blank">区块链编程</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/ZK/">ZK</a><a class="post-meta__tags" href="/tags/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/">零知识证明</a></div><div class="post-share"><div class="social-share" data-image="/img/posts/7-2-ZK%E5%BA%94%E7%94%A8.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="/" media="print" onload="this.media='all'"><script src="/" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/04/7-3-%E6%A8%A1%E5%9D%97%E5%8C%96%E5%8C%BA%E5%9D%97%E9%93%BE/" title="模块化区块链"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/7-3-%E6%A8%A1%E5%9D%97%E5%8C%96%E5%8C%BA%E5%9D%97%E9%93%BE.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">模块化区块链</div></div><div class="info-2"><div class="info-item-1">模块化区块链Celestia与数据可用性革命系列七「新兴协议与趋势」第3篇💡 你将学到：模块化架构、Celestia DA、数据可用性采样DAS、主权Rollup⏱ 阅读时间：约12分钟  单体区块链的困境以太坊比特币这样的单体区块链，所有功能都放在一层：执行交易、验证共识、存储数据。这带来了一个不可能三角：去中心化、安全性、可扩展性，三者只能取其二。当以太坊上DeFi和NFT同时热闘时，所有交易都在争抢同一个执行空间，gas费飙升，用户体验急剧下降。单体区块链的问题：  • 所有交易争抢同一执行层• 数据可用性和执行绑在一起• 无法独立升级某个组件• 扩容只能在一条链上做文章2. 模块化架构的诞生模块化区块链的思路很简单：不再把所有功能放在一层，而是把”执行”、”共识”、”数据可用性”、”结算”分开，让每层专门做一件事。这就好比计算机的演进：从大型机到客户端-服务器再到微服务，每次分离都带来了性能和灵活性的飞跃。三层模块化架构执行层（Execution）：处理交易、执行智能合约。Rollup是执行层的代表。结算层（Settlement）：验证证明、解决争议。Ethereum是...</div></div></div></a><a class="pagination-related" href="/2026/04/7-1-ERC-4337%E8%B4%A6%E6%88%B7%E6%8A%BD%E8%B1%A1/" title="ERC-4337账户抽象"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/7-1-ERC-4337%E8%B4%A6%E6%88%B7%E6%8A%BD%E8%B1%A1.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">ERC-4337账户抽象</div></div><div class="info-2"><div class="info-item-1">ERC-4337账户抽象告别EOA，拥抱Smart Account系列七「新兴协议与趋势」第1篇💡 你将学到：EOA vs 合约账户、4337原理、UserOperation、Bundler、Smart Wallet⏱ 阅读时间：约13分钟  什么是EOA？目前以太坊有两种账户：EOA（外部拥有账户）和合约账户。EOA由私钥控制，可以发起交易；合约账户只能被动接收交易，无法主动发起。你的MetaMask钱包就是EOA。每次你签名一笔交易，就是用私钥对这个交易签名，然后发送到以太坊网络。EOA的特点：  • 由私钥控制• 可以发起任何交易• 无法自定义逻辑（比如多签）• 私钥丢失 &#x3D; 资产永久丢失• gas必须由EOA支付2. EOA的局限性EOA看起来简单，但这恰恰是它的限制。日常生活中很多场景，EOA根本支持不了。没有社交恢复：私钥丢了，资产就没了没有多签：一个私钥掌控一切无法批量执行：N笔交易需要N次签名没有会话密钥：每次操作都要钱包授权无法代付gas：想让朋友帮你付gas做不到3. 账户抽象的愿景账户抽象（Account Abstraction）的目标很简单：让...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/04/4-3-ZK-Rollup/" title="ZK Rollup"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/4-3-ZK-Rollup.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-06</div><div class="info-item-2">ZK Rollup</div></div><div class="info-2"><div class="info-item-1">ZK Rollup零知识证明的魔法系列四「Layer2与扩容技术」第3篇💡 你将学到：零知识证明、SNARK、STARK、zkSync、StarkNet⏱ 阅读时间：约13分钟  零知识证明入门零知识证明（Zero-Knowledge Proof）让你”证明”你知道某个答案，而不需要透露答案本身。零知识证明的三个特性：  • 完整性：如果陈述是真的，证明者总能说服验证者• 可靠性：如果陈述是假的，没有证明者能说服验证者• 零知识：验证者除了”是真的”之外，什么都不知道现实中的类比想象你在山洞里，山洞有两个入口A和B，里面有一扇需要密码才能打开的门。你告诉验证者：”我知道打开这扇门的密码”验证者随机喊：”从B入口进来！”你每次都能从正确的入口进入（因为你知道密码）验证者不知道密码是什么，只知道你会开门2. ZK Rollup vs OP RollupZK Rollup用数学证明替代欺诈证明，每个批次都附带证明。核心区别： • OP：乐观假设，只在挑战时验证• ZK：每个批次都附带数学证明• ZK不需要7天挑战期• ZK验证成本更低（证明验证比重新执行便宜）3. SNARK vs ...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By 区块链编程</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">本文由 <a href="https://renrenwudi.github.io">区块链编程</a> 发布 · 转载请注明出处</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/"></script><script src="/"></script><script src="/"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'RenRenWuDi/RenRenWuDi.github.io',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !true) {
+    if (true) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="/js/wechat-card.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

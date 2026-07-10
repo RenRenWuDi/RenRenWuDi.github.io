@@ -1,0 +1,255 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>借贷协议 | 区块链编程</title><meta name="author" content="区块链编程"><meta name="copyright" content="区块链编程"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="借贷协议 - 技术文章">
+<meta property="og:type" content="article">
+<meta property="og:title" content="借贷协议">
+<meta property="og:url" content="https://renrenwudi.github.io/2026/04/3-2-%E5%80%9F%E8%B4%B7%E5%8D%8F%E8%AE%AE/index.html">
+<meta property="og:site_name" content="区块链编程">
+<meta property="og:description" content="借贷协议 - 技术文章">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://renrenwudi.github.io/img/cover-default.svg">
+<meta property="article:published_time" content="2026-04-06T00:20:52.000Z">
+<meta property="article:modified_time" content="2026-07-10T07:08:14.509Z">
+<meta property="article:author" content="区块链编程">
+<meta property="article:tag" content="借贷">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://renrenwudi.github.io/img/cover-default.svg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "借贷协议",
+  "url": "https://renrenwudi.github.io/2026/04/3-2-%E5%80%9F%E8%B4%B7%E5%8D%8F%E8%AE%AE/",
+  "image": "https://renrenwudi.github.io/img/cover-default.svg",
+  "datePublished": "2026-04-06T00:20:52.000Z",
+  "dateModified": "2026-07-10T07:08:14.509Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "区块链编程",
+      "url": "https://renrenwudi.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://renrenwudi.github.io/2026/04/3-2-%E5%80%9F%E8%B4%B7%E5%8D%8F%E8%AE%AE/index.html"><link rel="preconnect"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="/"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#37c2fb')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: '/',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '借贷协议',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-41F4NYXQZQ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-41F4NYXQZQ');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 8.1.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">55</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">60</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/cover-default.svg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">区块链编程</span></a><a class="nav-page-title" href="/"><span class="site-name">借贷协议</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">借贷协议</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-04-06T00:20:52.000Z" title="发表于 2026-04-06 08:20:52">2026-04-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-07-10T07:08:14.509Z" title="更新于 2026-07-10 15:08:14">2026-07-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/DeFi%E5%8D%8F%E8%AE%AE/">DeFi协议</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">872</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>借贷协议<br>Compound的利率模型与抵押机制<br>系列三「DeFi原理与实战」第2篇<br>💡 你将学到：存款利率、贷款利率、流动性池、抵押机制、清算逻辑<br>⏱ 阅读时间：约15分钟</p>
+<ol>
+<li>什么是借贷协议？<br>借贷协议是DeFi的核心组成部分，允许用户存款赚利息，或抵押资产借款。<br>借贷协议 vs 传统银行：</li>
+</ol>
+<p>• 传统银行：中心化、需KYC、有地域限制<br>• 借贷协议：去中心化、无需许可、全球可用<br>• 利率由市场供需自动调节<br>• 抵押品自动清算<br>2. Compound的工作原理<br>Compound是以太坊上最流行的借贷协议之一。<br>核心机制：</p>
+<p>• 用户存款获得cToken（代表存款凭证）<br>• 存款产生利息，cToken价值增长<br>• 用户抵押存款借出其他资产<br>• 借款需要超额抵押<br>• 利率由利用率决定<br>利率模型<br>Compound使用基于利用率的利率模型：<br>存款利率 &#x3D; 基础利率 + 利用率 * 斜率<br>贷款利率 &#x3D; 存款利率 * (1 + 储备金率)</p>
+<p>利用率 &#x3D; 已借金额 &#x2F; 总存款金额<br>InterestModel.sol<br>function calculateInterest(uint256 utilization) internal pure returns (uint256) {<br>uint256 baseRate &#x3D; 2e18 &#x2F; 365 days;<br>uint256 slope1 &#x3D; 0.05e18 &#x2F; 365 days;<br>uint256 slope2 &#x3D; 0.4e18 &#x2F; 365 days;<br>if (utilization &lt;&#x3D; 0.5e18) {<br>return baseRate + utilization * 2 * slope1;<br>} else {<br>return baseRate + slope1 + (utilization - 0.5e18) * 2 * slope2;<br>}<br>}</p>
+<ol start="3">
+<li>cToken机制<br>cToken是Compound的存款凭证，持有cToken代表你在Compound中的存款份额。</li>
+<li>抵押借款流程<br>步骤1：存款（如存入1000 USDC，获得1000 cUSDC）<br>步骤2：开启抵押（启用cUSDC作为抵押品）<br>步骤3：借款（如借出500 USDC）<br>步骤4：归还借款+利息<br>步骤5：取回抵押品<br>抵押率与清算<br>清算阈值：</li>
+</ol>
+<p>• 每个资产有不同的抵押因子（50%-90%）<br>• 清算发生在 抵押品价值&#x2F;借款价值  清算阈值<br>• 清算人可以用折扣价格偿还债务并获得抵押品<br>• 保护协议不产生坏账<br>5. 完整借贷合约示例<br>SimpleLending.sol<br>contract SimpleLending {<br>mapping(address &#x3D; uint256) public deposits;<br>mapping(address &#x3D; uint256) public borrows;<br>uint256 public totalDeposits;<br>uint256 public totalBorrows;<br>function deposit() external payable {<br>deposits[msg.sender] +&#x3D; msg.value;<br>totalDeposits +&#x3D; msg.value;<br>}<br>function borrow(uint256 amount) external {<br>require(deposits[msg.sender]  0);<br>uint256 maxBorrow &#x3D; deposits[msg.sender] * 75 &#x2F; 100;<br>require(amount &#x3D; maxBorrow);<br>borrows[msg.sender] +&#x3D; amount;<br>totalBorrows +&#x3D; amount;<br>payable(msg.sender).transfer(amount);<br>}<br>function repay() external payable {<br>require(borrows[msg.sender]  0);<br>require(msg.value &#x3D; borrows[msg.sender]);<br>totalBorrows -&#x3D; borrows[msg.sender];<br>borrows[msg.sender] &#x3D; 0;<br>}<br>}</p>
+<ol start="6">
+<li>闪电贷（Flash Loan）<br>闪电贷是一种无需抵押品的即时贷款，必须在同一交易内归还。<br>闪电贷用途：</li>
+</ol>
+<p>• 套利：低价买入、高价卖出<br>• 抵押品交换：用一种资产换另一种<br>• 债务重组：即时平仓并开新仓<br>• 风险：如果交易失败，贷款自动撤销<br>7. 总结</p>
+<p>①  借贷协议让存款获得利息，抵押资产获得流动性<br>②  利率由市场供需自动调节，利用率越高利率越高<br>③  cToken代表存款份额，价值随利息增长<br>④  超额抵押+清算机制保护协议安全<br>⑤  闪电贷无需抵押品，但必须在同一交易内归还<br>⑥  Compound是借贷协议的行业标杆<br>📖 下篇预告：稳定币——USDC、DAI与算法稳定币<br>法币抵押型、加密资产抵押型、算法稳定币的区别</p>
+<p>━━━━━━━━━━━━━━━━━━━━━<br>📢 本文由「区块链编程」原创出品<br>未经授权，禁止转载<br>如有转载需求，请联系作者<br>👉 关注「区块链编程」<br>关注我，解锁更多可能</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io">区块链编程</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io/2026/04/3-2-%E5%80%9F%E8%B4%B7%E5%8D%8F%E8%AE%AE/">https://renrenwudi.github.io/2026/04/3-2-%E5%80%9F%E8%B4%B7%E5%8D%8F%E8%AE%AE/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://renrenwudi.github.io" target="_blank">区块链编程</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%80%9F%E8%B4%B7/">借贷</a></div><div class="post-share"><div class="social-share" data-image="/img/cover-default.svg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="/" media="print" onload="this.media='all'"><script src="/" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/04/3-3-%E7%A8%B3%E5%AE%9A%E5%B8%81/" title="稳定币"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/3-3-%E7%A8%B3%E5%AE%9A%E5%B8%81.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">稳定币</div></div><div class="info-2"><div class="info-item-1">稳定币USDC、DAI与算法稳定币系列三「DeFi原理与实战」第3篇💡 你将学到：稳定币类型、USDC&#x2F;DAI机制、抵押率、算法稳定币风险⏱ 阅读时间：约12分钟  什么是稳定币？稳定币是一种与美元、欧元等法定货币挂钩的加密货币，其价格保持相对稳定。为什么需要稳定币？  • 加密货币波动大，不适合日常支付• 法币难以直接与DeFi交互• 交易所计价需要稳定资产• 避险：牛市中锁定利润2. 稳定币的三种类型法币抵押型（USDC、USDT）—— 1:1美元储备加密资产抵押型（DAI）—— 超额抵押ETH等资产算法稳定币（UST、Frax）—— 无抵押，靠算法维持3. USDC：法币抵押型USDC由Circle发行，每发行1枚USDC，就有1美元储备。USDC机制： • 中心化发行：Circle公司• 1:1美元储备，定期审计• 铸造&#x2F;销毁需要KYC• 透明度高，但依赖中心化主体合约示例USDC.solcontract USDC {string public name &#x3D; “USD Coin”;string public symbol &#x3D; “U...</div></div></div></a><a class="pagination-related" href="/2026/04/3-1-AMM%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E4%BA%A4%E6%98%93/" title="AMM去中心化交易"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/3-1-AMM%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E4%BA%A4%E6%98%93.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">AMM去中心化交易</div></div><div class="info-2"><div class="info-item-1">AMM去中心化交易Uniswap原理与自动做市商算法系列三「DeFi原理与实战」第1篇💡 你将学到：AMM原理、恒定乘积算法、流动性挖矿、滑点与无常损失⏱ 阅读时间：约15分钟  什么是AMM？AMM（Automated Market Maker，自动做市商）是去中心化交易所的核心技术。它用算法替代了传统的订单簿和做市商。AMM vs 传统交易所：  • 传统交易所：订单簿撮合，买卖双方价格匹配• AMM：流动性池，交易对手是算法• 无需挂单，随时可交易• 价格由算法自动确定2. 恒定乘积算法（x*y&#x3D;k）Uniswap最核心的算法是恒定乘积公式：x * y &#x3D; k • x &#x3D; 池中代币A的数量• y &#x3D; 池中代币B的数量• k &#x3D; 恒定值（交易前后不变） 价格 &#x3D; y&#x2F;x（边际价格）交易计算示例AMM.jsconst x &#x3D; 10000;  &#x2F;&#x2F; USDT数量const y &#x3D; 10;     &#x2F;&#x2F; ETH数量const k &#x3D; x * ...</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By 区块链编程</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">本文由 <a href="https://renrenwudi.github.io">区块链编程</a> 发布 · 转载请注明出处</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/"></script><script src="/"></script><script src="/"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'RenRenWuDi/RenRenWuDi.github.io',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !true) {
+    if (true) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="/js/wechat-card.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

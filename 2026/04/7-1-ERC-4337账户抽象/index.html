@@ -1,0 +1,255 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>ERC-4337账户抽象 | 区块链编程</title><meta name="author" content="区块链编程"><meta name="copyright" content="区块链编程"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="ERC-4337账户抽象 - 技术文章">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ERC-4337账户抽象">
+<meta property="og:url" content="https://renrenwudi.github.io/2026/04/7-1-ERC-4337%E8%B4%A6%E6%88%B7%E6%8A%BD%E8%B1%A1/index.html">
+<meta property="og:site_name" content="区块链编程">
+<meta property="og:description" content="ERC-4337账户抽象 - 技术文章">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://renrenwudi.github.io/img/posts/7-1-ERC-4337%E8%B4%A6%E6%88%B7%E6%8A%BD%E8%B1%A1.jpg">
+<meta property="article:published_time" content="2026-04-06T03:38:35.000Z">
+<meta property="article:modified_time" content="2026-07-10T07:08:14.792Z">
+<meta property="article:author" content="区块链编程">
+<meta property="article:tag" content="ERC-4337">
+<meta property="article:tag" content="账户抽象">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://renrenwudi.github.io/img/posts/7-1-ERC-4337%E8%B4%A6%E6%88%B7%E6%8A%BD%E8%B1%A1.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "ERC-4337账户抽象",
+  "url": "https://renrenwudi.github.io/2026/04/7-1-ERC-4337%E8%B4%A6%E6%88%B7%E6%8A%BD%E8%B1%A1/",
+  "image": "https://renrenwudi.github.io/img/posts/7-1-ERC-4337%E8%B4%A6%E6%88%B7%E6%8A%BD%E8%B1%A1.jpg",
+  "datePublished": "2026-04-06T03:38:35.000Z",
+  "dateModified": "2026-07-10T07:08:14.792Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "区块链编程",
+      "url": "https://renrenwudi.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://renrenwudi.github.io/2026/04/7-1-ERC-4337%E8%B4%A6%E6%88%B7%E6%8A%BD%E8%B1%A1/index.html"><link rel="preconnect"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="/"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#37c2fb')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: '/',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ERC-4337账户抽象',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-41F4NYXQZQ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-41F4NYXQZQ');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 8.1.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">55</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">60</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/posts/7-1-ERC-4337%E8%B4%A6%E6%88%B7%E6%8A%BD%E8%B1%A1.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">区块链编程</span></a><a class="nav-page-title" href="/"><span class="site-name">ERC-4337账户抽象</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">ERC-4337账户抽象</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-04-06T03:38:35.000Z" title="发表于 2026-04-06 11:38:35">2026-04-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-07-10T07:08:14.792Z" title="更新于 2026-07-10 15:08:14">2026-07-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E6%B2%BF%E6%8A%80%E6%9C%AF/">前沿技术</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>ERC-4337账户抽象<br>告别EOA，拥抱Smart Account<br>系列七「新兴协议与趋势」第1篇<br>💡 你将学到：EOA vs 合约账户、4337原理、UserOperation、Bundler、Smart Wallet<br>⏱ 阅读时间：约13分钟</p>
+<ol>
+<li>什么是EOA？<br>目前以太坊有两种账户：EOA（外部拥有账户）和合约账户。EOA由私钥控制，可以发起交易；合约账户只能被动接收交易，无法主动发起。<br>你的MetaMask钱包就是EOA。每次你签名一笔交易，就是用私钥对这个交易签名，然后发送到以太坊网络。<br>EOA的特点：</li>
+</ol>
+<p>• 由私钥控制<br>• 可以发起任何交易<br>• 无法自定义逻辑（比如多签）<br>• 私钥丢失 &#x3D; 资产永久丢失<br>• gas必须由EOA支付<br>2. EOA的局限性<br>EOA看起来简单，但这恰恰是它的限制。日常生活中很多场景，EOA根本支持不了。<br>没有社交恢复：私钥丢了，资产就没了<br>没有多签：一个私钥掌控一切<br>无法批量执行：N笔交易需要N次签名<br>没有会话密钥：每次操作都要钱包授权<br>无法代付gas：想让朋友帮你付gas做不到<br>3. 账户抽象的愿景<br>账户抽象（Account Abstraction）的目标很简单：让合约账户可以像EOA一样发起交易，从而获得完全的灵活性。<br>理想情况下，你的账户可以是一个智能合约——它可以设定复杂的验证规则（多签、社交恢复），支持代付gas，甚至可以设置会话密钥让游戏自动操作而无需每次授权。<br>账户抽象可以实现：</p>
+<p>• 社交恢复：用备用密钥或信任的朋友恢复账户<br>• 多签钱包：一个操作需要多人签名<br>• 批量交易：一次签名执行多个操作<br>• 无密码认证：用WebAuthn等替代私钥<br>• 第三方代付gas：应用程序帮用户付gas<br>4. ERC-4337是什么？<br>ERC-4337是以太坊的账户抽象标准，它在不改变以太坊共识层的情况下，实现了合约账户发起交易的能力。<br>这是关键：ERC-4337不需要以太坊硬分叉，它通过在应用层引入新的”用户操作”（UserOperation）来实现账户抽象。<br>ERC-4337的核心组件<br>UserOperation（用户操作）：用户的操作意图，不走传统交易<br>EntryPoint（入口点）：一个全局合约，负责验证和执行UserOperation<br>Bundler（捆绑器）：将UserOperation打包并发送到EntryPoint<br>Smart Account（智能账户）：用户的合约钱包<br>Paymaster（支付大师）：第三方代付gas<br>5. ERC-4337工作流程<br>ERC4337Flow.js<br>&#x2F;&#x2F; ERC-4337完整流程<br>&#x2F;&#x2F; 1. 用户构造UserOperation（操作意图）<br>const userOp &#x3D; {<br>sender: walletAddress,<br>nonce: await getNonce(walletAddress),<br>initCode: initCode,<br>callData: encodeFunctionCall(…),<br>callGasLimit: 200000,<br>verificationGasLimit: 100000,<br>preVerificationGas: 21000,<br>maxFeePerGas: 1000000000,<br>paymasterAndData: “0x”<br>];<br>&#x2F;&#x2F; 2. Bundler收集UserOperation，提交到EntryPoint<br>&#x2F;&#x2F; 3. EntryPoint验证UserOperation（调用wallet.validateUserOp）<br>&#x2F;&#x2F; 4. EntryPoint执行UserOperation（调用wallet.execute）<br>&#x2F;&#x2F; 5. 如果用了Paymaster，EntryPoint向Paymaster取回gas费</p>
+<ol start="6">
+<li><p>Smart Wallet合约示例<br>SmartWallet.sol<br>&#x2F;&#x2F; SPDX-License-Identifier: MIT<br>pragma solidity ^0.8.20;<br>import “@openzeppelin&#x2F;contracts&#x2F;interfaces&#x2F;IEntryPoint.sol”;<br>contract SmartWallet {<br>IEntryPoint public entryPoint;<br>address public owner;<br>constructor(IEntryPoint _entryPoint, address _owner) {<br>entryPoint &#x3D; _entryPoint;<br>owner &#x3D; _owner;<br>}<br>function validateUserOp(UserOperation calldata op, bytes32, uint256 missingAccountFunds)<br>external returns (uint256 validationData)<br>{<br>require(msg.sender &#x3D;&#x3D; address(entryPoint));<br>bytes32 hash &#x3D; op.getHash();<br>if (op.signature.length &#x3D;&#x3D; 65) {<br>&#x2F;&#x2F; 验证签名<br>if (recover(hash, op.signature) &#x3D;&#x3D; owner) {<br>return 0;  &#x2F;&#x2F; 验证通过<br>}<br>}<br>return 1;  &#x2F;&#x2F; 验证失败<br>}<br>function execute(bytes32, bytes calldata) external payable {<br>require(msg.sender &#x3D;&#x3D; address(entryPoint));<br>}<br>}</p>
+</li>
+<li><p>已有ERC-4337应用<br>Argent Wallet：支持社交恢复的智能钱包<br>Soul Wallet：ERC-4337原生钱包<br>Stackr：链上游戏账户抽象基础设施<br>Visa：已测试用ERC-4337实现自动支付</p>
+</li>
+<li><p>ERC-4337 vs EIP-2938<br>EIP-2938是另一种账户抽象方案，需要修改以太坊共识层（硬分叉）。由于实施难度大，ERC-4337成为主流方案。<br>两者区别：</p>
+</li>
+</ol>
+<p>• EIP-2938：修改以太坊核心，需要硬分叉<br>• ERC-4337：纯应用层，不动共识层，通过EntryPoint实现<br>• ERC-4337更灵活，不需要全网共识<br>• 但ERC-4337 gas消耗比EIP-2938略高<br>9. 总结</p>
+<p>①  EOA由私钥控制，无法自定义逻辑<br>②  账户抽象让合约账户也能发起交易<br>③  ERC-4337通过UserOperation实现，无需硬分叉<br>④  EntryPoint是ERC-4337的核心合约<br>⑤  Paymaster实现了第三方代付gas<br>⑥  ERC-4337将改变普通用户使用以太坊的方式<br>📖 下篇预告：ZK应用——zkEVM、隐私交易、可验证计算<br>zkEVM类型对比、Aztec隐私交易、链上可验证计算</p>
+<p>━━━━━━━━━━━━━━━━━━━━━<br>📢 本文由「区块链编程」原创出品<br>未经授权，禁止转载<br>如有转载需求，请联系作者<br>👉 关注「区块链编程」<br>关注我，解锁更多可能</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io">区块链编程</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io/2026/04/7-1-ERC-4337%E8%B4%A6%E6%88%B7%E6%8A%BD%E8%B1%A1/">https://renrenwudi.github.io/2026/04/7-1-ERC-4337%E8%B4%A6%E6%88%B7%E6%8A%BD%E8%B1%A1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://renrenwudi.github.io" target="_blank">区块链编程</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%B4%A6%E6%88%B7%E6%8A%BD%E8%B1%A1/">账户抽象</a><a class="post-meta__tags" href="/tags/ERC-4337/">ERC-4337</a></div><div class="post-share"><div class="social-share" data-image="/img/posts/7-1-ERC-4337%E8%B4%A6%E6%88%B7%E6%8A%BD%E8%B1%A1.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="/" media="print" onload="this.media='all'"><script src="/" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/04/7-2-ZK%E5%BA%94%E7%94%A8/" title="ZK应用"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/7-2-ZK%E5%BA%94%E7%94%A8.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">ZK应用</div></div><div class="info-2"><div class="info-item-1">ZK应用zkEVM、隐私交易与可验证计算系列七「新兴协议与趋势」第2篇💡 你将学到：zkEVM类型对比、隐私交易、链上ZK应用、可验证计算场景⏱ 阅读时间：约13分钟  ZK的世界正在扩张零知识证明（ZK）在以太坊生态中的应用已经从L2扩容扩展到了更广阔的领域：zkEVM让以太坊原生支持ZK验证，隐私协议让链上交易无法追踪，可验证计算让链下计算可以被信任。ZK不再只是Layer2的技术，它是整个Web3基础设施的重要组成部分。ZK应用全景图：  • L2扩容：zkSync、StarkNet、Polygon zkEVM• zkEVM：以太坊原生的ZK验证• 隐私交易：Aztec、zkmoney• 可验证计算：Modulus Labs、Risc Zero• 身份认证：Worldcoin、zkID2. zkEVM的四种类zkEVM是将EVM执行环境用零知识证明来验证的技术。根据与EVM的兼容程度，分为四种类型。Type1（以太坊等效）： 完全兼容以太坊，可以验证以太坊区块。包括官方Ethereum Foundation的zkEVM。兼容性最高，但证明生成最慢。 Type2（EVM等效...</div></div></div></a><a class="pagination-related" href="/2026/04/6-5-%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/" title="智能合约安全工具"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/6-5-%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">智能合约安全工具</div></div><div class="info-2"><div class="info-item-1">智能合约安全工具Slither、Certora、Mythril实战系列六「智能合约安全攻防」第5篇（完结篇）💡 你将学到：Slither静态分析、Mythril符号执行、Certora形式化验证、安全审计流程⏱ 阅读时间：约13分钟  为什么需要安全工具？智能合约一旦部署就无法修改，任何bug都可能导致资金损失。传统代码可以打补丁升级，但合约不行——上线前的安全审计至关重要。自动化安全工具可以在几秒钟内扫描整个合约代码库，发现常见漏洞。它们不能替代专业审计，但可以大幅减少低级错误。安全审计的层次：  自动化工具扫描（CI&#x2F;CD集成）  人工代码审计  第三方专业审计公司  Bug Bounty（漏洞赏金）   自动化工具是第一道防线，也是成本最低的。2. Slither（Trail of Bits）Slither是以太坊生态最流行的静态分析工具，由Trail of Bits开发。它用Python编写，基于Solidity编译器的中间表示（IR），分析精确度高。安装与运行Terminal命令pip install slither-analyzerslither .  #...</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By 区块链编程</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">本文由 <a href="https://renrenwudi.github.io">区块链编程</a> 发布 · 转载请注明出处</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/"></script><script src="/"></script><script src="/"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'RenRenWuDi/RenRenWuDi.github.io',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !true) {
+    if (true) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="/js/wechat-card.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

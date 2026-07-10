@@ -1,0 +1,285 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>ethers.js | 区块链编程</title><meta name="author" content="区块链编程"><meta name="copyright" content="区块链编程"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="ethers.js - 技术文章">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ethers.js">
+<meta property="og:url" content="https://renrenwudi.github.io/2026/04/5-2-ethers.js/index.html">
+<meta property="og:site_name" content="区块链编程">
+<meta property="og:description" content="ethers.js - 技术文章">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://renrenwudi.github.io/img/posts/5-2-ethers.js.jpg">
+<meta property="article:published_time" content="2026-04-06T02:44:20.000Z">
+<meta property="article:modified_time" content="2026-07-10T07:08:14.669Z">
+<meta property="article:author" content="区块链编程">
+<meta property="article:tag" content="ethers.js">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://renrenwudi.github.io/img/posts/5-2-ethers.js.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "ethers.js",
+  "url": "https://renrenwudi.github.io/2026/04/5-2-ethers.js/",
+  "image": "https://renrenwudi.github.io/img/posts/5-2-ethers.js.jpg",
+  "datePublished": "2026-04-06T02:44:20.000Z",
+  "dateModified": "2026-07-10T07:08:14.669Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "区块链编程",
+      "url": "https://renrenwudi.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://renrenwudi.github.io/2026/04/5-2-ethers.js/index.html"><link rel="preconnect"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="/"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#37c2fb')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: '/',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ethers.js',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-41F4NYXQZQ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-41F4NYXQZQ');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 8.1.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">55</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">60</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/posts/5-2-ethers.js.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">区块链编程</span></a><a class="nav-page-title" href="/"><span class="site-name">ethers.js</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">ethers.js</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-04-06T02:44:20.000Z" title="发表于 2026-04-06 10:44:20">2026-04-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-07-10T07:08:14.669Z" title="更新于 2026-07-10 15:08:14">2026-07-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">934</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>ethers.js<br>前端与合约交互<br>系列五「Web3实战与工具」第2篇<br>💡 你将学到：Provider、Signer、Contract、读取&#x2F;写入合约、事件监听<br>⏱ 阅读时间：约13分钟</p>
+<ol>
+<li>ethers.js是什么？<br>ethers.js是以太坊开发中最流行的JavaScript库，比Web3.js更轻量、更灵活。<br>ethers.js核心概念：</li>
+</ol>
+<p>• Provider：连接区块链的网关（只读）<br>• Signer：签名交易的人（有私钥）<br>• Contract：合约的JavaScript表示<br>安装<br>Terminal命令<br>npm install ethers</p>
+<ol start="2">
+<li>Provider（只读）<br>Provider让你连接区块链读取数据，不需要签名。<br>Provider.js<br>const { ethers } &#x3D; require(‘ethers’);</li>
+</ol>
+<p>&#x2F;&#x2F; 连接公共RPC（免费，无限速）<br>const provider &#x3D; new ethers.JsonRpcProvider(‘<a target="_blank" rel="noopener" href="https://eth.llamarpc.com/">https://eth.llamarpc.com</a>‘);</p>
+<p>&#x2F;&#x2F; 连接Infura<br>const infuraProvider &#x3D; new ethers.JsonRpcProvider(‘<a target="_blank" rel="noopener" href="https://mainnet.infura.io/v3/YOUR_KEY">https://mainnet.infura.io/v3/YOUR_KEY</a>‘);</p>
+<p>&#x2F;&#x2F; 获取最新区块号<br>const blockNumber &#x3D; await provider.getBlockNumber();<br>console.log(‘Current block:’, blockNumber);</p>
+<p>&#x2F;&#x2F; 获取ETH余额<br>const balance &#x3D; await provider.getBalance(‘0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045’);<br>console.log(‘Balance:’, ethers.formatEther(balance), ‘ETH’);</p>
+<ol start="3">
+<li>Signer（签名）<br>Signer可以签名交易，只有在用户授权钱包后才存在。<br>Signer.js<br>const { ethers } &#x3D; require(‘ethers’);</li>
+</ol>
+<p>&#x2F;&#x2F; 从私钥创建Signer（仅用于后端）<br>const wallet &#x3D; new ethers.Wallet(‘0xYourPrivateKey’, provider);<br>console.log(‘Wallet address:’, wallet.address);</p>
+<p>&#x2F;&#x2F; 获取Signer的余额<br>const balance &#x3D; await wallet.provider.getBalance(wallet.address);<br>console.log(‘Balance:’, ethers.formatEther(balance), ‘ETH’);</p>
+<ol start="4">
+<li>Contract（合约）<br>Contract对象是合约的JavaScript表示，可以用它调用合约的函数。<br>ReadContract.js<br>&#x2F;&#x2F; 合约ABI（从Hardhat artifacts获取）<br>const abi &#x3D; [<br>‘function greet() view returns (string)’,<br>‘function setGreeting(string)’,<br>‘event GreetingChanged(address setter, string newGreeting)’<br>];</li>
+</ol>
+<p>&#x2F;&#x2F; 创建只读合约（读取数据）<br>const roContract &#x3D; new ethers.Contract(<br>‘0x合约地址’,<br>abi,<br>provider<br>);</p>
+<p>&#x2F;&#x2F; 读取greet()<br>const greeting &#x3D; await roContract.greet();<br>console.log(‘Greeting:’, greeting);</p>
+<ol start="5">
+<li>写入合约（发送交易）<br>写入合约需要Signer，Gas费由用户支付。<br>WriteContract.js<br>&#x2F;&#x2F; 创建可写合约（需要Signer）<br>const rwContract &#x3D; new ethers.Contract(<br>‘0x合约地址’,<br>abi,<br>signer  &#x2F;&#x2F; 这里传Signer，不是Provider<br>);</li>
+</ol>
+<p>&#x2F;&#x2F; 调用setGreeting()，发送交易<br>const tx &#x3D; await rwContract.setGreeting(‘Hello, Web3!’);<br>console.log(‘Transaction hash:’, tx.hash);</p>
+<p>&#x2F;&#x2F; 等待交易确认<br>const receipt &#x3D; await tx.wait();<br>console.log(‘Confirmed in block:’, receipt.blockNumber);</p>
+<ol start="6">
+<li><p>处理交易结果<br>TxFlow.js<br>&#x2F;&#x2F; 完整的交易流程<br>async function setGreeting(newGreeting) {<br>const contract &#x3D; new ethers.Contract(ADDR, ABI, signer);<br>try {<br>const tx &#x3D; await contract.setGreeting(newGreeting);<br>console.log(‘TX sent:’, tx.hash);<br>const receipt &#x3D; await tx.wait(1);  &#x2F;&#x2F; 等待1个区块确认<br>console.log(‘Confirmed! Gas used:’, receipt.gasUsed.toString());<br>return true;<br>} catch (err) {<br>console.error(‘Error:’, err.reason || err.message);<br>return false;<br>}<br>}</p>
+</li>
+<li><p>监听合约事件<br>合约事件（Event）是区块链上的日志，可以用来监听状态变化。<br>EventListener.js<br>&#x2F;&#x2F; 监听GreetingChanged事件<br>contract.on(‘GreetingChanged’, (setter, newGreeting) &#x3D;&gt; {<br>console.log(‘Greeting changed!’);<br>console.log(‘Setter:’, setter);<br>console.log(‘New greeting:’, newGreeting);<br>});</p>
+</li>
+</ol>
+<p>&#x2F;&#x2F; 监听所有事件（过滤器）<br>contract.on(‘*’, (event) &#x3D;&gt; {<br>console.log(‘Event:’, event.eventName);<br>});</p>
+<p>&#x2F;&#x2F; 只监听一次<br>contract.once(‘GreetingChanged’, (setter, newGreeting) &#x3D;&gt; {<br>console.log(‘First change:’, newGreeting);<br>});</p>
+<ol start="8">
+<li>BigNumber处理<br>以太坊使用256位整数，JavaScript的Number精度不够，必须用BigNumber。<br>BigNumber.js<br>const { ethers } &#x3D; require(‘ethers’);</li>
+</ol>
+<p>&#x2F;&#x2F; 所有数字都是BigNumber<br>const balance &#x3D; await provider.getBalance(‘0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045’);</p>
+<p>&#x2F;&#x2F; formatEther转换ETH单位<br>console.log(ethers.formatEther(balance));  &#x2F;&#x2F; ‘1.234567890123456789’</p>
+<p>&#x2F;&#x2F; parseEther转换Wei<br>const oneEth &#x3D; ethers.parseEther(‘1.0’);  &#x2F;&#x2F; BigNumber<br>console.log(oneEth.toString());  &#x2F;&#x2F; ‘1000000000000000000’</p>
+<p>&#x2F;&#x2F; parseUnits（其他精度，如USDC的6位小数）<br>const usdc &#x3D; ethers.parseUnits(‘100’, 6);  &#x2F;&#x2F; 100 USDC</p>
+<ol start="9">
+<li>ethers.js vs Web3.js<br>ethers.js更轻量：约300KB vs Web3.js约1MB<br>ethers.jsAPI更清晰：Provider&#x2F;Signer分离<br>ethers.js是当前主流选择</li>
+<li>总结</li>
+</ol>
+<p>①  Provider连接区块链读取数据，Signer签名交易<br>②  Contract是合约的JavaScript表示<br>③  只读函数用Provider，可写函数用Signer<br>④  tx.wait()等待交易确认<br>⑤  contract.on()监听合约事件<br>⑥  始终用BigNumber处理数字<br>📖 下篇预告：前端DApp开发——钱包连接与合约调用<br>Web3Modal、Ethers.js、React DApp开发</p>
+<p>━━━━━━━━━━━━━━━━━━━━━<br>📢 本文由「区块链编程」原创出品<br>未经授权，禁止转载<br>如有转载需求，请联系作者<br>👉 关注「区块链编程」<br>关注我，解锁更多可能</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io">区块链编程</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io/2026/04/5-2-ethers.js/">https://renrenwudi.github.io/2026/04/5-2-ethers.js/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://renrenwudi.github.io" target="_blank">区块链编程</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/ethers-js/">ethers.js</a></div><div class="post-share"><div class="social-share" data-image="/img/posts/5-2-ethers.js.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="/" media="print" onload="this.media='all'"><script src="/" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/04/5-4-The-Graph/" title="The Graph"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/5-4-The-Graph.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">The Graph</div></div><div class="info-2"><div class="info-item-1">The Graph区块链数据索引协议系列五「Web3实战与工具」第4篇💡 你将学到：Subgraph开发、GraphQL查询、链上事件索引、数据持久化⏱ 阅读时间：约14分钟  区块链数据查询的问题区块链的数据查询是个老大难问题。想象一下：你想查某个地址所有的转账记录，怎么查？如果直接调用以太坊节点，你需要扫描整个区块链日志，几十GB的数据，查询一次可能需要几分钟甚至更久。而且不同的应用都要重复做同样的事，资源浪费严重。直接查询区块链的问题：  • 速度慢：全量扫描数据量大• 费用高：每次查询都要消耗节点资源• 重复劳动：每个DApp都要自己处理• 数据结构不友好：日志和事件难以直接用2. The Graph是什么？The Graph是一个去中心化的数据索引协议，专门解决”链上数据查询难”这个问题。它的作用类似于区块链的Google，让你可以快速、高效地查询链上数据。The Graph通过Subgraph（子图）来组织数据。开发者定义一个Subgraph，指定要索引哪些合约的哪些事件，The Graph会自动监控区块链，把数据整理好，开发者只需要用GraphQL查询就行。The...</div></div></div></a><a class="pagination-related" href="/2026/04/5-1-Hardhat%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" title="Hardhat开发环境"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/5-1-Hardhat%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Hardhat开发环境</div></div><div class="info-2"><div class="info-item-1">Hardhat开发环境智能合约开发神器系列五「Web3实战与工具」第1篇💡 你将学到：Hardhat安装、合约编译、本地测试、部署到测试网⏱ 阅读时间：约15分钟  为什么选择Hardhat？Hardhat是以太坊开发中最流行的开发框架。相比Truffle，它更现代、更灵活、调试体验更好。Hardhat核心优势：  • 内置Solidity调试器（console.log）• 本地测试网络（Hardhat Network）• 插件生态系统丰富• TypeScript原生支持2. 安装与初始化Terminal命令mkdir my-hardhat-project &amp;&amp; cd my-hardhat-projectnpm init -ynpm install –save-dev hardhatnpx hardhat init 项目结构Project Structure.shmy-hardhat-project&#x2F;├── contracts&#x2F;           # 智能合约│   └── Greeter.sol├── scripts&#x2F;     ...</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By 区块链编程</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">本文由 <a href="https://renrenwudi.github.io">区块链编程</a> 发布 · 转载请注明出处</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/"></script><script src="/"></script><script src="/"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'RenRenWuDi/RenRenWuDi.github.io',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !true) {
+    if (true) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="/js/wechat-card.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

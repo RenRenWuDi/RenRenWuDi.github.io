@@ -1,0 +1,261 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>ZK Rollup | 区块链编程</title><meta name="author" content="区块链编程"><meta name="copyright" content="区块链编程"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="ZK Rollup - 技术文章">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ZK Rollup">
+<meta property="og:url" content="https://renrenwudi.github.io/2026/04/4-3-ZK-Rollup/index.html">
+<meta property="og:site_name" content="区块链编程">
+<meta property="og:description" content="ZK Rollup - 技术文章">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://renrenwudi.github.io/img/posts/4-3-ZK-Rollup.jpg">
+<meta property="article:published_time" content="2026-04-06T02:31:24.000Z">
+<meta property="article:modified_time" content="2026-07-10T07:08:14.617Z">
+<meta property="article:author" content="区块链编程">
+<meta property="article:tag" content="Layer2">
+<meta property="article:tag" content="Rollup">
+<meta property="article:tag" content="ZK">
+<meta property="article:tag" content="零知识证明">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://renrenwudi.github.io/img/posts/4-3-ZK-Rollup.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "ZK Rollup",
+  "url": "https://renrenwudi.github.io/2026/04/4-3-ZK-Rollup/",
+  "image": "https://renrenwudi.github.io/img/posts/4-3-ZK-Rollup.jpg",
+  "datePublished": "2026-04-06T02:31:24.000Z",
+  "dateModified": "2026-07-10T07:08:14.617Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "区块链编程",
+      "url": "https://renrenwudi.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://renrenwudi.github.io/2026/04/4-3-ZK-Rollup/index.html"><link rel="preconnect"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="/"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#37c2fb')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: '/',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ZK Rollup',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-41F4NYXQZQ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-41F4NYXQZQ');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 8.1.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">55</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">60</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/posts/4-3-ZK-Rollup.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">区块链编程</span></a><a class="nav-page-title" href="/"><span class="site-name">ZK Rollup</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">ZK Rollup</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-04-06T02:31:24.000Z" title="发表于 2026-04-06 10:31:24">2026-04-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-07-10T07:08:14.617Z" title="更新于 2026-07-10 15:08:14">2026-07-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Layer2%E6%89%A9%E5%B1%95/">Layer2扩展</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">995</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>ZK Rollup<br>零知识证明的魔法<br>系列四「Layer2与扩容技术」第3篇<br>💡 你将学到：零知识证明、SNARK、STARK、zkSync、StarkNet<br>⏱ 阅读时间：约13分钟</p>
+<ol>
+<li>零知识证明入门<br>零知识证明（Zero-Knowledge Proof）让你”证明”你知道某个答案，而不需要透露答案本身。<br>零知识证明的三个特性：</li>
+</ol>
+<p>• 完整性：如果陈述是真的，证明者总能说服验证者<br>• 可靠性：如果陈述是假的，没有证明者能说服验证者<br>• 零知识：验证者除了”是真的”之外，什么都不知道<br>现实中的类比<br>想象你在山洞里，山洞有两个入口A和B，里面有一扇需要密码才能打开的门。<br>你告诉验证者：”我知道打开这扇门的密码”<br>验证者随机喊：”从B入口进来！”<br>你每次都能从正确的入口进入（因为你知道密码）<br>验证者不知道密码是什么，只知道你会开门<br>2. ZK Rollup vs OP Rollup<br>ZK Rollup用数学证明替代欺诈证明，每个批次都附带证明。<br>核心区别：</p>
+<p>• OP：乐观假设，只在挑战时验证<br>• ZK：每个批次都附带数学证明<br>• ZK不需要7天挑战期<br>• ZK验证成本更低（证明验证比重新执行便宜）<br>3. SNARK vs STARK<br>SNARK（Succinct Non-Interactive ARguments of Knowledge）：<br>证明小、验证快、需要可信设置<br>STARK（Scalable Transparent ARguments of Knowledge）：<br>无需可信设置、抗量子、证明更大<br>SNARK工作原理<br>SNARK.js<br>&#x2F;&#x2F; SNARK证明流程<br>&#x2F;&#x2F; Prover（证明者）：执行计算，生成证明<br>const proof &#x3D; snarkjs.groth16.fullProve(input, circuit, provingKey);<br>&#x2F;&#x2F; Verifier（验证者）：验证证明<br>const isValid &#x3D; snarkjs.groth16.isValid(vk, proof, publicSignals);<br>&#x2F;&#x2F; vk &#x3D; 验证密钥，公开可用</p>
+<ol start="4">
+<li><p>ZK Rollup的工作流程<br>步骤1：Sequencer收集L2交易<br>步骤2：执行交易，计算新状态<br>步骤3：生成状态转换证明（ZKP）<br>步骤4：提交批次 + 证明到L1<br>步骤5：L1合约验证证明，即时确认<br>为什么ZK比OP快确认？<br>Comparison.js<br>&#x2F;&#x2F; OP vs ZK确认时间对比<br>&#x2F;&#x2F; Optimistic Rollup：<br>&#x2F;&#x2F; 批次发布 -&gt; 7天挑战期 -&gt; 最终确认<br>&#x2F;&#x2F; ZK Rollup：<br>&#x2F;&#x2F; 批次发布 + ZKP -&gt; L1验证 -&gt; 即时确认</p>
+</li>
+<li><p>主要ZK Rollup项目<br>zkSync Era<br>zkSync特点：</p>
+</li>
+</ol>
+<p>• EVM兼容（用LLVM编译）<br>• 账户抽象原生支持<br>• 原生NFT支持<br>• 2023年3月主网上线<br>StarkNet<br>StarkNet特点：</p>
+<p>• 使用STARK（非SNARK）<br>• Cairo语言编写智能合约<br>• 开发者工具成熟<br>• 2022年主网上线<br>Polygon zkEVM<br>Polygon zkEVM特点：</p>
+<p>• 字节码级兼容EVM<br>• 兼容以太坊工具链<br>• 用SNARK验证STARK（效率优化）<br>6. ZK Rollup合约示例<br>ZkRollupBridge.sol<br>contract ZkRollupBridge {<br>uint256 public constant STATE_ROOT_TIMEOUT &#x3D; 7 days;<br>mapping(uint256 &#x3D;&gt; bytes32) public stateRoots;<br>mapping(uint256 &#x3D;&gt; bytes32) public pendingStateRoots;<br>mapping(bytes32 &#x3D;&gt; bool) public verifiedProofs;<br>event BlockVerified(uint256 indexed blockNum, bytes32 stateRoot);<br>function submitBlock(uint256 blockNum, bytes32 newStateRoot, bytes calldata proof) external {<br>pendingStateRoots[blockNum] &#x3D; newStateRoot;<br>&#x2F;&#x2F; 验证ZKP证明<br>require(verifyProof(blockNum, newStateRoot, proof), “Invalid proof”);<br>stateRoots[blockNum] &#x3D; newStateRoot;<br>verifiedProofs[keccak256(abi.encode(blockNum, newStateRoot, proof))] &#x3D; true;<br>emit BlockVerified(blockNum, newStateRoot);<br>}<br>}</p>
+<ol start="7">
+<li>ZK Rollup的挑战<br>ZK Rollup面临的问题：</li>
+</ol>
+<p>• 生成证明需要大量计算资源<br>• EVM兼容性困难（需要电路编译器）<br>• 证明生成时间较长（几分钟）<br>• 开发工具不如OP成熟<br>递归证明<br>通过递归证明，多个批次可以聚合成一个证明，进一步降低成本。<br>8. 总结</p>
+<p>①  零知识证明让你证明知道答案，而不透露答案本身<br>②  ZK Rollup每个批次附带数学证明，无需7天等待<br>③  SNARK证明小但需可信设置，STARK无需可信设置<br>④  zkSync和StarkNet是最主要的ZK Rollup<br>⑤  ZK Rollup计算成本高，但验证成本低<br>⑥  ZK是L2的长期发展方向<br>📖 下篇预告：跨链桥——资产跨链的原理与风险<br>跨链机制、跨链攻击、Multichain事件</p>
+<p>━━━━━━━━━━━━━━━━━━━━━<br>📢 本文由「区块链编程」原创出品<br>未经授权，禁止转载<br>如有转载需求，请联系作者<br>👉 关注「区块链编程」<br>关注我，解锁更多可能</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io">区块链编程</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io/2026/04/4-3-ZK-Rollup/">https://renrenwudi.github.io/2026/04/4-3-ZK-Rollup/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://renrenwudi.github.io" target="_blank">区块链编程</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Rollup/">Rollup</a><a class="post-meta__tags" href="/tags/Layer2/">Layer2</a><a class="post-meta__tags" href="/tags/ZK/">ZK</a><a class="post-meta__tags" href="/tags/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/">零知识证明</a></div><div class="post-share"><div class="social-share" data-image="/img/posts/4-3-ZK-Rollup.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="/" media="print" onload="this.media='all'"><script src="/" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/04/4-4-%E8%B7%A8%E9%93%BE%E6%A1%A5/" title="跨链桥"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/4-4-%E8%B7%A8%E9%93%BE%E6%A1%A5.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">跨链桥</div></div><div class="info-2"><div class="info-item-1">跨链桥资产跨链的原理与风险系列四「Layer2与扩容技术」第4篇（完结篇）💡 你将学到：跨链机制、原生跨链、锁定+铸造、跨链攻击类型⏱ 阅读时间：约12分钟  什么是跨链桥？跨链桥（Bridge）连接不同的区块链，让资产可以在链之间转移。没有桥，ETH只能在以太坊上用，USDC只能在以太坊上转账。跨链桥解决的问题：  • ETH转账到Arbitrum（Layer2）• BTC包装成WBTC在以太坊使用• USDC从以太坊跨到Solana• 各链资产互通2. 跨链的三种方式原生跨链：BTC直接跨（由特定协议支持）锁定+铸造（Lock + Mint）：销毁原链资产，在目标链铸造新资产流动性Swap：存入A链换取B链的等价资产锁定+铸造流程LockAndMint.js&#x2F;&#x2F; 锁定+铸造跨链流程&#x2F;&#x2F; 链A（以太坊）bridgeA.lock(user, amount);  &#x2F;&#x2F; 锁定ETH&#x2F;&#x2F; 链B（Arbitrum）bridgeB.mint(user, amount);  &#x2F;&#x2F; 铸造等量E...</div></div></div></a><a class="pagination-related" href="/2026/04/4-2-Optimistic-Rollup/" title="Optimistic Rollup"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-default.svg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Optimistic Rollup</div></div><div class="info-2"><div class="info-item-1">Optimistic Rollup欺诈证明与7天挑战期系列四「Layer2与扩容技术」第2篇💡 你将学到：欺诈证明机制、Sequencer、7天提款延迟、ARB&#x2F;OP代币⏱ 阅读时间：约12分钟  Optimistic Rollup核心思想Optimistic Rollup（乐观 Rollup）假设所有交易都是诚实，只有在有人挑战时才验证。Optimistic的核心假设：  • 默认：Sequencer发布的批次都是正确的• 如果有人发现错误，可以提交欺诈证明• 挑战期（通常7天）内可以提交证明• 错误批次被撤销，作恶者被惩罚2. Rollup节点架构Sequencer（定序器）：收集交易、生成批次、提交到L1Validator（验证者）：监控Sequencer，可以提交欺诈证明Full Node（全节点）：存储完整状态，验证状态转换Sequencer的作用Sequencer.js&#x2F;&#x2F; Sequencer工作流程&#x2F;&#x2F; 1. 收集用户的L2交易&#x2F;&#x2F; 2. 按顺序执行交易&#x2F;&#x2F; 3. 计算新状态...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/04/7-2-ZK%E5%BA%94%E7%94%A8/" title="ZK应用"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/7-2-ZK%E5%BA%94%E7%94%A8.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-06</div><div class="info-item-2">ZK应用</div></div><div class="info-2"><div class="info-item-1">ZK应用zkEVM、隐私交易与可验证计算系列七「新兴协议与趋势」第2篇💡 你将学到：zkEVM类型对比、隐私交易、链上ZK应用、可验证计算场景⏱ 阅读时间：约13分钟  ZK的世界正在扩张零知识证明（ZK）在以太坊生态中的应用已经从L2扩容扩展到了更广阔的领域：zkEVM让以太坊原生支持ZK验证，隐私协议让链上交易无法追踪，可验证计算让链下计算可以被信任。ZK不再只是Layer2的技术，它是整个Web3基础设施的重要组成部分。ZK应用全景图：  • L2扩容：zkSync、StarkNet、Polygon zkEVM• zkEVM：以太坊原生的ZK验证• 隐私交易：Aztec、zkmoney• 可验证计算：Modulus Labs、Risc Zero• 身份认证：Worldcoin、zkID2. zkEVM的四种类zkEVM是将EVM执行环境用零知识证明来验证的技术。根据与EVM的兼容程度，分为四种类型。Type1（以太坊等效）： 完全兼容以太坊，可以验证以太坊区块。包括官方Ethereum Foundation的zkEVM。兼容性最高，但证明生成最慢。 Type2（EVM等效...</div></div></div></a><a class="pagination-related" href="/2026/04/4-1-Rollup%E5%85%A5%E9%97%A8/" title="Rollup入门"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/4-1-Rollup%E5%85%A5%E9%97%A8.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-06</div><div class="info-item-2">Rollup入门</div></div><div class="info-2"><div class="info-item-1">Rollup入门L2的终极扩容方案系列四「Layer2与扩容技术」第1篇💡 你将学到：以太坊扩容问题、Layer2概念、Rollup原理、OP vs ZK对比⏱ 阅读时间：约12分钟  以太坊扩容问题以太坊主网（TPS约15笔&#x2F;秒）远远不够用。每次热门NFT铸造gas费飙升，DeFi交易滑点巨大。以太坊扩容的三难困境（Trilemma）：  • 去中心化：节点数量多• 安全性：共识机制健壮• 可扩展性：处理速度快 三者不可兼得，必须做取舍2. Layer2是什么？Layer2（L2）是建立在Layer1之上的扩展解决方案，在L2处理交易，只把最终结果提交到L1。Layer2核心思想： • 交易在L2批量处理• 只有状态根（证明）提交到L1• 继承L1安全性• 吞吐量提升100倍+Layer1 vs Layer2对比L1（以太坊主网）：去中心化、安全、但慢且贵L2（Arbitrum&#x2F;Optimism）：快、便宜、继承安全性3. Rollup核心原理Rollup是最主流的L2方案。核心是把大量交易”卷起来”提交到L1。Rollup的关键创新： • 在L2执行交易...</div></div></div></a><a class="pagination-related" href="/2026/04/4-2-Optimistic-Rollup/" title="Optimistic Rollup"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-default.svg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-06</div><div class="info-item-2">Optimistic Rollup</div></div><div class="info-2"><div class="info-item-1">Optimistic Rollup欺诈证明与7天挑战期系列四「Layer2与扩容技术」第2篇💡 你将学到：欺诈证明机制、Sequencer、7天提款延迟、ARB&#x2F;OP代币⏱ 阅读时间：约12分钟  Optimistic Rollup核心思想Optimistic Rollup（乐观 Rollup）假设所有交易都是诚实，只有在有人挑战时才验证。Optimistic的核心假设：  • 默认：Sequencer发布的批次都是正确的• 如果有人发现错误，可以提交欺诈证明• 挑战期（通常7天）内可以提交证明• 错误批次被撤销，作恶者被惩罚2. Rollup节点架构Sequencer（定序器）：收集交易、生成批次、提交到L1Validator（验证者）：监控Sequencer，可以提交欺诈证明Full Node（全节点）：存储完整状态，验证状态转换Sequencer的作用Sequencer.js&#x2F;&#x2F; Sequencer工作流程&#x2F;&#x2F; 1. 收集用户的L2交易&#x2F;&#x2F; 2. 按顺序执行交易&#x2F;&#x2F; 3. 计算新状态...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By 区块链编程</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">本文由 <a href="https://renrenwudi.github.io">区块链编程</a> 发布 · 转载请注明出处</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/"></script><script src="/"></script><script src="/"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'RenRenWuDi/RenRenWuDi.github.io',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !true) {
+    if (true) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="/js/wechat-card.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

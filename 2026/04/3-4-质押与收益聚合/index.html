@@ -1,0 +1,257 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>质押与收益聚合 | 区块链编程</title><meta name="author" content="区块链编程"><meta name="copyright" content="区块链编程"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="质押与收益聚合 - 技术文章">
+<meta property="og:type" content="article">
+<meta property="og:title" content="质押与收益聚合">
+<meta property="og:url" content="https://renrenwudi.github.io/2026/04/3-4-%E8%B4%A8%E6%8A%BC%E4%B8%8E%E6%94%B6%E7%9B%8A%E8%81%9A%E5%90%88/index.html">
+<meta property="og:site_name" content="区块链编程">
+<meta property="og:description" content="质押与收益聚合 - 技术文章">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://renrenwudi.github.io/img/posts/3-4-%E8%B4%A8%E6%8A%BC%E4%B8%8E%E6%94%B6%E7%9B%8A%E8%81%9A%E5%90%88.jpg">
+<meta property="article:published_time" content="2026-04-06T02:17:39.000Z">
+<meta property="article:modified_time" content="2026-07-10T07:08:14.541Z">
+<meta property="article:author" content="区块链编程">
+<meta property="article:tag" content="Staking">
+<meta property="article:tag" content="质押">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://renrenwudi.github.io/img/posts/3-4-%E8%B4%A8%E6%8A%BC%E4%B8%8E%E6%94%B6%E7%9B%8A%E8%81%9A%E5%90%88.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "质押与收益聚合",
+  "url": "https://renrenwudi.github.io/2026/04/3-4-%E8%B4%A8%E6%8A%BC%E4%B8%8E%E6%94%B6%E7%9B%8A%E8%81%9A%E5%90%88/",
+  "image": "https://renrenwudi.github.io/img/posts/3-4-%E8%B4%A8%E6%8A%BC%E4%B8%8E%E6%94%B6%E7%9B%8A%E8%81%9A%E5%90%88.jpg",
+  "datePublished": "2026-04-06T02:17:39.000Z",
+  "dateModified": "2026-07-10T07:08:14.541Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "区块链编程",
+      "url": "https://renrenwudi.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://renrenwudi.github.io/2026/04/3-4-%E8%B4%A8%E6%8A%BC%E4%B8%8E%E6%94%B6%E7%9B%8A%E8%81%9A%E5%90%88/index.html"><link rel="preconnect"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="/"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#37c2fb')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: '/',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '质押与收益聚合',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-41F4NYXQZQ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-41F4NYXQZQ');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 8.1.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">55</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">60</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/posts/3-4-%E8%B4%A8%E6%8A%BC%E4%B8%8E%E6%94%B6%E7%9B%8A%E8%81%9A%E5%90%88.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">区块链编程</span></a><a class="nav-page-title" href="/"><span class="site-name">质押与收益聚合</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">质押与收益聚合</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-04-06T02:17:39.000Z" title="发表于 2026-04-06 10:17:39">2026-04-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-07-10T07:08:14.541Z" title="更新于 2026-07-10 15:08:14">2026-07-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/DeFi%E5%8D%8F%E8%AE%AE/">DeFi协议</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">799</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>2分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>质押与收益聚合<br>Yearn的收益策略与Vault机制<br>系列三「DeFi原理与实战」第4篇<br>💡 你将学到：收益聚合原理、Yearn Vaults、自动策略、APY计算<br>⏱ 阅读时间：约12分钟</p>
+<ol>
+<li>什么是收益聚合器？<br>收益聚合器（Yield Aggregator）自动帮用户找到DeFi中最高的收益，并将资金自动复利投资。<br>为什么需要收益聚合器？</li>
+</ol>
+<p>• DeFi协议众多，收益率随时变化<br>• 手动切换需要频繁操作，Gas费高<br>• 收益聚合器自动帮用户”打组合拳”<br>• 小资金也能享受机构级收益策略<br>2. Yearn Finance是什么？<br>Yearn是以太坊上最知名的收益聚合协议，由Andre Cronje创建。<br>Yearn的核心：</p>
+<p>• 自动将资金分配到最高收益的协议<br>• 收益自动复利（Compound&#x2F;Aave存入）<br>• 定期调整策略适应市场变化<br>• 用户只需存款，自动获得收益<br>3. Vault（机枪池）机制<br>Yearn的Vault是自动策略执行器，用户存入资产，Yearn自动操作。<br>策略切换<br>Strategy.js<br>&#x2F;&#x2F; Yearn定期评估各协议收益<br>const strategies &#x3D; [<br>{ protocol: Compound, apy: 3.2 },<br>{ protocol: Aave, apy: 2.8 },<br>{ protocol: Curve, apy: 4.5 },<br>{ protocol: Yearn Vault, apy: 5.1 }<br>];<br>&#x2F;&#x2F; 自动切换到最高收益的策略</p>
+<ol start="4">
+<li>APY vs APR<br>收益通常用APR或APY表示，两者区别很大。<br>APR（年化收益率）：</li>
+</ol>
+<p>单利计算，不考虑复利<br>1000美元，年利率5%，一年后&#x3D;1050美元</p>
+<p>APY（有效年化收益率）：</p>
+<p>复利计算<br>1000美元，月复利5%&#x2F;12，12个月后&#x3D;1051.16美元<br>5. 完整Vault合约示例<br>SimpleVault.sol<br>contract SimpleVault {<br>address public token;  &#x2F;&#x2F; 存款代币<br>uint256 public totalAssets;<br>mapping(address &#x3D; uint256) public shares;<br>mapping(address &#x3D; uint256) public lastReport;<br>uint256 public constant managementFee &#x3D; 500;  &#x2F;&#x2F; 2%管理费<br>function deposit(uint256 amount) external {<br>uint256 shares_ &#x3D; amount;  &#x2F;&#x2F; 简化：1:1<br>shares[msg.sender] +&#x3D; shares_;<br>totalAssets +&#x3D; amount;<br>IERC20(token).transferFrom(msg.sender, address(this), amount);<br>}<br>function withdraw(uint256 shares_) external {<br>uint256 amount &#x3D; shares_;<br>shares[msg.sender] -&#x3D; shares_;<br>totalAssets -&#x3D; amount;<br>IERC20(token).transfer(msg.sender, amount);<br>}<br>function harvest() external {<br>&#x2F;&#x2F; 调用策略获取收益<br>&#x2F;&#x2F; 收益自动复利<br>}<br>}</p>
+<ol start="6">
+<li>收益聚合生态<br>Yearn Finance：最早的收益聚合器，多策略Vaults<br>Beefy Finance：多链收益聚合器<br>Lido Finance：ETH 2.0质押服务<br>Convex Finance：Curve收益增强</li>
+<li>收益聚合的风险<br>收益聚合的风险：</li>
+</ol>
+<p>• 智能合约风险：Yearn代码可能被攻击<br>• 无常损失：如果策略包含AMM池<br>• 策略失败：自动切换到亏损策略<br>• 流动性风险：大量赎回时可能延迟<br>8. 总结</p>
+<p>①  收益聚合器自动帮用户找到最高收益并复利<br>②  Yearn Vaults是最知名的机枪池产品<br>③  APY考虑复利，比APR更准确<br>④  策略会自动切换到最高收益协议<br>⑤  收益聚合有智能合约、无常损失等风险<br>⑥  选择收益聚合器要考虑安全性和历史收益<br>📖 下篇预告：预言机——Chainlink的数据喂价机制<br>去中心化数据源、Keeper自动化、链上链下数据桥接</p>
+<p>━━━━━━━━━━━━━━━━━━━━━<br>📢 本文由「区块链编程」原创出品<br>未经授权，禁止转载<br>如有转载需求，请联系作者<br>👉 关注「区块链编程」<br>关注我，解锁更多可能</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io">区块链编程</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io/2026/04/3-4-%E8%B4%A8%E6%8A%BC%E4%B8%8E%E6%94%B6%E7%9B%8A%E8%81%9A%E5%90%88/">https://renrenwudi.github.io/2026/04/3-4-%E8%B4%A8%E6%8A%BC%E4%B8%8E%E6%94%B6%E7%9B%8A%E8%81%9A%E5%90%88/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://renrenwudi.github.io" target="_blank">区块链编程</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%B4%A8%E6%8A%BC/">质押</a><a class="post-meta__tags" href="/tags/Staking/">Staking</a></div><div class="post-share"><div class="social-share" data-image="/img/posts/3-4-%E8%B4%A8%E6%8A%BC%E4%B8%8E%E6%94%B6%E7%9B%8A%E8%81%9A%E5%90%88.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="/" media="print" onload="this.media='all'"><script src="/" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/04/3-5-%E9%A2%84%E8%A8%80%E6%9C%BA/" title="预言机"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/3-5-%E9%A2%84%E8%A8%80%E6%9C%BA.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">预言机</div></div><div class="info-2"><div class="info-item-1">预言机Chainlink的数据喂价机制系列三「DeFi原理与实战」第5篇（完结篇）💡 你将学到：预言机原理、Chainlink、去中心化数据源、数据安全问题⏱ 阅读时间：约12分钟  什么是预言机？区块链是确定性的——同样的输入永远产生同样的输出。但DeFi需要知道真实世界的数据，如ETH&#x2F;USD价格。预言机（Oracle）的作用：  • 将链外数据引入区块链• 提供价格、天气、体育比分等外部信息• 区块链无法直接访问互联网• 预言机是DeFi的基础设施2. 预言机问题预言机引入了一个根本矛盾：去中心化区块链如何信任中心化的数据源？单点预言机的问题： • 数据源单一，容易被操纵• 服务器宕机导致数据不可用• 恶意数据源可能提供错误价格• 2021年BSC被攻击：预言机被操纵，损失5600万美元3. Chainlink去中心化方案Chainlink是区块链预言机领域的领导者，通过去中心化解决单点故障问题。Chainlink核心机制： • 数据聚合：多个数据源计算中位数• 节点运营商：全球分布式的独立节点• 信誉系统：基于历史表现评分• 加密传输：数据不被篡改POC（数据...</div></div></div></a><a class="pagination-related" href="/2026/04/3-3-%E7%A8%B3%E5%AE%9A%E5%B8%81/" title="稳定币"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/3-3-%E7%A8%B3%E5%AE%9A%E5%B8%81.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">稳定币</div></div><div class="info-2"><div class="info-item-1">稳定币USDC、DAI与算法稳定币系列三「DeFi原理与实战」第3篇💡 你将学到：稳定币类型、USDC&#x2F;DAI机制、抵押率、算法稳定币风险⏱ 阅读时间：约12分钟  什么是稳定币？稳定币是一种与美元、欧元等法定货币挂钩的加密货币，其价格保持相对稳定。为什么需要稳定币？  • 加密货币波动大，不适合日常支付• 法币难以直接与DeFi交互• 交易所计价需要稳定资产• 避险：牛市中锁定利润2. 稳定币的三种类型法币抵押型（USDC、USDT）—— 1:1美元储备加密资产抵押型（DAI）—— 超额抵押ETH等资产算法稳定币（UST、Frax）—— 无抵押，靠算法维持3. USDC：法币抵押型USDC由Circle发行，每发行1枚USDC，就有1美元储备。USDC机制： • 中心化发行：Circle公司• 1:1美元储备，定期审计• 铸造&#x2F;销毁需要KYC• 透明度高，但依赖中心化主体合约示例USDC.solcontract USDC {string public name &#x3D; “USD Coin”;string public symbol &#x3D; “U...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/06/11-5-BTC%E8%B4%A8%E6%8A%BC%E8%AF%81%E6%98%8E%E8%B7%A8%E9%93%BE%E9%AA%8C%E8%AF%81/" title="BTC质押证明跨链验证"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/11-5-BTC%E8%B4%A8%E6%8A%BC%E8%AF%81%E6%98%8E%E8%B7%A8%E9%93%BE%E9%AA%8C%E8%AF%81.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-30</div><div class="info-item-2">BTC质押证明跨链验证</div></div><div class="info-2"><div class="info-item-1">BTC质押证明跨链验证从BTC链到以太坊：完整验证流程系列十一「BTCFi与Restaking」第5篇（完结篇）💡 SPV轻节点集成、Cosmos Tendermint中继、Babylon经济模型核心参数⏱ 阅读时间：约12分钟  为什么跨链验证是BTCFi最难的部分？BTCFi的每一环都涉及技术挑战，但要说到最难的一环，非”跨链验证”莫属。比特币没有智能合约，不能主动把质押信息”推送”给以太坊或Cosmos。以太坊和Cosmos也无法”主动拉取”比特币链上数据——因为比特币节点不会响应外部查询请求。跨链验证要解决的核心问题是：如何在不信任任何单一中继者的情况下，让目标链相信”这笔BTC质押确实存在”？这个问题的答案，决定了BTCFi的去中心化程度。  中继器的角色与分类中继器（Relayer）是跨链验证的核心组件，负责把比特币链上的事件”搬运”到目标链。中继器分两类：乐观中继中继器把BTC交易数据报给目标链，目标链的合约默认相信这个数据是正确的。但给出一个”挑战窗口”（通常6个BTC区块，约1小时）——在这个窗口内，任何人都可以提交”欺诈证明”，证明中继器数据是错的。乐观模型...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By 区块链编程</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">本文由 <a href="https://renrenwudi.github.io">区块链编程</a> 发布 · 转载请注明出处</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/"></script><script src="/"></script><script src="/"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'RenRenWuDi/RenRenWuDi.github.io',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !true) {
+    if (true) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="/js/wechat-card.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

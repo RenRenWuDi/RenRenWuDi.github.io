@@ -1,0 +1,294 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>合约结构与继承 | 区块链编程</title><meta name="author" content="区块链编程"><meta name="copyright" content="区块链编程"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="合约结构与继承 - 技术文章">
+<meta property="og:type" content="article">
+<meta property="og:title" content="合约结构与继承">
+<meta property="og:url" content="https://renrenwudi.github.io/2026/04/2-2-%E5%90%88%E7%BA%A6%E7%BB%93%E6%9E%84%E4%B8%8E%E7%BB%A7%E6%89%BF/index.html">
+<meta property="og:site_name" content="区块链编程">
+<meta property="og:description" content="合约结构与继承 - 技术文章">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://renrenwudi.github.io/img/cover-default.svg">
+<meta property="article:published_time" content="2026-04-04T07:55:58.000Z">
+<meta property="article:modified_time" content="2026-07-10T07:08:14.379Z">
+<meta property="article:author" content="区块链编程">
+<meta property="article:tag" content="区块链">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://renrenwudi.github.io/img/cover-default.svg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "合约结构与继承",
+  "url": "https://renrenwudi.github.io/2026/04/2-2-%E5%90%88%E7%BA%A6%E7%BB%93%E6%9E%84%E4%B8%8E%E7%BB%A7%E6%89%BF/",
+  "image": "https://renrenwudi.github.io/img/cover-default.svg",
+  "datePublished": "2026-04-04T07:55:58.000Z",
+  "dateModified": "2026-07-10T07:08:14.379Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "区块链编程",
+      "url": "https://renrenwudi.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://renrenwudi.github.io/2026/04/2-2-%E5%90%88%E7%BA%A6%E7%BB%93%E6%9E%84%E4%B8%8E%E7%BB%A7%E6%89%BF/index.html"><link rel="preconnect"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="/"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#37c2fb')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: '/',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '合约结构与继承',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-41F4NYXQZQ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-41F4NYXQZQ');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 8.1.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">55</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">60</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/cover-default.svg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">区块链编程</span></a><a class="nav-page-title" href="/"><span class="site-name">合约结构与继承</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">合约结构与继承</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-04-04T07:55:58.000Z" title="发表于 2026-04-04 15:55:58">2026-04-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-07-10T07:08:14.379Z" title="更新于 2026-07-10 15:08:14">2026-07-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Solidity%E5%BC%80%E5%8F%91/">Solidity开发</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>合约结构与继承<br>合约定义、继承、接口、库<br>系列二「Solidity智能合约开发」第2篇<br>💡 你将学到：合约结构、继承机制、抽象合约、接口、库的使用<br>⏱ 阅读时间：约15分钟</p>
+<ol>
+<li>合约的基本结构<br>一个完整的Solidity合约包含以下部分：<br>Inheritance.sol<br>&#x2F;&#x2F; SPDX-License-Identifier: MIT<br>pragma solidity ^0.8.0;</li>
+</ol>
+<p>&#x2F;&#x2F; 导入其他合约<br>import “.&#x2F;OtherContract.sol”;</p>
+<p>&#x2F;&#x2F; 合约定义<br>contract MyContract {<br>&#x2F;&#x2F; 1. 状态变量<br>uint256 public value;<br>address public owner;</p>
+<p>&#x2F;&#x2F; 2. 事件<br>event ValueChanged(uint256 newValue);</p>
+<p>&#x2F;&#x2F; 3. 修饰器<br>modifier onlyOwner() {<br>require(msg.sender &#x3D;&#x3D; owner, “Not owner”);<br>_;  &#x2F;&#x2F; 执行被修饰的函数<br>}</p>
+<p>&#x2F;&#x2F; 4. 构造函数<br>constructor(uint256 _initialValue) {<br>value &#x3D; _initialValue;<br>owner &#x3D; msg.sender;<br>}</p>
+<p>&#x2F;&#x2F; 5. 函数<br>function setValue(uint256 _value) public onlyOwner {<br>value &#x3D; _value;<br>emit ValueChanged(_value);<br>}<br>}</p>
+<p>各部分说明<br>SPDX-License-Identifier：开源许可证<br>pragma：指定编译器版本<br>import：导入其他文件<br>状态变量：永久存储在区块链上<br>事件：记录日志，前端可监听<br>修饰器：复用代码逻辑<br>构造函数：部署时执行一次<br>2. 合约继承<br>Solidity支持单继承和多继承（通过线性化实现）。<br>基本继承语法<br>Inheritance.sol<br>&#x2F;&#x2F; 父合约<br>contract Animal {<br>string public name;</p>
+<p>constructor(string memory _name) {<br>name &#x3D; _name;<br>}</p>
+<p>function speak() public virtual returns (string memory) {<br>return “…”;<br>}<br>}</p>
+<p>&#x2F;&#x2F; 子合约继承父合约<br>contract Dog is Animal {<br>constructor(string memory _name) Animal(_name) {}</p>
+<p>function speak() public pure override returns (string memory) {<br>return “Woof!”;<br>}<br>}</p>
+<p>继承要点：</p>
+<p>• is 关键字表示继承<br>• 子合约可以访问父合约的public&#x2F;internal成员<br>• virtual：父合约函数可被重写<br>• override：子合约重写父合约函数<br>• 构造函数需要显式调用父合约构造函数<br>多继承<br>Inheritance.sol<br>contract A { function foo() public virtual {} }<br>contract B { function foo() public virtual {} }</p>
+<p>&#x2F;&#x2F; 多继承：按从右到左顺序线性化<br>contract C is A, B {<br>function foo() public override(A, B) {}<br>}</p>
+<p>💡 C3线性化：Solidity使用Python的C3算法解决多继承顺序。最基类放在最右边。<br>调用父合约函数<br>Inheritance.sol<br>contract Base {<br>function foo() public virtual returns (string memory) {<br>return “Base”;<br>}<br>}</p>
+<p>contract Derived is Base {<br>function foo() public override returns (string memory) {<br>&#x2F;&#x2F; 调用父合约函数<br>return string(abi.encodePacked(super.foo(), “ + Derived”));<br>}<br>}</p>
+<ol start="3">
+<li>抽象合约与接口<br>抽象合约（Abstract Contract）<br>包含至少一个未实现函数的合约，必须用abstract标记，不能直接部署。<br>Inheritance.sol<br>abstract contract Animal {<br>string public name;</li>
+</ol>
+<p>&#x2F;&#x2F; 已实现函数<br>function setName(string memory _name) public {<br>name &#x3D; _name;<br>}</p>
+<p>&#x2F;&#x2F; 未实现函数（虚函数）<br>function speak() public virtual returns (string memory);<br>}</p>
+<p>contract Cat is Animal {<br>function speak() public pure override returns (string memory) {<br>return “Meow!”;<br>}<br>}</p>
+<p>接口（Interface）<br>接口特点：</p>
+<p>• 所有函数必须是external且没有实现<br>• 不能定义状态变量<br>• 不能定义构造函数<br>• 可以定义事件和枚举<br>• 用于定义标准（如ERC20、ERC721）<br>Inheritance.sol<br>&#x2F;&#x2F; ERC20标准接口<br>interface IERC20 {<br>function totalSupply() external view returns (uint256);<br>function balanceOf(address account) external view returns (uint256);<br>function transfer(address to, uint256 amount) external returns (bool);<br>function allowance(address owner, address spender) external view returns (uint256);<br>function approve(address spender, uint256 amount) external returns (bool);<br>function transferFrom(address from, address to, uint256 amount) external returns (bool);</p>
+<p>event Transfer(address indexed from, address indexed to, uint256 value);<br>event Approval(address indexed owner, address indexed spender, uint256 value);<br>}</p>
+<p>接口的使用<br>Inheritance.sol<br>&#x2F;&#x2F; 与任何ERC20代币交互<br>function getTokenBalance(address token, address user) public view returns (uint256) {<br>return IERC20(token).balanceOf(user);<br>}</p>
+<p>&#x2F;&#x2F; 转账任意ERC20代币<br>function transferToken(address token, address to, uint256 amount) public {<br>IERC20(token).transfer(to, amount);<br>}</p>
+<ol start="4">
+<li>库（Library）<br>库是特殊的合约，用于封装可复用的函数。<br>库的特点：</li>
+</ol>
+<p>• 不能定义状态变量<br>• 不能继承或被继承<br>• 不能接收ETH<br>• 部署一次，多次复用<br>• 使用using for扩展类型<br>创建库<br>Inheritance.sol<br>&#x2F;&#x2F; SafeMath库（Solidity 0.8前常用，现在内置溢出检查）<br>library SafeMath {<br>function add(uint256 a, uint256 b) internal pure returns (uint256) {<br>uint256 c &#x3D; a + b;<br>require(c &gt;&#x3D; a, “Addition overflow”);<br>return c;<br>}</p>
+<p>function sub(uint256 a, uint256 b) internal pure returns (uint256) {<br>require(b &lt;&#x3D; a, “Subtraction overflow”);<br>return a - b;<br>}</p>
+<p>function mul(uint256 a, uint256 b) internal pure returns (uint256) {<br>if (a &#x3D;&#x3D; 0) return 0;<br>uint256 c &#x3D; a * b;<br>require(c &#x2F; a &#x3D;&#x3D; b, “Multiplication overflow”);<br>return c;<br>}<br>}</p>
+<p>使用库<br>Inheritance.sol<br>&#x2F;&#x2F; 方式1：直接调用<br>uint256 result &#x3D; SafeMath.add(a, b);</p>
+<p>&#x2F;&#x2F; 方式2：using for（更优雅）<br>using SafeMath for uint256;</p>
+<p>uint256 result &#x3D; a.add(b);  &#x2F;&#x2F; 等价于 SafeMath.add(a, b)<br>uint256 diff &#x3D; a.sub(b);    &#x2F;&#x2F; 等价于 SafeMath.sub(a, b)</p>
+<p>常用内置库<br>Strings：字符串处理<br>Address：地址工具函数<br>Arrays：数组操作<br>Create2：确定性地址创建<br>5. 完整示例：可升级的代币合约<br>Inheritance.sol<br>&#x2F;&#x2F; SPDX-License-Identifier: MIT<br>pragma solidity ^0.8.0;</p>
+<p>&#x2F;&#x2F; 接口<br>interface IToken {<br>function transfer(address to, uint256 amount) external returns (bool);<br>function balanceOf(address account) external view returns (uint256);<br>}</p>
+<p>&#x2F;&#x2F; 抽象合约：基础功能<br>abstract contract Ownable {<br>address public owner;</p>
+<p>constructor() { owner &#x3D; msg.sender; }</p>
+<p>modifier onlyOwner() {<br>require(msg.sender &#x3D;&#x3D; owner, “Not owner”);<br>_;<br>}<br>}</p>
+<p>&#x2F;&#x2F; 库<br>library SafeMath {<br>function add(uint256 a, uint256 b) internal pure returns (uint256) {<br>return a + b;  &#x2F;&#x2F; 0.8+内置溢出检查<br>}<br>}</p>
+<p>&#x2F;&#x2F; 主合约：继承 + 实现接口<br>contract MyToken is IToken, Ownable {<br>using SafeMath for uint256;</p>
+<p>string public name &#x3D; “MyToken”;<br>string public symbol &#x3D; “MTK”;<br>uint8 public decimals &#x3D; 18;<br>uint256 public totalSupply;</p>
+<p>mapping(address &#x3D;&gt; uint256) public balanceOf;</p>
+<p>constructor(uint256 initialSupply) {<br>totalSupply &#x3D; initialSupply;<br>balanceOf[msg.sender] &#x3D; initialSupply;<br>}</p>
+<p>function transfer(address to, uint256 amount) public returns (bool) {<br>require(balanceOf[msg.sender] &gt;&#x3D; amount, “Insufficient balance”);<br>balanceOf[msg.sender] -&#x3D; amount;<br>balanceOf[to] &#x3D; balanceOf[to].add(amount);<br>return true;<br>}</p>
+<p>function mint(address to, uint256 amount) public onlyOwner {<br>totalSupply &#x3D; totalSupply.add(amount);<br>balanceOf[to] &#x3D; balanceOf[to].add(amount);<br>}<br>}</p>
+<ol start="6">
+<li>总结</li>
+</ol>
+<p>①  合约由状态变量、事件、修饰器、构造函数、函数组成<br>②  继承使用is关键字，支持多继承（C3线性化）<br>③  virtual&#x2F;override控制函数重写<br>④  抽象合约包含未实现函数，不能直接部署<br>⑤  接口定义标准，所有函数都是external<br>⑥  库封装可复用函数，使用using for扩展类型<br>📖 下篇预告：存储与内存<br>storage、memory、calldata的区别与使用场景</p>
+<p>━━━━━━━━━━━━━━━━━━━━━<br>📢 本文由「区块链编程」原创出品<br>未经授权，禁止转载<br>如有转载需求，请联系作者<br>👉 关注「区块链编程」<br>关注我，解锁更多可能</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io">区块链编程</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io/2026/04/2-2-%E5%90%88%E7%BA%A6%E7%BB%93%E6%9E%84%E4%B8%8E%E7%BB%A7%E6%89%BF/">https://renrenwudi.github.io/2026/04/2-2-%E5%90%88%E7%BA%A6%E7%BB%93%E6%9E%84%E4%B8%8E%E7%BB%A7%E6%89%BF/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://renrenwudi.github.io" target="_blank">区块链编程</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a></div><div class="post-share"><div class="social-share" data-image="/img/cover-default.svg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="/" media="print" onload="this.media='all'"><script src="/" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/04/2-3-%E5%AD%98%E5%82%A8%E4%B8%8E%E5%86%85%E5%AD%98/" title="存储与内存"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/2-3-%E5%AD%98%E5%82%A8%E4%B8%8E%E5%86%85%E5%AD%98.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">存储与内存</div></div><div class="info-2"><div class="info-item-1">存储与内存storage、memory、calldata的区别与使用场景系列二「Solidity智能合约开发」第3篇💡 你将学到：三种数据位置的区别、Gas成本、常见错误与最佳实践⏱ 阅读时间：约12分钟  三种数据位置概述Solidity中，复杂类型（数组、结构体、映射）需要指定数据位置。三种数据位置：  • storage：永久存储在区块链上，最昂贵• memory：临时存储在内存中，函数执行完释放• calldata：只读，存储函数参数，最省gas对比表生命周期  storage: 永久    memory: 临时    calldata: 临时Gas成本  storage: 最高（2万&#x2F;字）    memory: 中等    calldata: 最低可修改性  storage: 可读写    memory: 可读写    calldata: 只读使用场景  storage: 状态变量    memory: 临时计算    calldata: 函数参数2. storage：永久存储storage用于存储合约的状态变量，数据永久保存在区块链上。storage特点：...</div></div></div></a><a class="pagination-related" href="/2026/04/2-1-Solidity%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" title="Solidity基础语法"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-default.svg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Solidity基础语法</div></div><div class="info-2"><div class="info-item-1">Solidity基础语法数据类型、变量与函数系列二「Solidity智能合约开发」第1篇💡 你将学到：Solidity数据类型、变量声明、函数定义、可见性修饰符⏱ 阅读时间：约15分钟  基础数据类型Solidity是静态类型语言，每个变量都需要声明类型。整型（Integer）uint8 到 uint256：无符号整数（默认uint256）int8 到 int256：有符号整数常用：uint256（最大值 2^256-1）BasicTypes.soluint256 public positiveNumber &#x3D; 100;int256 public negativeNumber &#x3D; -50;uint8 public smallNumber &#x3D; 255;  &#x2F;&#x2F; 最大255  布尔型（Boolean）BasicTypes.solbool public isActive &#x3D; true;bool public hasPermission &#x3D; false; 地址类型（Address）address：以太坊地址（20字节...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/04/8-4-Bitcoin-L2/" title="Bitcoin L2"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/8-4-Bitcoin-L2.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-06</div><div class="info-item-2">Bitcoin L2</div></div><div class="info-2"><div class="info-item-1">Bitcoin L2Stacks与闪电网络系列八「多链开发实战」第4篇💡 你将学到：Stacks智能合约、闪电网络原理、RGB协议、比特币L2生态⏱ 阅读时间：约13分钟  比特币为什么需要L2？比特币是最安全的区块链，但它的脚本能力非常有限。比特币只能做简单的转账，无法运行复杂的智能合约。这让比特币在DeFi、NFT等应用上落后于以太坊。比特币L2的目标：   扩展比特币的功能：智能合约、DeFi 继承比特币的安全性 提高比特币的吞吐量 降低交易费用   Stacks是什么？Stacks是一条比特币L2，它使用Clarity语言编写智能合约，通过Proof of Transfer（PoX）共识机制继承比特币的安全性。Stacks核心特点：   Clarity语言：可预测、可分析、无图灵完备 PoX共识：用比特币质押生产Stacks区块 比特币锚定：所有Stacks区块锚定比特币区块 读取比特币状态：合约可以读取比特币链上数据   Clarity语言Clarity是Stacks的智能合约语言，设计目标是安全性和可预测性。它不是图灵完备的——没有循环，但可以用递归实现重复逻辑。C...</div></div></div></a><a class="pagination-related" href="/2026/04/2-4-%E4%BA%8B%E4%BB%B6%E4%B8%8E%E6%97%A5%E5%BF%97/" title="事件与日志"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-default.svg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-05</div><div class="info-item-2">事件与日志</div></div><div class="info-2"><div class="info-item-1">事件与日志Event定义、indexed参数、前端监听与订阅系列二「Solidity智能合约开发」第4篇💡 你将学到：Event定义与使用、indexed参数的作用、前端订阅事件、历史事件查询⏱ 阅读时间：约12分钟  什么是Event（事件）？Event是以太坊日志系统的一部分。合约可以发出事件，事件被记录在交易的日志中。Event的作用：  • 记录重要状态变化• 提供链外获取链上数据的途径• 比storage读取更省gas• 前端可以实时监听Event vs Storage  Event: 375-3750 Gas    Storage: 2万&#x2F;写入数据访问  Event: 仅链外可读    Storage: 链上可读2. 定义与发出事件基本语法Events.sol&#x2F;&#x2F; 定义事件event Transfer(address indexed from, address indexed to, uint256 value); &#x2F;&#x2F; 发出事件（需要emit关键字）function transfer(address to, uin...</div></div></div></a><a class="pagination-related" href="/2026/04/7-3-%E6%A8%A1%E5%9D%97%E5%8C%96%E5%8C%BA%E5%9D%97%E9%93%BE/" title="模块化区块链"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/7-3-%E6%A8%A1%E5%9D%97%E5%8C%96%E5%8C%BA%E5%9D%97%E9%93%BE.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-06</div><div class="info-item-2">模块化区块链</div></div><div class="info-2"><div class="info-item-1">模块化区块链Celestia与数据可用性革命系列七「新兴协议与趋势」第3篇💡 你将学到：模块化架构、Celestia DA、数据可用性采样DAS、主权Rollup⏱ 阅读时间：约12分钟  单体区块链的困境以太坊比特币这样的单体区块链，所有功能都放在一层：执行交易、验证共识、存储数据。这带来了一个不可能三角：去中心化、安全性、可扩展性，三者只能取其二。当以太坊上DeFi和NFT同时热闘时，所有交易都在争抢同一个执行空间，gas费飙升，用户体验急剧下降。单体区块链的问题：  • 所有交易争抢同一执行层• 数据可用性和执行绑在一起• 无法独立升级某个组件• 扩容只能在一条链上做文章2. 模块化架构的诞生模块化区块链的思路很简单：不再把所有功能放在一层，而是把”执行”、”共识”、”数据可用性”、”结算”分开，让每层专门做一件事。这就好比计算机的演进：从大型机到客户端-服务器再到微服务，每次分离都带来了性能和灵活性的飞跃。三层模块化架构执行层（Execution）：处理交易、执行智能合约。Rollup是执行层的代表。结算层（Settlement）：验证证明、解决争议。Ethereum是...</div></div></div></a><a class="pagination-related" href="/2026/04/2-3-%E5%AD%98%E5%82%A8%E4%B8%8E%E5%86%85%E5%AD%98/" title="存储与内存"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/2-3-%E5%AD%98%E5%82%A8%E4%B8%8E%E5%86%85%E5%AD%98.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-04</div><div class="info-item-2">存储与内存</div></div><div class="info-2"><div class="info-item-1">存储与内存storage、memory、calldata的区别与使用场景系列二「Solidity智能合约开发」第3篇💡 你将学到：三种数据位置的区别、Gas成本、常见错误与最佳实践⏱ 阅读时间：约12分钟  三种数据位置概述Solidity中，复杂类型（数组、结构体、映射）需要指定数据位置。三种数据位置：  • storage：永久存储在区块链上，最昂贵• memory：临时存储在内存中，函数执行完释放• calldata：只读，存储函数参数，最省gas对比表生命周期  storage: 永久    memory: 临时    calldata: 临时Gas成本  storage: 最高（2万&#x2F;字）    memory: 中等    calldata: 最低可修改性  storage: 可读写    memory: 可读写    calldata: 只读使用场景  storage: 状态变量    memory: 临时计算    calldata: 函数参数2. storage：永久存储storage用于存储合约的状态变量，数据永久保存在区块链上。storage特点：...</div></div></div></a><a class="pagination-related" href="/2026/04/1-2-%E5%8C%BA%E5%9D%97%E9%93%BE%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84/" title="区块链是如何工作的？"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-default.svg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-04</div><div class="info-item-2">区块链是如何工作的？</div></div><div class="info-2"><div class="info-item-1">区块链是如何工作的？哈希、Merkle树与链式结构为什么篡改历史几乎不可能💡 你将学到：哈希函数、Merkle树、区块结构、链式验证原理⏱ 阅读时间：约12分钟  哈希：区块链的”数字指纹”上一篇讲了比特币的UTXO模型。但你有没有想过：这些交易数据是怎么被安全地存储和验证的？答案是：哈希函数。哈希函数是什么？  把任意长度的数据，变成固定长度的”指纹”。 特点：• 输入改变1个字节，输出完全不同（雪崩效应）• 无法从哈希值反推原始数据（单向性）• 不同数据几乎不可能产生相同哈希（抗碰撞）代码示例：SHA256哈希merkle-tree.jsconst crypto &#x3D; require(‘crypto’) &#x2F;&#x2F; SHA256 哈希函数function sha256(data) {return crypto.createHash(‘sha256’).update(data).digest(‘hex’)} &#x2F;&#x2F; 测试：同样的输入，同样的输出console.log(sha256(‘Hello’))&#x2F;&#x2F; 输出: 18...</div></div></div></a><a class="pagination-related" href="/2026/04/9-2-%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AADEX/" title="从零开发一个DEX"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/9-2-%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AADEX.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-22</div><div class="info-item-2">从零开发一个DEX</div></div><div class="info-2"><div class="info-item-1">从零开发一个DEXUniswap克隆实战系列九「Web3产品与DApp实战」第2篇💡 你将学到：AMM原理、Pair合约、Factory合约、Swap路由、前端集成⏱ 阅读时间：约15分钟  DEX是什么？DEX（去中心化交易所）允许用户直接在链上交易代币，不需要中心化平台。Uniswap是AMM（自动做市商）DEX的代表，靠流动性池和算法定价，改变了交易的游戏规则。AMM vs 订单簿：   订单簿：传统交易，买卖双方报价撮合 AMM：流动性池自动定价，无需对手方 AMM优势：无需做市商、无需订单簿、7x24交易 Uniswap V2是学习AMM最好的起点   AMM恒定乘积公式AMM的核心是恒定乘积公式：x * y &#x3D; k。其中x和y是两种资产的数量，k是常数。交易改变x和y，但k不变，价格随之变化。公式解读：   x*y&#x3D;k，k不变时，x增加则y减少 买入TokenA，TokenA数量增加，价格上升 卖出TokenA，TokenA数量减少，价格下降 滑点&#x3D;交易量&#x2F;池子总量，越大滑点越大   Pair合约（交易对）Pair（交易对）是...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By 区块链编程</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">本文由 <a href="https://renrenwudi.github.io">区块链编程</a> 发布 · 转载请注明出处</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/"></script><script src="/"></script><script src="/"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'RenRenWuDi/RenRenWuDi.github.io',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !true) {
+    if (true) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="/js/wechat-card.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

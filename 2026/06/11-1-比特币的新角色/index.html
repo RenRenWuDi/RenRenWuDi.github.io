@@ -1,0 +1,260 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>比特币的新角色 | 区块链编程</title><meta name="author" content="区块链编程"><meta name="copyright" content="区块链编程"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="比特币的新角色 - 技术文章">
+<meta property="og:type" content="article">
+<meta property="og:title" content="比特币的新角色">
+<meta property="og:url" content="https://renrenwudi.github.io/2026/06/11-1-%E6%AF%94%E7%89%B9%E5%B8%81%E7%9A%84%E6%96%B0%E8%A7%92%E8%89%B2/index.html">
+<meta property="og:site_name" content="区块链编程">
+<meta property="og:description" content="比特币的新角色 - 技术文章">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://renrenwudi.github.io/img/posts/11-1-%E6%AF%94%E7%89%B9%E5%B8%81%E7%9A%84%E6%96%B0%E8%A7%92%E8%89%B2.jpg">
+<meta property="article:published_time" content="2026-06-30T05:21:00.000Z">
+<meta property="article:modified_time" content="2026-07-10T07:08:14.292Z">
+<meta property="article:author" content="区块链编程">
+<meta property="article:tag" content="BTC">
+<meta property="article:tag" content="比特币">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://renrenwudi.github.io/img/posts/11-1-%E6%AF%94%E7%89%B9%E5%B8%81%E7%9A%84%E6%96%B0%E8%A7%92%E8%89%B2.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "比特币的新角色",
+  "url": "https://renrenwudi.github.io/2026/06/11-1-%E6%AF%94%E7%89%B9%E5%B8%81%E7%9A%84%E6%96%B0%E8%A7%92%E8%89%B2/",
+  "image": "https://renrenwudi.github.io/img/posts/11-1-%E6%AF%94%E7%89%B9%E5%B8%81%E7%9A%84%E6%96%B0%E8%A7%92%E8%89%B2.jpg",
+  "datePublished": "2026-06-30T05:21:00.000Z",
+  "dateModified": "2026-07-10T07:08:14.292Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "区块链编程",
+      "url": "https://renrenwudi.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://renrenwudi.github.io/2026/06/11-1-%E6%AF%94%E7%89%B9%E5%B8%81%E7%9A%84%E6%96%B0%E8%A7%92%E8%89%B2/index.html"><link rel="preconnect"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="/"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#37c2fb')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: '/',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '比特币的新角色',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-41F4NYXQZQ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-41F4NYXQZQ');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 8.1.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">55</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">60</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/posts/11-1-%E6%AF%94%E7%89%B9%E5%B8%81%E7%9A%84%E6%96%B0%E8%A7%92%E8%89%B2.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">区块链编程</span></a><a class="nav-page-title" href="/"><span class="site-name">比特币的新角色</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">比特币的新角色</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-06-30T05:21:00.000Z" title="发表于 2026-06-30 13:21:00">2026-06-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-07-10T07:08:14.292Z" title="更新于 2026-07-10 15:08:14">2026-07-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%AF%94%E7%89%B9%E5%B8%81%E7%94%9F%E6%80%81/">比特币生态</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>比特币的新角色<br>从储值到质押，解读BTCFi浪潮<br>系列十一「BTCFi与Restaking」第1篇<br>💡 BTCFi为什么爆发？三条主流路线全面解析<br>⏱ 阅读时间：约12分钟</p>
+<ol>
+<li>万亿美元躺在那里，什么都没干<br>比特币市值超过1万亿美元，是整个加密市场的一半。但这笔巨量的资产，几乎只能”躺着”——持有者要么冷钱包放着不动，要么买理财产品，DeFi的收益是一点都蹭不上。<br>与此同时，以太坊区区4000亿美元的市值，却支撑起了一个年交易量数千亿美元的DeFi生态。这种”小资金池、大流动性”的反差，让市场开始思考一个问题：<br>能不能把比特币引入DeFi？</li>
+<li>为什么比特币很难直接参与DeFi？<br>比特币的DeFi局限性，根源于它的技术设计。跟以太坊相比，比特币有几个天然的”缺陷”：<br>UTXO模型 vs 账户模型：以太坊用账户模型，智能合约可以直接读取余额；比特币的UTXO模型，合约无法直接读取链上余额，必须借助预言机<br>没有图灵完备的智能合约：比特币脚本（Script）表达能力有限，只能做简单的签名验证和时间锁，无法运行复杂的DeFi逻辑<br>安全性优先的设计哲学：中本聪的设计目标是”安全”，不是”可编程”。比特币的保守主义，是它的护城河，也是它的局限性<br>类比一下：</li>
+</ol>
+<p>比特币就像一个超级安全的金库，能存钱但没法自动理财。以太坊就像一个金融操作系统，上面可以跑各种APP。BTCFi要做的，就是想办法让金库里的钱也能参与APP的理财收益。<br>3. BTCFi的三条主流路线<br>目前市场上有三条主流路径，各有优劣。<br>路线一：WBTC封装路线<br>WBTC（Wrapped Bitcoin）是最成熟也是最简单的方案。把BTC”封装”成ERC-20代币，1:1锚定，发到以太坊上，然后在以太坊DeFi生态里自由使用。<br>WBTC的核心数据：</p>
+<p>目前持有量超过15万枚BTC，是以太坊上最大的BTC锚定资产。MakerDAO、Compound、Aave都支持WBTC作为抵押物。<br>封装路线简单高效，但有一个根本问题：<strong>信任依赖</strong>。WBTC由BitGo托管，你需要信任BitGo不会作恶——这违背了DeFi”无需许可、不可篡改”的精神。<br>路线二：BitVM &#x2F; Bitcoin L2 路线<br>这条路线试图在比特币上构建真正的L2，执行复杂的DeFi逻辑，而不依赖中心化托管。我在系列八第四篇讲过Bitcoin L2，核心是通过Rollup的方式，把计算搬到链下，锚定比特币的安全性。<br>BitVM是这条路线的重要里程碑。它用欺诈证明的方式，在比特币上验证链下计算——相当于把以太坊Optimistic Rollup的思想，移植到了比特币。<br>路线三：Babylon 原地质押路线<br>Babylon是目前最受关注的新路线，它的核心创新是：<strong>不需要把比特币转出链，就能质押。</strong><br>Babylon引入了”比特币质押”的概念。BTC持有者把币质押在比特币链上，获得质押证明，然后拿这个证明去以太坊或其他链上参与POS验证或DeFi协议。<br>Babylon的核心价值：</p>
+<ul>
+<li>比特币不出链 → 没有桥接风险</li>
+<li>质押收益 → 来源于ETH验证或Cosmos生态</li>
+<li>去中心化 → 质押量越大，比特币网络安全越高<br>这种”比特币原地质押”的方案，结合了BTC的安全性和POS的收益性，是目前BTCFi赛道里技术含量最高的方向。</li>
+</ul>
+<ol start="4">
+<li>质押比特币在以太坊上做验证：原理是什么？<br>这条路径的本质，是把比特币变成POS链的验证凭证。我们来看一个简化版的合约设计，理解这个过程：<br>BTCRestaking.sol<br>&#x2F;&#x2F; 简化版：接收BTC质押证明，在以太坊上发放验证奖励<br>contract BTCRestaking {<br>&#x2F;&#x2F; 比特币质押者的以太坊地址<br>mapping(address &#x3D;&gt; uint256) public stakedBTC;<br>&#x2F;&#x2F; 总质押量<br>uint256 public totalStaked;<br>&#x2F;&#x2F; 奖励池<br>uint256 public rewardPool;<br>&#x2F;&#x2F; 最小质押量：0.01 BTC<br>uint256 constant MIN_STAKE &#x3D; 1e16;</li>
+</ol>
+<p>&#x2F;&#x2F; 提交BTC质押证明（简化版：实际需要SPV证明）<br>function submitProof(<br>bytes32 btcTxHash,<br>uint256 btcAmount,<br>bytes calldata merkleProof<br>) external {<br>&#x2F;&#x2F; 1. 验证SPV证明：确认这笔BTC交易确实存在<br>require(verifySPV(btcTxHash, merkleProof), “Invalid proof”);<br>&#x2F;&#x2F; 2. 确认金额<br>require(btcAmount &gt;&#x3D; MIN_STAKE, “Below minimum”);<br>&#x2F;&#x2F; 3. 记录质押信息<br>stakedBTC[msg.sender] +&#x3D; btcAmount;<br>totalStaked +&#x3D; btcAmount;<br>}</p>
+<p>&#x2F;&#x2F; 用质押BTC换取以太坊验证奖励<br>function claimReward() external {<br>uint256 stake &#x3D; stakedBTC[msg.sender];<br>require(stake &gt; 0, “No stake”);<br>&#x2F;&#x2F; 按质押比例分配奖励<br>uint256 reward &#x3D; (rewardPool * stake) &#x2F; totalStaked;<br>stakedBTC[msg.sender] &#x3D; 0;<br>totalStaked -&#x3D; stake;<br>rewardPool -&#x3D; reward;<br>&#x2F;&#x2F; 发放ETH奖励（实际项目里会通过LST空投等方式）<br>(bool ok,) &#x3D; msg.sender.call{value: reward}(“”);<br>require(ok, “Transfer failed”);<br>}</p>
+<p>&#x2F;&#x2F; SPV证明验证（简化示意）<br>function verifySPV(bytes32 txHash, bytes calldata proof)<br>internal pure returns(bool)<br>{<br>&#x2F;&#x2F; 实际需要验证Merkle路径，确认交易在BTC链上确认<br>return true;<br>}<br>}</p>
+<p>这段代码展示了BTC质押合约的核心逻辑：验证SPV证明 → 记录质押量 → 按比例分配奖励。实际项目里，SPV证明的生成和验证要复杂得多，需要用到比特币的Merkle证明和区块头验证。<br>5. BTCFi为什么现在爆发？<br>BTCFi不是新概念，WBTC 2019年就上线了。为什么2024-2025年突然爆发？几个原因叠加：<br>比特币ETF通过：机构和海量法币资金涌入，BTC持有者结构从”信仰者”变成”机构+信仰者”<br>LST&#x2F;LRT赛道成熟：EigenLayer等协议提供了BTC质押收益的基础设施<br>用户需求强烈：BTC持有者眼睁睁看着ETH持有者赚DeFi收益，心理落差催生需求<br>技术突破：BitVM、Babylon等让”去中心化BTCFi”成为可能，不再依赖单一托管机构<br>6. 总结</p>
+<p>✅ 比特币UTXO模型和有限的脚本能力，限制了它直接参与DeFi<br>✅ BTCFi三条路线：WBTC封装（成熟但中心化）、L2路线（潜力大但复杂）、原地质押（创新但早期）<br>✅ Babylon的比特币原地质押是目前最值得关注的方向<br>✅ BTCFi本质是”借用比特币的安全性，赋能其他链的DeFi”</p>
+<p>📖 下篇预告：EigenLayer：重新定义以太坊安全性</p>
+<p>━━━━━━━━━━━━━━━━━━━━━<br>📢 本文由「区块链编程」原创出品<br>未经授权，禁止转载<br>如有转载需求，请联系作者<br>👉 关注「区块链编程」<br>关注我，解锁更多可能</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io">区块链编程</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io/2026/06/11-1-%E6%AF%94%E7%89%B9%E5%B8%81%E7%9A%84%E6%96%B0%E8%A7%92%E8%89%B2/">https://renrenwudi.github.io/2026/06/11-1-%E6%AF%94%E7%89%B9%E5%B8%81%E7%9A%84%E6%96%B0%E8%A7%92%E8%89%B2/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://renrenwudi.github.io" target="_blank">区块链编程</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%AF%94%E7%89%B9%E5%B8%81/">比特币</a><a class="post-meta__tags" href="/tags/BTC/">BTC</a></div><div class="post-share"><div class="social-share" data-image="/img/posts/11-1-%E6%AF%94%E7%89%B9%E5%B8%81%E7%9A%84%E6%96%B0%E8%A7%92%E8%89%B2.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="/" media="print" onload="this.media='all'"><script src="/" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/06/11-3-Babylon/" title="Babylon"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/11-3-Babylon.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Babylon</div></div><div class="info-2"><div class="info-item-1">Babylon把比特币押到比特币上系列十一「BTCFi与Restaking」第3篇💡 BTC原地质押原理、SPV证明、POS链安全性增强⏱ 阅读时间：约12分钟  Babylon解决的核心问题EigenLayer让ETH质押者同时为多条链提供安全性。但对于比特币持有者来说，EigenLayer有个前提：你得先把BTC换成ETH（通过WBTC或直接购买ETH）。Babylon解决的是更根本的问题：能不能在不转移比特币的前提下，让比特币参与POS链的安全性保障？这个问题的答案如果可行，意味着比特币1万亿美元的资产，可以成为整个加密市场安全性的底层支撑。 比特币质押的核心机制Babylon的核心设计分为两步：第一步让BTC持有者质押，第二步把这个质押证明传递到目标链。第一步：比特币链上质押BTC持有者在比特币链上发起一个特殊的质押交易，把币锁定在特定的质押输出里。这个质押交易包含几个关键信息：质押金额：锁定多少BTC质押者签名：质押者的比特币私钥签名解锁时间：质押锁定期（可以从立即到无限期）质押目标：这条质押要服务于哪条POS链（Cosmos、以太坊等）质押交易上链后，质押者的币就被...</div></div></div></a><a class="pagination-related" href="/2026/05/10-5-DAO%E6%A1%88%E4%BE%8B%E5%A4%8D%E7%9B%98/" title="DAO案例复盘"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/10-5-DAO%E6%A1%88%E4%BE%8B%E5%A4%8D%E7%9B%98.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">DAO案例复盘</div></div><div class="info-2"><div class="info-item-1">DAO案例复盘从Maker到Uniswap的治理教训系列十「DAO与治理机制」第5篇（完结篇）💡 MakerDAO、Compound、Uniswap的真实治理实践与教训⏱ 阅读时间：约12分钟  为什么研究DAO案例很重要？DAO治理没有标准答案。每个协议都有自己的治理结构和问题。研究真实案例，可以学到治理设计的关键教训，也能理解DAO在实际运行中会遇到哪些挑战。 MakerDAO：最老牌的稳定币DAOMakerDAO是2017年就上线的去中心化稳定币协议，治理代币MKR。它的治理演进可以分为三个阶段：第一阶段（2017-2020）：治理权集中在少数早期参与者手里，决策效率高但去中心化程度低第二阶段（2020-2022）：推出治理委托，让更多MKR持有者参与决策第三阶段（2022-至今）：引入宪法修正案和治理参与激励，解决投票率低的问题MakerDAO最重要的教训是：稳定币协议的安全风险极高，任何治理失误都可能影响整个生态。他们把关键参数（如清算比率）设为需要较长投票期的敏感参数，防止快速变更——这个设计思路值得所有涉及金融参数的DAO借鉴。 Compound：从治理漏洞到教科...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/04/1-1-%E6%AF%94%E7%89%B9%E5%B8%81%E6%98%AF%E4%BB%80%E4%B9%88/" title="比特币是什么？——从贝壳到数字黄金"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-default.svg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-04</div><div class="info-item-2">比特币是什么？——从贝壳到数字黄金</div></div><div class="info-2"><div class="info-item-1">比特币是什么？——从贝壳到数字黄金一文搞懂比特币的设计思想、UTXO模型与转账原理💡 你将学到：比特币解决了什么问题、UTXO模型、交易验证逻辑⏱ 阅读时间：约10分钟  先问一个问题：钱是什么？远古时候，人们用贝壳交易。后来用黄金，因为稀缺。但黄金携带不方便，于是有了银行——你把黄金存进去，银行给你一张欠条，这张欠条可以流通。银行的问题：中心化、可能被冻结、可能超发。  比特币想做的事：用代码取代银行2. 比特币的核心理念中本聪在2008年提出比特币，白皮书标题很直接：Bitcoin: A Peer-to-Peer Electronic Cash System比特币：一种点对点的电子现金系统三个关键词：去中心化 —— 没有银行，没有央行点对点 —— 我转给你，不需要中间人电子现金 —— 数字形式，但”现金”的特性：匿名、不可逆3. UTXO模型：比特币的记账方式以太坊用的是账户模型（像银行账户），而比特币用的是 UTXO。什么是UTXO？UTXO &#x3D; Unspent Transaction Output（未花费交易输出）通俗理解：每一笔比特币交易，都是在销毁一些”币...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By 区块链编程</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">本文由 <a href="https://renrenwudi.github.io">区块链编程</a> 发布 · 转载请注明出处</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/"></script><script src="/"></script><script src="/"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'RenRenWuDi/RenRenWuDi.github.io',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !true) {
+    if (true) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="/js/wechat-card.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

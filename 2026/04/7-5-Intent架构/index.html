@@ -1,0 +1,261 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Intent架构 | 区块链编程</title><meta name="author" content="区块链编程"><meta name="copyright" content="区块链编程"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Intent架构 - 技术文章">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Intent架构">
+<meta property="og:url" content="https://renrenwudi.github.io/2026/04/7-5-Intent%E6%9E%B6%E6%9E%84/index.html">
+<meta property="og:site_name" content="区块链编程">
+<meta property="og:description" content="Intent架构 - 技术文章">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://renrenwudi.github.io/img/posts/7-5-Intent%E6%9E%B6%E6%9E%84.jpg">
+<meta property="article:published_time" content="2026-04-06T03:46:49.000Z">
+<meta property="article:modified_time" content="2026-07-10T07:08:14.863Z">
+<meta property="article:author" content="区块链编程">
+<meta property="article:tag" content="Intent">
+<meta property="article:tag" content="意图架构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://renrenwudi.github.io/img/posts/7-5-Intent%E6%9E%B6%E6%9E%84.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Intent架构",
+  "url": "https://renrenwudi.github.io/2026/04/7-5-Intent%E6%9E%B6%E6%9E%84/",
+  "image": "https://renrenwudi.github.io/img/posts/7-5-Intent%E6%9E%B6%E6%9E%84.jpg",
+  "datePublished": "2026-04-06T03:46:49.000Z",
+  "dateModified": "2026-07-10T07:08:14.863Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "区块链编程",
+      "url": "https://renrenwudi.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://renrenwudi.github.io/2026/04/7-5-Intent%E6%9E%B6%E6%9E%84/index.html"><link rel="preconnect"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="/"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#37c2fb')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: '/',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Intent架构',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-41F4NYXQZQ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-41F4NYXQZQ');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 8.1.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">55</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">60</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/posts/7-5-Intent%E6%9E%B6%E6%9E%84.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">区块链编程</span></a><a class="nav-page-title" href="/"><span class="site-name">Intent架构</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Intent架构</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-04-06T03:46:49.000Z" title="发表于 2026-04-06 11:46:49">2026-04-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-07-10T07:08:14.863Z" title="更新于 2026-07-10 15:08:14">2026-07-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E6%B2%BF%E6%8A%80%E6%9C%AF/">前沿技术</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>Intent架构<br>Uniswap X、Across与意图经济<br>系列七「新兴协议与趋势」第5篇（完结篇）<br>💡 你将学到：Intent vs Transaction、Solver网络、意图经济、荷兰拍卖<br>⏱ 阅读时间：约13分钟</p>
+<ol>
+<li>为什么需要Intent？<br>传统DeFi的交易方式是”Transaction”（交易）：用户指定精确的操作步骤——从哪个DEX买、买多少、价格多少、滑点多少。系统照单执行。<br>但这种模式对普通用户来说太复杂了。你要手动比较Uniswap、Curve、SushiSwap的价格，还要考虑gas、滑点、最佳路径。而Intent（意图）模式把这一切交给了专业的人。<br>Transaction vs Intent：</li>
+</ol>
+<p>• Transaction：你说”怎么做到”<br>• Intent：你说”我想要什么”</p>
+<p>从”告诉机器怎么做”到”告诉机器你想要什么”，这是用户体验的根本转变<br>2. Intent的核心原理<br>Intent的本质是：你声明一个”愿望”，而不是写一个”程序”。Solver（求解器）看到你的愿望后，会找到最好的方式来满足它。<br>这和点外卖很像：你只说”我想要一碗牛肉面”，不需要告诉厨师怎么切牛肉、用什么火候。外包平台帮你匹配最优解。<br>Intent的工作流程：</p>
+<p>• 用户签署Intent（包含目的地、金额、期限）<br>• Solver网络竞争执行Intent<br>• 最佳Solver赢得执行权<br>• 用户获得结果<br>• 失败则原路径返回资产<br>Intent.js<br>&#x2F;&#x2F; Intent示例（伪代码）<br>intent &#x3D; {<br>inputToken: ETH,<br>inputAmount: 1,<br>outputToken: USDC,<br>minOutputAmount: 1900,<br>deadline: 3600,<br>signature: user.sign(hash(intent))<br>}<br>&#x2F;&#x2F; Solver收到Intent，寻找最优路径<br>solver.submitBid(intent);<br>&#x2F;&#x2F; 如果Solver成功执行，用户收到USDC<br>&#x2F;&#x2F; 如果失败，资金原路返回</p>
+<ol start="3">
+<li>Solver网络<br>Solver是Intent架构中的核心角色。他们是专业的做市商和套利者，拥有复杂的算法和低延迟的网络连接。<br>Solver的工作是：看到Intent后，计算如何最好地执行，然后竞标——出最低费用的Solver赢得执行权。<br>Solver的价值：专业化<br>普通用户不需要研究哪个DEX价格最好，Solver帮你做了<br>多跳swap自动优化路径<br>跨DEX套利收益最大化<br>失败保护：资金原路返回</li>
+<li>Across Protocol<br>Across是目前最成熟的Intent跨链协议。它的核心是Relayer（中继器）代替用户执行跨链交易。<br>Across的工作原理：</li>
+</ol>
+<p>• 用户存入资产到Relayer，获得目标链的预付款<br>• Relayer用自有资金即时结算给用户<br>• Relayer在目标链上完成对冲操作<br>• 用户只需支付一个费用（远低于直接跨链）<br>Across.js<br>&#x2F;&#x2F; Across的核心流程<br>&#x2F;&#x2F; 1. 用户签署Intent<br>userIntent &#x3D; {<br>srcChain: Ethereum,<br>dstChain: Arbitrum,<br>inputAmount: 1 ETH,<br>outputAmount: 1 ETH (min),<br>relayer: any<br>}<br>&#x2F;&#x2F; 2. Relayer看到Intent，立即预付1 ETH给用户（目标链）<br>relayer.prefundUser(targetChain, 1 ETH);<br>&#x2F;&#x2F; 3. Relayer在以太坊上完成对冲<br>&#x2F;&#x2F; 4. 用户只需签名，Relayer完成跨链</p>
+<ol start="5">
+<li>Uniswap X<br>Uniswap X是Uniswap推出的Intent-based交易协议。它把swap的路由复杂性外包给了Fillers（填充者）。<br>Uniswap X的创新：</li>
+</ol>
+<p>• 用户只需要指定输入输出，指定最低金额<br>• Fillers竞争执行订单<br>• 支持跨链swap（荷兰拍卖价格发现）<br>• 失败保护：无效订单自动退款<br>UniswapX.js<br>&#x2F;&#x2F; Uniswap X Intent<br>const intent &#x3D; {<br>inputToken: WETH,<br>inputAmount: 10,<br>outputToken: USDC,<br>minimumOutput: 19000,  &#x2F;&#x2F; 最低收到19000 USDC<br>deadline: block.number + 100,<br>}<br>&#x2F;&#x2F; 签署Intent<br>const signature &#x3D; await wallet._signTypedData(intent);<br>&#x2F;&#x2F; Fillers竞争执行订单</p>
+<ol start="6">
+<li>荷兰拍卖在Intent中的应用<br>Uniswap X使用了荷兰拍卖（Dutch Auction）作为价格发现机制。Fillers出价时，订单价格随时间递减——第一个接受当前价格的Filler赢得订单。<br>荷兰拍卖的特点：</li>
+</ol>
+<p>• 价格从高到低递减<br>• Filler有动力尽早执行（拿到更好的价格）<br>• 避免了订单被夹的问题<br>• 市场定价更有效率<br>7. Intent生态全景<br>CoW Protocol：最大的Intent交易协议，以意图为基础的DEX聚合器<br>Across Protocol：跨链Intent，Relayer即时流动性<br>Uniswap X：Uniswap的Intent版本，Fillers竞争执行<br>1inch Fusion：1inch的Intent模式，Solver竞争最优价格<br>OpenOcean：聚合多链Intent交易<br>8. Intent的安全考量<br>Intent虽然方便，但也引入了新的信任假设：用户需要信任Solver会诚实执行Intent。如果Solver作弊，用户可能收到少于预期的资产。<br>Intent的安全机制：</p>
+<p>• 签名验证：只有合法Intent才会被执行<br>• 最低金额保证：用户设置最低输出，低于该值则不执行<br>• 失败退款：订单失败资金原路返回<br>• Solver押金：Solver需要质押保证金<br>9. 总结</p>
+<p>①  Intent &#x3D; 告诉机器你想要什么，而不是怎么做<br>②  Solver网络代替用户优化执行路径<br>③  Across Protocol是最成熟的跨链Intent应用<br>④  Uniswap X用荷兰拍卖发现最优价格<br>⑤  Intent让DeFi对普通用户更友好<br>⑥  意图经济是DeFi用户体验的下一个大趋势<br>🎉 系列七「新兴协议与趋势」完结<br>系列七涵盖：ERC-4337、ZK应用、模块化区块链、符文协议、Intent架构</p>
+<p>━━━━━━━━━━━━━━━━━━━━━<br>📢 本文由「区块链编程」原创出品<br>未经授权，禁止转载<br>如有转载需求，请联系作者<br>👉 关注「区块链编程」<br>关注我，解锁更多可能</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io">区块链编程</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io/2026/04/7-5-Intent%E6%9E%B6%E6%9E%84/">https://renrenwudi.github.io/2026/04/7-5-Intent%E6%9E%B6%E6%9E%84/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://renrenwudi.github.io" target="_blank">区块链编程</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Intent/">Intent</a><a class="post-meta__tags" href="/tags/%E6%84%8F%E5%9B%BE%E6%9E%B6%E6%9E%84/">意图架构</a></div><div class="post-share"><div class="social-share" data-image="/img/posts/7-5-Intent%E6%9E%B6%E6%9E%84.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="/" media="print" onload="this.media='all'"><script src="/" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/04/8-1-Solana%E5%BC%80%E5%8F%91/" title="Solana开发"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/8-1-Solana%E5%BC%80%E5%8F%91.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Solana开发</div></div><div class="info-2"><div class="info-item-1">Solana开发Anchor框架与Rust合约系列八「多链开发实战」第1篇💡 你将学到：Solana账户模型、Anchor框架、Rust合约开发、部署测试⏱ 阅读时间：约14分钟  Solana是什么？Solana是高性能区块链，TPS可达数万笔，出块时间约400毫秒。它用独特的历史证明（Proof of History）共识机制，让节点在不需要频繁通信的情况下就达成共识。对开发者来说，Solana最大的不同是：合约用Rust编写，而不是Solidity。这带来了更高的性能，但也意味着更高的学习门槛。Solana核心特点：   高吞吐量：理论TPS 65000+ 快确认：400ms出块时间 低费用：单笔交易约0.00025 SOL Rust合约：编译成BPF字节码 账户模型：与以太坊状态模型不同   Solana账户模型Solana使用账户模型，而不是以太坊的状态模型。在Solana中，所有数据都存在账户里，合约（Program）本身也是账户。Solana账户类型：   程序账户：存储可执行代码 数据账户：存储程序状态 系统账户：原生程序（System Program） PDA...</div></div></div></a><a class="pagination-related" href="/2026/04/7-4-%E7%AC%A6%E6%96%87%E5%8D%8F%E8%AE%AE/" title="符文协议"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/7-4-%E7%AC%A6%E6%96%87%E5%8D%8F%E8%AE%AE.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">符文协议</div></div><div class="info-2"><div class="info-item-1">符文协议比特币Runes协议深度解析系列七「新兴协议与趋势」第4篇💡 你将学到：Runes vs BRC-20、UTXO代币、符文铸造、符文协议原理⏱ 阅读时间：约12分钟  BRC-20的混乱与Runes的诞生2023年，比特币社区见证了一场”实验”：BRC-20协议把任意文本写入比特币区块链，声称可以创建可替代代币。但实际上，BRC-20是基于Ordinals理论的”实验”，代币转账没有真正的技术保证，链上充满了”无效”交易。BRC-20的混乱给了符文协议（Runes Protocol）诞生的机会。由Ordinals创始人Casey Rodarmor设计的Runes，在2024年4月的比特币减半时正式上线，成为比特币生态代币的新标准。Runes的核心理念：  • 为比特币原生设计的代币协议• 利用比特币UTXO模型的全部能力• 避免BRC-20的混乱和无用数据• 让代币交易在比特币链上真正有效2. UTXO模型回顾比特币使用UTXO（未花费交易输出）模型。简单说：每一笔比特币交易由输入和输出组成。输入消耗之前的输出，输出创建新的未花费输出。BRC-20的问题在于：它把代币数...</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By 区块链编程</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">本文由 <a href="https://renrenwudi.github.io">区块链编程</a> 发布 · 转载请注明出处</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/"></script><script src="/"></script><script src="/"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'RenRenWuDi/RenRenWuDi.github.io',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !true) {
+    if (true) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="/js/wechat-card.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

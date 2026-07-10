@@ -1,0 +1,263 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>LRT合约架构 | 区块链编程</title><meta name="author" content="区块链编程"><meta name="copyright" content="区块链编程"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="LRT合约架构 - 技术文章">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LRT合约架构">
+<meta property="og:url" content="https://renrenwudi.github.io/2026/06/11-4-LRT%E5%90%88%E7%BA%A6%E6%9E%B6%E6%9E%84%E8%A7%A3%E6%9E%90/index.html">
+<meta property="og:site_name" content="区块链编程">
+<meta property="og:description" content="LRT合约架构 - 技术文章">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://renrenwudi.github.io/img/posts/11-4-LRT%E5%90%88%E7%BA%A6%E6%9E%B6%E6%9E%84%E8%A7%A3%E6%9E%90.jpg">
+<meta property="article:published_time" content="2026-06-30T05:21:00.000Z">
+<meta property="article:modified_time" content="2026-07-10T07:08:14.348Z">
+<meta property="article:author" content="区块链编程">
+<meta property="article:tag" content="LRT">
+<meta property="article:tag" content="流动性再质押">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://renrenwudi.github.io/img/posts/11-4-LRT%E5%90%88%E7%BA%A6%E6%9E%B6%E6%9E%84%E8%A7%A3%E6%9E%90.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "LRT合约架构",
+  "url": "https://renrenwudi.github.io/2026/06/11-4-LRT%E5%90%88%E7%BA%A6%E6%9E%B6%E6%9E%84%E8%A7%A3%E6%9E%90/",
+  "image": "https://renrenwudi.github.io/img/posts/11-4-LRT%E5%90%88%E7%BA%A6%E6%9E%B6%E6%9E%84%E8%A7%A3%E6%9E%90.jpg",
+  "datePublished": "2026-06-30T05:21:00.000Z",
+  "dateModified": "2026-07-10T07:08:14.348Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "区块链编程",
+      "url": "https://renrenwudi.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://renrenwudi.github.io/2026/06/11-4-LRT%E5%90%88%E7%BA%A6%E6%9E%B6%E6%9E%84%E8%A7%A3%E6%9E%90/index.html"><link rel="preconnect"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="/"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#37c2fb')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: '/',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'LRT合约架构',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-41F4NYXQZQ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-41F4NYXQZQ');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 8.1.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">55</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">60</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/posts/11-4-LRT%E5%90%88%E7%BA%A6%E6%9E%B6%E6%9E%84%E8%A7%A3%E6%9E%90.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">区块链编程</span></a><a class="nav-page-title" href="/"><span class="site-name">LRT合约架构</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">LRT合约架构</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-06-30T05:21:00.000Z" title="发表于 2026-06-30 13:21:00">2026-06-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-07-10T07:08:14.348Z" title="更新于 2026-07-10 15:08:14">2026-07-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%AF%94%E7%89%B9%E5%B8%81%E7%94%9F%E6%80%81/">比特币生态</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>LRT合约架构<br>流动性质押再质押的链上机制<br>系列十一「BTCFi与Restaking」第4篇<br>💡 存币&#x2F;计息&#x2F;赎回完整合约逻辑，三种LRT模式技术对比<br>⏱ 阅读时间：约12分钟</p>
+<ol>
+<li>LRT到底是什么？<br>LRT（Liquid Restaking Token，流动性质押再质押Token）是Restaking生态里的”收益代币化”层。用户把ETH或BTC存入LRT合约，换回一个ERC-20 Token——这个Token代表了质押中的本金加上累计的Restaking收益，可以随时在DeFi里流通。<br>类比：</li>
+</ol>
+<p>ETH的LST（流动性质押Token）解决了”质押ETH无法流动性”的问题——你质押ETH得到stETH，stETH随时可以在DeFi里用。LRT在这个基础上再加一层：你的stETH&#x2F;rETH&#x2F;lstETH存入EigenLayer Restaking，获得的额外收益也代币化成LRT，继续流通。<br>2. LRT的核心合约模块<br>一个完整的LRT协议，通常由三个核心模块组成：存款模块、收益计算模块、赎回模块。我们逐一拆解。<br>模块一：存款合约<br>用户把LST（stETH、rETH等）存入LRT合约，换取对应数量的LRT Token。存款时需要记录用户的存入量、时间戳，为后续计算收益做准备。<br>LRTVault.sol<br>contract LRTVault {<br>&#x2F;&#x2F; LST资产（如stETH）<br>IERC20 public immutable lst;<br>&#x2F;&#x2F; LRT代币<br>LRTToken public immutable lrtToken;<br>&#x2F;&#x2F; 每个用户的存入量<br>mapping(address &#x3D;&gt; uint256) public depositAmount;<br>&#x2F;&#x2F; 累计存入总量<br>uint256 public totalDeposited;<br>&#x2F;&#x2F; 存入时间戳（用于计算历史收益）<br>mapping(address &#x3D;&gt; uint256) public depositTime;<br>&#x2F;&#x2F; 最小存入量<br>uint256 constant MIN_DEPOSIT &#x3D; 1e15; &#x2F;&#x2F; 0.001 ETH</p>
+<p>event Deposited(address indexed user, uint256 amount, uint256 lrtOut);</p>
+<dl><dt>function deposit(uint256 lstAmount) external returns(uint256 lrtAmount) {<br>require(lstAmount &gt;&#x3D; MIN_DEPOSIT, “Too small”);<br>&#x2F;&#x2F; 1. 把LST从用户转入合约<br>lst.transferFrom(msg.sender, address(this), lstAmount);<br>&#x2F;&#x2F; 2. 按当前汇率铸造LRT给用户<br>&#x2F;&#x2F; 首次存入时汇率&#x3D;1:1<br>lrtAmount &#x3D; totalDeposited &#x3D;&#x3D; 0 ? lstAmount</dt><dd>(lstAmount * totalDeposited) &#x2F; getLstValue();<br>depositAmount[msg.sender] +&#x3D; lrtAmount;<br>depositTime[msg.sender] &#x3D; block.timestamp;<br>totalDeposited +&#x3D; lrtAmount;<br>lrtToken.mint(msg.sender, lrtAmount);<br>emit Deposited(msg.sender, lstAmount, lrtAmount);<br>}<br>&#x2F;&#x2F; 计算合约中LST的总价值（用于汇率换算）<br>function getLstValue() public view returns(uint256) {<br>return (lst.balanceOf(address(this)) * 1e18) &#x2F;<br>(totalDeposited &#x3D;&#x3D; 0 ? 1 : totalDeposited);<br>}<br>}</dd></dl><p>模块二：收益计算与累积<br>LRT的价值不是固定的——随着底层LST不断参与EigenLayer Restaking赚取收益，LRT的汇率（1 LRT 对多少LST）会持续升值。收益计算的核心是”份额增值”逻辑。<br>YieldAccruer.sol<br>&#x2F;&#x2F; 收益累积计算（简化版）<br>contract YieldAccruer {<br>&#x2F;&#x2F; 累计每份LRT的收益（扩大1e18倍避免小数）<br>uint256 public accRewardPerShare;<br>&#x2F;&#x2F; 用户待领取收益<br>mapping(address &#x3D;&gt; uint256) public pendingReward;<br>&#x2F;&#x2F; 用户的上次结算份额点<br>mapping(address &#x3D;&gt; uint256) public lastAccPoint;</p>
+<p>&#x2F;&#x2F; 领取收益<br>function claimReward(address user) external returns(uint256 reward) {<br>_accrue(user);<br>reward &#x3D; pendingReward[user];<br>require(reward &gt; 0, “Nothing to claim”);<br>pendingReward[user] &#x3D; 0;<br>lst.transfer(user, reward);<br>}</p>
+<p>&#x2F;&#x2F; 内部：计算并累加最新收益<br>function _accrue(address user) internal {<br>uint256 current &#x3D; accRewardPerShare;<br>uint256 last &#x3D; lastAccPoint[user];<br>if(current &gt; last) {<br>uint256 deposited &#x3D; depositAmount[user];<br>uint256 gained &#x3D; (deposited * (current - last)) &#x2F; 1e18;<br>pendingReward[user] +&#x3D; gained;<br>lastAccPoint[user] &#x3D; current;<br>}<br>}</p>
+<p>&#x2F;&#x2F; Keeper调用：定期从EigenLayer收集奖励并更新份额点<br>function updateReward() external onlyKeeper {<br>uint256 balance &#x3D; lst.balanceOf(address(this));<br>uint256 rewards &#x3D; balance - totalDeposited; &#x2F;&#x2F; 新增部分即为收益<br>if(totalDeposited &gt; 0) {<br>accRewardPerShare +&#x3D; (rewards * 1e18) &#x2F; totalDeposited;<br>}<br>}<br>}</p>
+<p>模块三：赎回合约<br>用户想退出LRT时，用LRT Token换回底层LST。赎回时按照”当前汇率”计算——汇率由累计收益决定，所以持有LRT越久，换回的LST越多。<br>LRTWithdraw.sol<br>&#x2F;&#x2F; 赎回逻辑（接LRTVault）<br>contract LRTWithdraw {<br>&#x2F;&#x2F; 解锁队列<br>struct WithdrawalRequest {<br>uint256 amount;        &#x2F;&#x2F; 要赎回的LRT数量<br>uint256 requestTime;   &#x2F;&#x2F; 申请时间<br>bool claimed;          &#x2F;&#x2F; 是否已领取<br>}<br>uint256 public withdrawalDelay &#x3D; 1 days;<br>mapping(address &#x3D;&gt; WithdrawalRequest[]) public withdrawalQueue;</p>
+<p>function requestWithdraw(uint256 lrtAmount) external {<br>require(lrtAmount &gt; 0, “Zero amount”);<br>&#x2F;&#x2F; 1. 销毁LRT<br>lrtToken.burnFrom(msg.sender, lrtAmount);<br>depositAmount[msg.sender] -&#x3D; lrtAmount;<br>totalDeposited -&#x3D; lrtAmount;<br>&#x2F;&#x2F; 2. 入队等待解锁<br>withdrawalQueue[msg.sender].push(<br>WithdrawalRequest({<br>amount: lrtAmount,<br>requestTime: block.timestamp,<br>claimed: false<br>})<br>);<br>}</p>
+<p>&#x2F;&#x2F; 解锁期到后，用户领取LST<br>function claimWithdraw(uint256 index) external {<br>WithdrawalRequest storage req &#x3D; withdrawalQueue[msg.sender][index];<br>require(!req.claimed, “Already claimed”);<br>require(block.timestamp &gt;&#x3D; req.requestTime + withdrawalDelay, “Still locked”);<br>req.claimed &#x3D; true;<br>uint256 lstOut &#x3D; (req.amount * getLstValue()) &#x2F; 1e18;<br>lst.transfer(msg.sender, lstOut);<br>}<br>}</p>
+<ol start="3">
+<li>三种LRT模式的技术对比<br>目前主流LRT协议有三种技术实现路线，各有不同的权衡。<br>模式A：独立质押型<br>协议自建节点，直接在EigenLayer上注册AVS验证节点。用户存款换成LRT，协议方负责节点运维。<br>优点：收益完全自主控制，无第三方依赖<br>缺点：运维成本高，削减风险自担，技术门槛高<br>模式B：聚合型<br>协议不自己跑节点，而是对接多个Restaking Provider，自动分配资金到最优策略。<br>优点：分散风险，收益稳定性更高<br>缺点：增加了中间层，协议费叠加，可能摊薄收益<br>模式C：多资产混合型<br>同时支持ETH LST、BTC封装资产（WBTC等）多种资产参与Restaking，统一换成LRT。<br>优点：BTC持有者也能参与，用户覆盖面广<br>缺点：BTC路径需要额外的封装层（WBTC），引入托管风险；多资产质押比例管理复杂度高</li>
+<li>LRT合约的典型安全漏洞<br>LRT合约涉及大量资金，安全审计尤为关键。几个历史上出现过问题的点：<br>汇率操纵：攻击者通过闪电贷大量存入&#x2F;赎回操控汇率——需要在汇率计算中加入时间加权或延迟生效<br>重入攻击：领取收益时如果未做好Checks-Effects-Interactions，可能被恶意合约重入——加上ReentrancyGuard<br>Keeper奖励盗窃：updateReward的权限如果管理不当，恶意Keeper可以抽取奖励——需要多签或时间锁保护<br>SafeLRTVault.sol<br>&#x2F;&#x2F; 安全版本：加入ReentrancyGuard和时间锁<br>contract SafeLRTVault is ReentrancyGuard {<br>address public governor;<br>uint256 public ratePerShare;<br>uint256 public rateUpdatedAt;<br>uint256 constant RATE_UPDATE_DELAY &#x3D; 1 hours;</li>
+</ol>
+<p>function deposit(uint256 amount) external nonReentrant {<br>uint256 lrtOut &#x3D; _computeShares(amount);<br>require(lrtOut &gt;&#x3D; MIN_SHARES, “Too small”);<br>lst.transferFrom(msg.sender, address(this), amount);<br>depositAmount[msg.sender] +&#x3D; lrtOut;<br>totalShares +&#x3D; lrtOut;<br>lrtToken.mint(msg.sender, lrtOut);<br>}</p>
+<p>&#x2F;&#x2F; 汇率只能通过治理更新，不能单笔操作修改<br>function updateRate(uint256 newRate) external onlyGovernor {<br>require(block.timestamp &gt;&#x3D; rateUpdatedAt + RATE_UPDATE_DELAY,<br>“Rate update too frequent”);<br>ratePerShare &#x3D; newRate;<br>rateUpdatedAt &#x3D; block.timestamp;<br>}<br>}</p>
+<ol start="5">
+<li>总结</li>
+</ol>
+<p>✅ LRT的核心是三个模块：存款（发行LRT）、收益累积（汇率升值）、赎回（按汇率换回LST）<br>✅ 收益计算用accRewardPerShare份额点模式，避免小数精度问题<br>✅ 三种LRT路线：独立质押（高控制高风险）、聚合型（分散风险）、多资产混合型（覆盖面广但更复杂）<br>✅ LRT合约安全三要点：汇率防操纵、重入保护、权限托管（Keeper&#x2F;Governor多签）</p>
+<p>📖 下篇预告：BTC质押证明跨链验证实战</p>
+<p>━━━━━━━━━━━━━━━━━━━━━<br>📢 本文由「区块链编程」原创出品<br>未经授权，禁止转载<br>如有转载需求，请联系作者<br>👉 关注「区块链编程」<br>关注我，解锁更多可能</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io">区块链编程</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io/2026/06/11-4-LRT%E5%90%88%E7%BA%A6%E6%9E%B6%E6%9E%84%E8%A7%A3%E6%9E%90/">https://renrenwudi.github.io/2026/06/11-4-LRT%E5%90%88%E7%BA%A6%E6%9E%B6%E6%9E%84%E8%A7%A3%E6%9E%90/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://renrenwudi.github.io" target="_blank">区块链编程</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/LRT/">LRT</a><a class="post-meta__tags" href="/tags/%E6%B5%81%E5%8A%A8%E6%80%A7%E5%86%8D%E8%B4%A8%E6%8A%BC/">流动性再质押</a></div><div class="post-share"><div class="social-share" data-image="/img/posts/11-4-LRT%E5%90%88%E7%BA%A6%E6%9E%B6%E6%9E%84%E8%A7%A3%E6%9E%90.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="/" media="print" onload="this.media='all'"><script src="/" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/06/11-5-BTC%E8%B4%A8%E6%8A%BC%E8%AF%81%E6%98%8E%E8%B7%A8%E9%93%BE%E9%AA%8C%E8%AF%81/" title="BTC质押证明跨链验证"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/11-5-BTC%E8%B4%A8%E6%8A%BC%E8%AF%81%E6%98%8E%E8%B7%A8%E9%93%BE%E9%AA%8C%E8%AF%81.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">BTC质押证明跨链验证</div></div><div class="info-2"><div class="info-item-1">BTC质押证明跨链验证从BTC链到以太坊：完整验证流程系列十一「BTCFi与Restaking」第5篇（完结篇）💡 SPV轻节点集成、Cosmos Tendermint中继、Babylon经济模型核心参数⏱ 阅读时间：约12分钟  为什么跨链验证是BTCFi最难的部分？BTCFi的每一环都涉及技术挑战，但要说到最难的一环，非”跨链验证”莫属。比特币没有智能合约，不能主动把质押信息”推送”给以太坊或Cosmos。以太坊和Cosmos也无法”主动拉取”比特币链上数据——因为比特币节点不会响应外部查询请求。跨链验证要解决的核心问题是：如何在不信任任何单一中继者的情况下，让目标链相信”这笔BTC质押确实存在”？这个问题的答案，决定了BTCFi的去中心化程度。  中继器的角色与分类中继器（Relayer）是跨链验证的核心组件，负责把比特币链上的事件”搬运”到目标链。中继器分两类：乐观中继中继器把BTC交易数据报给目标链，目标链的合约默认相信这个数据是正确的。但给出一个”挑战窗口”（通常6个BTC区块，约1小时）——在这个窗口内，任何人都可以提交”欺诈证明”，证明中继器数据是错的。乐观模型...</div></div></div></a><a class="pagination-related" href="/2026/06/11-2-EigenLayer/" title="EigenLayer"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/posts/11-2-EigenLayer.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">EigenLayer</div></div><div class="info-2"><div class="info-item-1">EigenLayer重新定义以太坊安全性系列十一「BTCFi与Restaking」第2篇💡 Restaking原理、LST&#x2F;LRT赛道全景图与经济模型⏱ 阅读时间：约12分钟  什么是Restaking？Restaking（再质押）是2024年最火热的加密叙事之一。它的核心思想是：你已经用ETH参与了以太坊POS质押，为什么不把这些已经质押的ETH再拿来做其他事情？类比一下：你把100万存了定期银行，同时又拿这个定期存单去找小额贷公司做担保，额外赚一笔利息——Restaking就是这个逻辑。 EigenLayer是什么？EigenLayer是以太坊上第一个Restaking协议。它的创新在于：创建一个”安全中间层”，让ETH质押者可以同时为多个协议提供安全保障，同时获得多重收益。EigenLayer的角色：  它本质上是一个”安全市场”——需要安全性的协议（如数据可用性层、预言机、跨链桥）可以在EigenLayer上租用ETH质押者的安全性，而质押者获得额外的收益回报。3. Restaking的工作原理Restaking有两种模式，我们分开讲。模式一：直接Restak...</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By 区块链编程</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">本文由 <a href="https://renrenwudi.github.io">区块链编程</a> 发布 · 转载请注明出处</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/"></script><script src="/"></script><script src="/"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'RenRenWuDi/RenRenWuDi.github.io',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !true) {
+    if (true) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="/js/wechat-card.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
