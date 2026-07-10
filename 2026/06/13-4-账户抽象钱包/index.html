@@ -1,0 +1,273 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>账户抽象钱包：ERC-4337原理、Paymaster与智能合约钱包革命 | 区块链编程</title><meta name="author" content="区块链编程"><meta name="copyright" content="区块链编程"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="以太坊现在的账户体系有一个根本问题：只有EOA能发起交易，发起交易必须用ETH付Gas。这意味着：新用户必须先买ETH才能用DApp（门槛高）；私钥丢了 &#x3D; 资产永久无法访问；没有批量交易、无法设消费限额。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="账户抽象钱包：ERC-4337原理、Paymaster与智能合约钱包革命">
+<meta property="og:url" content="https://renrenwudi.github.io/2026/06/13-4-%E8%B4%A6%E6%88%B7%E6%8A%BD%E8%B1%A1%E9%92%B1%E5%8C%85/index.html">
+<meta property="og:site_name" content="区块链编程">
+<meta property="og:description" content="以太坊现在的账户体系有一个根本问题：只有EOA能发起交易，发起交易必须用ETH付Gas。这意味着：新用户必须先买ETH才能用DApp（门槛高）；私钥丢了 &#x3D; 资产永久无法访问；没有批量交易、无法设消费限额。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://renrenwudi.github.io/img/avatar.png">
+<meta property="article:published_time" content="2026-06-16T02:00:00.000Z">
+<meta property="article:modified_time" content="2026-07-10T09:03:24.913Z">
+<meta property="article:author" content="区块链编程">
+<meta property="article:tag" content="钱包专题">
+<meta property="article:tag" content="钱包原理与安全">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://renrenwudi.github.io/img/avatar.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "账户抽象钱包：ERC-4337原理、Paymaster与智能合约钱包革命",
+  "url": "https://renrenwudi.github.io/2026/06/13-4-%E8%B4%A6%E6%88%B7%E6%8A%BD%E8%B1%A1%E9%92%B1%E5%8C%85/",
+  "image": "https://renrenwudi.github.io/img/avatar.png",
+  "datePublished": "2026-06-16T02:00:00.000Z",
+  "dateModified": "2026-07-10T09:03:24.913Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "区块链编程",
+      "url": "https://renrenwudi.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://renrenwudi.github.io/2026/06/13-4-%E8%B4%A6%E6%88%B7%E6%8A%BD%E8%B1%A1%E9%92%B1%E5%8C%85/index.html"><link rel="preconnect"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="/"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#37c2fb')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: '/',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '账户抽象钱包：ERC-4337原理、Paymaster与智能合约钱包革命',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-41F4NYXQZQ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-41F4NYXQZQ');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 8.1.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">83</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">36</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">区块链编程</span></a><a class="nav-page-title" href="/"><span class="site-name">账户抽象钱包：ERC-4337原理、Paymaster与智能合约钱包革命</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">账户抽象钱包：ERC-4337原理、Paymaster与智能合约钱包革命</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-06-16T02:00:00.000Z" title="发表于 2026-06-16 10:00:00">2026-06-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-07-10T09:03:24.913Z" title="更新于 2026-07-10 17:03:24">2026-07-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%92%B1%E5%8C%85%E4%B8%93%E9%A2%98/">钱包专题</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">948</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="账户抽象钱包"><a href="#账户抽象钱包" class="headerlink" title="账户抽象钱包"></a>账户抽象钱包</h2><h2 id="ERC-4337原理、Paymaster与智能合约钱包革命"><a href="#ERC-4337原理、Paymaster与智能合约钱包革命" class="headerlink" title="ERC-4337原理、Paymaster与智能合约钱包革命"></a>ERC-4337原理、Paymaster与智能合约钱包革命</h2><h2 id="为什么需要账户抽象？"><a href="#为什么需要账户抽象？" class="headerlink" title="为什么需要账户抽象？"></a>为什么需要账户抽象？</h2><p>以太坊现在的账户体系有一个根本问题：只有EOA能发起交易，发起交易必须用ETH付Gas。这意味着：新用户必须先买ETH才能用DApp（门槛高）；私钥丢了 &#x3D; 资产永久无法访问；没有批量交易、无法设消费限额。</p>
+<p>账户抽象的目标：让合约账户拥有EOA的所有能力——能发起交易、能付Gas、能包含任意逻辑。\n\n以太坊通过ERC-4337，在不需要共识层改造的情况下实现了账户抽象。</p>
+<h2 id="ERC-4337核心架构"><a href="#ERC-4337核心架构" class="headerlink" title="ERC-4337核心架构"></a>ERC-4337核心架构</h2><p>ERC-4337的核心理念：把”交易验证”从共识层移到应用层。引入了新的对象：UserOperation（用户操作），相当于一个”打包后的交易请求”。</p>
+<p>ERC-4337工作流程：\n\n1. 钱包（合约钱包）构建UserOperation对象\n2. Bundler（打包者）收集多个UserOperation，打包成一笔Bundle Transaction\n3. EntryPoint（入口点合约）统一验证所有UserOperation，批量执行\n4. Paymaster（赞助商）可以为用户代付Gas</p>
+<p>关键合约：EntryPoint是ERC-4337的核心路由器，所有UserOperation都经过它验证和执行。Bundler类似Flashbots的MEV-Boost，帮用户把UserOperation提交上链。</p>
+<h2 id="智能合约钱包实战：Argent"><a href="#智能合约钱包实战：Argent" class="headerlink" title="智能合约钱包实战：Argent"></a>智能合约钱包实战：Argent</h2><p>Argent是以太坊上最流行的智能合约钱包（SCW），完整实现ERC-4337设计：</p>
+<p>社交恢复：设置信任的”守护人”（Guardian），2&#x2F;3或3&#x2F;5个Guardian同意即可重置控制权</p>
+<p>无Gas交易：通过Paymaster，由第三方赞助Gas费</p>
+<p>授权限制：可限制单笔转账金额，超额需Guardian批准</p>
+<p>防钓鱼：所有转账显示应用名称，防止地址欺骗</p>
+<p>contract.sol</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// ERC-4337 合约钱包最小实现（简化）</span><br><span class="line">contract SimpleAccount &#123;</span><br><span class="line">address public owner;</span><br><span class="line">address public entryPoint;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">validateUserOp</span>(<span class="params"></span></span><br><span class="line"><span class="params">UserOperation calldata userOp,</span></span><br><span class="line"><span class="params">bytes32 userOpHash,</span></span><br><span class="line"><span class="params">uint256 missingAccountFunds</span></span><br><span class="line"><span class="params"></span>) external <span class="title function_">returns</span> (uint256) &#123;</span><br><span class="line"><span class="built_in">require</span>(msg.<span class="property">sender</span> == entryPoint);</span><br><span class="line">bytes32 hash = <span class="title function_">keccak256</span>(abi.<span class="title function_">encode</span>(userOp));</span><br><span class="line"><span class="built_in">require</span>(</span><br><span class="line">signature.<span class="property">length</span> == <span class="number">65</span> &amp;&amp;</span><br><span class="line"><span class="title function_">recoverSigner</span>(hash, userOp.<span class="property">signature</span>) == owner,</span><br><span class="line"><span class="string">&quot;invalid signature&quot;</span></span><br><span class="line">);</span><br><span class="line"><span class="comment">// 返还Gas费给Bundler</span></span><br><span class="line"><span class="keyword">if</span> (missingAccountFunds &gt; <span class="number">0</span>) &#123;</span><br><span class="line"><span class="title function_">payable</span>(msg.<span class="property">sender</span>).<span class="property">call</span>&#123;<span class="attr">value</span>: missingAccountFunds&#125;(<span class="string">&quot;&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">SimpleAccount</span>.<span class="property">sol</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Paymaster：无Gas交易的原理"><a href="#Paymaster：无Gas交易的原理" class="headerlink" title="Paymaster：无Gas交易的原理"></a>Paymaster：无Gas交易的原理</h2><p>ERC-4337最大的用户体验突破是Paymaster——第三方代替用户付Gas费，用户可以用任何Token付Gas。</p>
+<p>场景一（应用方赞助）：游戏方想让用户零门槛入场，游戏方的Paymaster替用户付Gas</p>
+<p>场景二（Token付Gas）：用户只有USDC没有ETH，Paymaster接收USDC换成ETH付Gas</p>
+<p>contract.sol</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// Paymaster 核心逻辑（简化）</span><br><span class="line">contract SponsorPaymaster &#123;</span><br><span class="line">// 验证是否可以代付</span><br><span class="line">function validatePaymasterUserOp(</span><br><span class="line">UserOperation calldata userOp,</span><br><span class="line">bytes32, uint256</span><br><span class="line">) external returns (bytes memory, uint256) &#123;</span><br><span class="line">// 业务逻辑：检查白名单、余额等</span><br><span class="line">return (&quot;&quot;, 0); // 返回context和stake值</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 执行完后的回调：记录Gas消耗</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">postOp</span>(<span class="params"></span></span><br><span class="line"><span class="params">PostOpMode, bytes calldata, uint256 actualGasCost</span></span><br><span class="line"><span class="params"></span>) external &#123;</span><br><span class="line"><span class="comment">// Paymaster按实际消耗向EntryPoint结算</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">SponsorPaymaster</span>.<span class="property">sol</span></span><br></pre></td></tr></table></figure>
+
+
+<p>Paymaster是DeFi应用零成本获客的利器：新用户不需要先买ETH，直接用USDC就能体验完整功能。</p>
+<h2 id="批量交易与社交恢复"><a href="#批量交易与社交恢复" class="headerlink" title="批量交易与社交恢复"></a>批量交易与社交恢复</h2><p>批量交易：把多个操作打包成一笔交易，一次签名全部执行。避免了逐个授权的风险</p>
+<p>社交恢复流程：\n\n1. 平时：主私钥控制账户，正常使用\n2. 主私钥丢失：联系Guardian\n3. Guardian：在Argent App发起恢复请求\n4. 满足阈值的Guardian确认后，账户控制权转移到新私钥\n5. 旧私钥立即失效\n\n注意：Guardian本身不能直接操作你的资产，只能授权恢复。</p>
+<h2 id="下篇预告"><a href="#下篇预告" class="headerlink" title="下篇预告"></a>下篇预告</h2><p>下一期（系列十三完结篇）讲钱包安全最佳实践：钓鱼网站的识别、授权管理（Revoke.cash）、被盗后的应急处理流程。</p>
+<p>━━━━━━━━━━━━━━━━━━━━━</p>
+<p>未经授权，禁止转载</p>
+<p>如有转载需求，请联系作者</p>
+<p>关注我，解锁更多可能</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io">区块链编程</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io/2026/06/13-4-%E8%B4%A6%E6%88%B7%E6%8A%BD%E8%B1%A1%E9%92%B1%E5%8C%85/">https://renrenwudi.github.io/2026/06/13-4-%E8%B4%A6%E6%88%B7%E6%8A%BD%E8%B1%A1%E9%92%B1%E5%8C%85/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://renrenwudi.github.io" target="_blank">区块链编程</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%92%B1%E5%8C%85%E4%B8%93%E9%A2%98/">钱包专题</a><a class="post-meta__tags" href="/tags/%E9%92%B1%E5%8C%85%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%89%E5%85%A8/">钱包原理与安全</a></div><div class="post-share"><div class="social-share" data-image="/img/avatar.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="/" media="print" onload="this.media='all'"><script src="/" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/06/13-5-%E9%92%B1%E5%8C%85%E5%AE%89%E5%85%A8%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="钱包安全最佳实践：钓鱼识别、授权管理与被盗应急处理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">钱包安全最佳实践：钓鱼识别、授权管理与被盗应急处理</div></div><div class="info-2"><div class="info-item-1">钱包安全最佳实践钓鱼识别、授权管理与被盗应急处理钱包安全：90%的被盗源于这三点区块链资产安全事故中，90%以上的被盗都来自三个原因：助记词泄露、钓鱼授权、合约漏洞。 钱包安全铁律：\n\n🔐 助记词 &#x3D; 资产完全控制权，只存在物理介质，绝不上网\n⚠️ 授权 &#x3D; 给DApp”扣款额度”，授权过度等于把资产拱手相让\n🔗 签名 &#x3D; 确认交易，签名内容一定要看清楚再点确认 钓鱼网站的识别方法钓鱼网站伪装成正规DApp，诱骗用户输入助记词或授权。以下是识别方法： 域名检查：仔细核对域名，拼写相近（如 un1swap.io vs uniswap.io）、多了一个字母的都要警惕 官方验证：只信任搜索结果的自然排名第一位，或手动输入已知正确域名 Google广告（带”Ad”标签）往往是钓鱼链接，不要点 Etherscan域名验证：热门DApp有Verified标签，可对照合约地址 最关键的原则：Metamask永远不会要求你输入助记词。任何人、任何网站要求输入助记词，一定是钓鱼。正规DApp只连接Metamask，不会要求输入任何密钥。 授权管理：Revo...</div></div></div></a><a class="pagination-related" href="/2026/06/13-3-%E7%A1%AC%E4%BB%B6%E9%92%B1%E5%8C%85%E4%B8%8E%E5%86%B7%E5%AD%98%E5%82%A8/" title="硬件钱包与冷存储：Ledger/Trezor使用与离线签名原理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">硬件钱包与冷存储：Ledger/Trezor使用与离线签名原理</div></div><div class="info-2"><div class="info-item-1">硬件钱包与冷存储Ledger&#x2F;Trezor使用与离线签名原理硬件钱包的核心原理硬件钱包的本质是一个专用微型电脑，设计哲学：私钥永远不离开安全芯片（Secure Element）。即使电脑中了木马，攻击者也无法提取私钥——因为私钥从未出现在电脑上。 工作原理：\n\n📱 硬件钱包：Secure Enclave存储私钥，全程离线\n💻 电脑：生成交易请求，发送到硬件钱包\n🔐 硬件钱包：显示交易详情，用户确认，用私钥签名\n✅ 电脑：收到签名结果，广播到区块链\n\n私钥只在Secure Enclave内部，从不触网。签名在硬件内完成，只有签名结果（不是私钥）发回电脑。 Ledger vs TrezorLedger：Secure Element芯片（类似手机安全芯片），防物理拆解。2023年有数据泄露事件（用户地址泄露，非私钥），固件部分闭源。推荐Nano X（蓝牙）或Nano S Plus Trezor：完全开源（STM32芯片），代码完全可审计。无Secure Element但抗物理攻击能力足够。推荐Model T（触摸屏）或Model One（入门） 选择建议：...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/06/13-2-%E5%A4%9A%E7%AD%BE%E9%92%B1%E5%8C%85%E5%AE%9E%E6%88%98/" title="多签钱包实战：Gnosis Safe部署与企业资产管理最佳实践"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-16</div><div class="info-item-2">多签钱包实战：Gnosis Safe部署与企业资产管理最佳实践</div></div><div class="info-2"><div class="info-item-1">多签钱包实战Gnosis Safe部署与企业资产管理最佳实践为什么需要多签钱包？单人EOA钱包最大的风险是单点故障：私钥泄露 &#x3D; 资产全丢；密码忘了 &#x3D; 资产永久无法访问。多签钱包通过多人共管来解决这个问题——N个人中只要有M个人同意，就能执行操作。 类比：\n\n公司公章要两个人同时签字才能生效，这就是多签。Gnosis Safe就是区块链上的”双人签字”机制。\n\n多签的好处：防单点故障、流程可控（大于X ETH需审批）、资产传承。 M-of-N阈值签名原理N：总签名者数量 M：阈值，至少M个人签名，交易才生效 常见配置：2-of-3（3人中任意2人）、3-of-5（5人中任意3人） contract.sol 123456# 多签权限检查模拟def multi_sig_check(signers, threshold, signed_indices):&quot;&quot;&quot;检查签名数是否达到阈值&quot;&quot;&quot;if len(signed_indices) &lt; threshold:return f&quot;还需&#...</div></div></div></a><a class="pagination-related" href="/2026/06/13-1-%E9%92%B1%E5%8C%85%E7%9A%84%E5%8E%9F%E7%90%86%E4%B8%8E%E5%88%86%E7%B1%BB/" title="钱包的原理与分类：私钥&#x2F;公钥&#x2F;地址：从数学到链上的完整链路"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-16</div><div class="info-item-2">钱包的原理与分类：私钥&#x2F;公钥&#x2F;地址：从数学到链上的完整链路</div></div><div class="info-2"><div class="info-item-1">钱包的原理与分类私钥&#x2F;公钥&#x2F;地址：从数学到链上的完整链路钱包的本质是什么？很多人以为钱包是”装币”的地方。但严格来说，Web3钱包只是一把钥匙——它不存币，币永远在区块链的公开账本上。钱包存的是私钥，用私钥控制对应地址上的资产。 类比：\n\n区块链 &#x3D; 银行的金库（公开账本，记录谁有多少钱）\n钱包 &#x3D; 保险柜钥匙（保管私钥，控制金库里属于你的格子）\n没有钥匙，金库里的钱还在，但谁也拿不出来。 理解这一点很重要：你的资产安全取决于私钥的安全，而不是钱包应用本身。只要私钥在，换一个钱包应用一样能控制同样的资产。 私钥、公钥、地址：三者关系从私钥到地址，经历了两个数学运算： 完整链路：\n\n私钥（256位随机数）\n    ↓ Keccak-256哈希\n公钥（64字节）\n    ↓ Keccak-256哈希 → 取最后20字节\n地址（40位十六进制数，0x开头） 这个过程是单向的——可以从私钥推出地址，但从地址无法反推私钥。这就是密码学保证的安全性。 contract.sol 12# 从私钥生成以太坊地址（Python，Keccak...</div></div></div></a><a class="pagination-related" href="/2026/06/13-5-%E9%92%B1%E5%8C%85%E5%AE%89%E5%85%A8%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="钱包安全最佳实践：钓鱼识别、授权管理与被盗应急处理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-16</div><div class="info-item-2">钱包安全最佳实践：钓鱼识别、授权管理与被盗应急处理</div></div><div class="info-2"><div class="info-item-1">钱包安全最佳实践钓鱼识别、授权管理与被盗应急处理钱包安全：90%的被盗源于这三点区块链资产安全事故中，90%以上的被盗都来自三个原因：助记词泄露、钓鱼授权、合约漏洞。 钱包安全铁律：\n\n🔐 助记词 &#x3D; 资产完全控制权，只存在物理介质，绝不上网\n⚠️ 授权 &#x3D; 给DApp”扣款额度”，授权过度等于把资产拱手相让\n🔗 签名 &#x3D; 确认交易，签名内容一定要看清楚再点确认 钓鱼网站的识别方法钓鱼网站伪装成正规DApp，诱骗用户输入助记词或授权。以下是识别方法： 域名检查：仔细核对域名，拼写相近（如 un1swap.io vs uniswap.io）、多了一个字母的都要警惕 官方验证：只信任搜索结果的自然排名第一位，或手动输入已知正确域名 Google广告（带”Ad”标签）往往是钓鱼链接，不要点 Etherscan域名验证：热门DApp有Verified标签，可对照合约地址 最关键的原则：Metamask永远不会要求你输入助记词。任何人、任何网站要求输入助记词，一定是钓鱼。正规DApp只连接Metamask，不会要求输入任何密钥。 授权管理：Revo...</div></div></div></a><a class="pagination-related" href="/2026/06/13-3-%E7%A1%AC%E4%BB%B6%E9%92%B1%E5%8C%85%E4%B8%8E%E5%86%B7%E5%AD%98%E5%82%A8/" title="硬件钱包与冷存储：Ledger&#x2F;Trezor使用与离线签名原理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-16</div><div class="info-item-2">硬件钱包与冷存储：Ledger&#x2F;Trezor使用与离线签名原理</div></div><div class="info-2"><div class="info-item-1">硬件钱包与冷存储Ledger&#x2F;Trezor使用与离线签名原理硬件钱包的核心原理硬件钱包的本质是一个专用微型电脑，设计哲学：私钥永远不离开安全芯片（Secure Element）。即使电脑中了木马，攻击者也无法提取私钥——因为私钥从未出现在电脑上。 工作原理：\n\n📱 硬件钱包：Secure Enclave存储私钥，全程离线\n💻 电脑：生成交易请求，发送到硬件钱包\n🔐 硬件钱包：显示交易详情，用户确认，用私钥签名\n✅ 电脑：收到签名结果，广播到区块链\n\n私钥只在Secure Enclave内部，从不触网。签名在硬件内完成，只有签名结果（不是私钥）发回电脑。 Ledger vs TrezorLedger：Secure Element芯片（类似手机安全芯片），防物理拆解。2023年有数据泄露事件（用户地址泄露，非私钥），固件部分闭源。推荐Nano X（蓝牙）或Nano S Plus Trezor：完全开源（STM32芯片），代码完全可审计。无Secure Element但抗物理攻击能力足够。推荐Model T（触摸屏）或Model One（入门） 选择建议：...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">区块链编程</div><div class="author-info-description">区块链技术布道者，分享 DeFi、Layer2、智能合约开发等前沿技术。</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">83</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">36</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/RenRenWuDi/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/RenRenWuDi" target="_blank" title="GitHub"><i class="fab fa-github"></i></a><a class="social-icon" href="/about/" target="_blank" title="微信公众号"><i class="fab fa-weixin"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎关注公众号「区块链编程」</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%A6%E6%88%B7%E6%8A%BD%E8%B1%A1%E9%92%B1%E5%8C%85"><span class="toc-number">1.</span> <span class="toc-text">账户抽象钱包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ERC-4337%E5%8E%9F%E7%90%86%E3%80%81Paymaster%E4%B8%8E%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E9%92%B1%E5%8C%85%E9%9D%A9%E5%91%BD"><span class="toc-number">2.</span> <span class="toc-text">ERC-4337原理、Paymaster与智能合约钱包革命</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E8%B4%A6%E6%88%B7%E6%8A%BD%E8%B1%A1%EF%BC%9F"><span class="toc-number">3.</span> <span class="toc-text">为什么需要账户抽象？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ERC-4337%E6%A0%B8%E5%BF%83%E6%9E%B6%E6%9E%84"><span class="toc-number">4.</span> <span class="toc-text">ERC-4337核心架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E9%92%B1%E5%8C%85%E5%AE%9E%E6%88%98%EF%BC%9AArgent"><span class="toc-number">5.</span> <span class="toc-text">智能合约钱包实战：Argent</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Paymaster%EF%BC%9A%E6%97%A0Gas%E4%BA%A4%E6%98%93%E7%9A%84%E5%8E%9F%E7%90%86"><span class="toc-number">6.</span> <span class="toc-text">Paymaster：无Gas交易的原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%B9%E9%87%8F%E4%BA%A4%E6%98%93%E4%B8%8E%E7%A4%BE%E4%BA%A4%E6%81%A2%E5%A4%8D"><span class="toc-number">7.</span> <span class="toc-text">批量交易与社交恢复</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E7%AF%87%E9%A2%84%E5%91%8A"><span class="toc-number">8.</span> <span class="toc-text">下篇预告</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/17-1-Web3%E8%BA%AB%E4%BB%BD%E9%AA%97%E5%B1%80/" title="Web3里的&quot;身份骗局&quot;：签名授权那些坑——从假网站到恶意授权的识别与防御">Web3里的&quot;身份骗局&quot;：签名授权那些坑——从假网站到恶意授权的识别与防御</a><time datetime="2026-07-11T02:00:00.000Z" title="发表于 2026-07-11 10:00:00">2026-07-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/17-2-%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%AE%A1%E8%AE%A1%E5%85%A5%E9%97%A8/" title="智能合约审计入门：从读代码到用Slither——自己动手做安全审计">智能合约审计入门：从读代码到用Slither——自己动手做安全审计</a><time datetime="2026-07-11T02:00:00.000Z" title="发表于 2026-07-11 10:00:00">2026-07-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/17-4-%E6%8E%88%E6%9D%83%E7%AE%A1%E7%90%86/" title="授权管理：用Revoke.cash守护你的钱包——ERC-20授权的坑与对策">授权管理：用Revoke.cash守护你的钱包——ERC-20授权的坑与对策</a><time datetime="2026-07-11T02:00:00.000Z" title="发表于 2026-07-11 10:00:00">2026-07-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/17-3-%E9%92%B1%E5%8C%85%E5%AE%89%E5%85%A8%E5%AE%9E%E6%88%98/" title="钱包安全实战：从硬件钱包到多签方案——资产安全的最后一道防线">钱包安全实战：从硬件钱包到多签方案——资产安全的最后一道防线</a><time datetime="2026-07-11T02:00:00.000Z" title="发表于 2026-07-11 10:00:00">2026-07-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/17-5-Web3%E5%AE%89%E5%85%A8%E6%B8%85%E5%8D%95/" title="Web3安全清单：从新人到老手的自检表——系列十七完结篇">Web3安全清单：从新人到老手的自检表——系列十七完结篇</a><time datetime="2026-07-11T02:00:00.000Z" title="发表于 2026-07-11 10:00:00">2026-07-11</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By 区块链编程</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">本文由 <a href="https://renrenwudi.github.io">区块链编程</a> 发布 · 转载请注明出处</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/"></script><script src="/"></script><script src="/"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'RenRenWuDi/RenRenWuDi.github.io',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !true) {
+    if (true) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="/js/wechat-card.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

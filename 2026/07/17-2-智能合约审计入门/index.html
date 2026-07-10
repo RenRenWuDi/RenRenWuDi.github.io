@@ -1,0 +1,346 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>智能合约审计入门：从读代码到用Slither——自己动手做安全审计 | 区块链编程</title><meta name="author" content="区块链编程"><meta name="copyright" content="区块链编程"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="你不需要成为专业审计师，但如果你在DeFi里投钱，你至少要能看懂合约代码在做什么。很多rug pull和漏洞利用，只要稍微读一下代码就能发现。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="智能合约审计入门：从读代码到用Slither——自己动手做安全审计">
+<meta property="og:url" content="https://renrenwudi.github.io/2026/07/17-2-%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%AE%A1%E8%AE%A1%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="区块链编程">
+<meta property="og:description" content="你不需要成为专业审计师，但如果你在DeFi里投钱，你至少要能看懂合约代码在做什么。很多rug pull和漏洞利用，只要稍微读一下代码就能发现。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://renrenwudi.github.io/img/avatar.png">
+<meta property="article:published_time" content="2026-07-11T02:00:00.000Z">
+<meta property="article:modified_time" content="2026-07-10T09:03:25.626Z">
+<meta property="article:author" content="区块链编程">
+<meta property="article:tag" content="Web3 安全清单">
+<meta property="article:tag" content="Web3安全">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://renrenwudi.github.io/img/avatar.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "智能合约审计入门：从读代码到用Slither——自己动手做安全审计",
+  "url": "https://renrenwudi.github.io/2026/07/17-2-%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%AE%A1%E8%AE%A1%E5%85%A5%E9%97%A8/",
+  "image": "https://renrenwudi.github.io/img/avatar.png",
+  "datePublished": "2026-07-11T02:00:00.000Z",
+  "dateModified": "2026-07-10T09:03:25.626Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "区块链编程",
+      "url": "https://renrenwudi.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://renrenwudi.github.io/2026/07/17-2-%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%AE%A1%E8%AE%A1%E5%85%A5%E9%97%A8/index.html"><link rel="preconnect"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="/"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#37c2fb')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: '/',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '智能合约审计入门：从读代码到用Slither——自己动手做安全审计',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-41F4NYXQZQ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-41F4NYXQZQ');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 8.1.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">83</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">36</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">区块链编程</span></a><a class="nav-page-title" href="/"><span class="site-name">智能合约审计入门：从读代码到用Slither——自己动手做安全审计</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">智能合约审计入门：从读代码到用Slither——自己动手做安全审计</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-07-11T02:00:00.000Z" title="发表于 2026-07-11 10:00:00">2026-07-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-07-10T09:03:25.626Z" title="更新于 2026-07-10 17:03:25">2026-07-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Web3%E5%AE%89%E5%85%A8/">Web3安全</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="智能合约审计入门"><a href="#智能合约审计入门" class="headerlink" title="智能合约审计入门"></a>智能合约审计入门</h2><h2 id="从读代码到用Slither——自己动手做安全审计"><a href="#从读代码到用Slither——自己动手做安全审计" class="headerlink" title="从读代码到用Slither——自己动手做安全审计"></a>从读代码到用Slither——自己动手做安全审计</h2><h2 id="为什么要学审计？"><a href="#为什么要学审计？" class="headerlink" title="为什么要学审计？"></a>为什么要学审计？</h2><p>你不需要成为专业审计师，但如果你在DeFi里投钱，你至少要能看懂合约代码在做什么。很多rug pull和漏洞利用，只要稍微读一下代码就能发现。</p>
+<p>投资决策中的审计层级：</p>
+<p>第一层：看项目方有没有请审计公司（最低要求）<br>第二层：自己看审计报告，理解风险点<br>第三层：自己读合约代码，验证审计报告<br>第四层：自己跑Slither，找漏洞</p>
+<p>你能做到第几层，决定了你能避开多少坑。</p>
+<h2 id="读合约代码的五个要点"><a href="#读合约代码的五个要点" class="headerlink" title="读合约代码的五个要点"></a>读合约代码的五个要点</h2><p>拿到一个合约，不需要逐行读懂，重点看这五个地方：</p>
+<ol>
+<li><p>权限控制：谁可以调用什么函数？有没有onlyOwner？有没有timelock？</p>
+</li>
+<li><p>资金流向：钱从哪进、到哪出？有没有提款函数？提款条件是什么？</p>
+</li>
+<li><p>外部调用：合约调用了哪些外部合约？有没有重入风险？</p>
+</li>
+<li><p>升级机制：合约是可升级的？升级权限在谁手里？</p>
+</li>
+<li><p>紧急开关：有没有pause函数？谁可以触发？</p>
+</li>
+</ol>
+<h2 id="用Slither做自动化审计"><a href="#用Slither做自动化审计" class="headerlink" title="用Slither做自动化审计"></a>用Slither做自动化审计</h2><p>Slither是Trail of Bits开发的Solidity静态分析工具。它不需要运行合约，只通过分析代码就能发现潜在漏洞。</p>
+<p>contract.sol</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装Slither（需要Python3和solc）</span></span><br><span class="line">pip3 install slither-analyzer</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 或者用pipx安装（推荐）</span></span><br><span class="line">pipx install slither-analyzer</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对单个合约文件运行审计</span></span><br><span class="line">slither contracts/Token.sol</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对整个项目运行审计</span></span><br><span class="line">slither .</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 只输出高 severity 的问题</span></span><br><span class="line">slither . --high-severity</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 输出JSON格式（适合自动化处理）</span></span><br><span class="line">slither . --json slither-report.json</span><br></pre></td></tr></table></figure>
+
+
+<p><strong><code>install_slither.sh</code></strong></p>
+<p>Slither能检测的问题包括：重入漏洞、整数溢出、未检查的call返回值、权限控制问题、危险的标准库使用等。</p>
+<h2 id="实战：审计一个有漏洞的合约"><a href="#实战：审计一个有漏洞的合约" class="headerlink" title="实战：审计一个有漏洞的合约"></a>实战：审计一个有漏洞的合约</h2><p>下面是一个典型的有漏洞的合约，我们用Slither和手动审查来发现问题：</p>
+<p>contract.sol</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 有漏洞的合约——找出所有问题</span><br><span class="line">// SPDX-License-Identifier: MIT</span><br><span class="line">pragma solidity ^0.8.20;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">contract VulnerableVault &#123;</span><br><span class="line">mapping(address =&gt; uint256) public balances;</span><br><span class="line">address public owner;</span><br><span class="line">IERC20 public token;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">constructor(address _token) &#123;</span><br><span class="line">owner = msg.sender;</span><br><span class="line">token = IERC20(_token);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 漏洞1: 重入漏洞</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">withdraw</span>(<span class="params"></span>) external &#123;</span><br><span class="line">uint256 bal = balances[msg.<span class="property">sender</span>];</span><br><span class="line"><span class="built_in">require</span>(bal &gt; <span class="number">0</span>, <span class="string">&quot;No balance&quot;</span>);</span><br><span class="line"><span class="comment">// ❌ 先转账再清零 -&gt; 重入漏洞！</span></span><br><span class="line">(bool success,) = msg.<span class="property">sender</span>.<span class="property">call</span>&#123;<span class="attr">value</span>: bal&#125;(<span class="string">&quot;&quot;</span>);</span><br><span class="line"><span class="built_in">require</span>(success, <span class="string">&quot;Transfer failed&quot;</span>);</span><br><span class="line">balances[msg.<span class="property">sender</span>] = <span class="number">0</span>; <span class="comment">// 应该在call之前清零</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 漏洞2: 无权限控制的提款</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">emergencyWithdraw</span>(<span class="params"></span>) external &#123;</span><br><span class="line"><span class="comment">// ❌ 任何人都能调用！</span></span><br><span class="line">token.<span class="title function_">transfer</span>(msg.<span class="property">sender</span>, token.<span class="title function_">balanceOf</span>(<span class="title function_">address</span>(<span class="variable language_">this</span>)));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 漏洞3: owner可以无限铸造</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">mint</span>(<span class="params">address to, uint256 amount</span>) external &#123;</span><br><span class="line"><span class="comment">// ❌ 没有onlyOwner！</span></span><br><span class="line">balances[to] += amount;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 漏洞4: 未检查外部调用返回值</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">deposit</span>(<span class="params">uint256 amount</span>) external &#123;</span><br><span class="line"><span class="comment">// ❌ 没有检查transfer返回值</span></span><br><span class="line">token.<span class="title function_">transferFrom</span>(msg.<span class="property">sender</span>, <span class="title function_">address</span>(<span class="variable language_">this</span>), amount);</span><br><span class="line">balances[msg.<span class="property">sender</span>] += amount;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">VulnerableVault</span>.<span class="property">sol</span></span><br></pre></td></tr></table></figure>
+
+
+<p>Slither运行结果会标记这些问题：</p>
+<p>contract.sol</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Slither输出示例</span></span><br><span class="line">$ slither VulnerableVault.sol</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Info: VulnerableVault.withdraw()</span><br><span class="line">Reentrancy in VulnerableVault.withdraw() (VulnerableVault.sol#18-24)</span><br><span class="line">External call followed by state modification.</span><br><span class="line">Severity: High</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Info: VulnerableVault.emergencyWithdraw()</span><br><span class="line">Anyone can withdraw funds.</span><br><span class="line">Severity: High</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Info: VulnerableVault.mint(address,uint256)</span><br><span class="line">No access control on mint function.</span><br><span class="line">Severity: High</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Info: VulnerableVault.deposit(uint256)</span><br><span class="line">Unchecked return value of transferFrom.</span><br><span class="line">Severity: Medium</span><br></pre></td></tr></table></figure>
+
+
+<p><strong><code>slither_output.txt</code></strong></p>
+<h2 id="修复漏洞"><a href="#修复漏洞" class="headerlink" title="修复漏洞"></a>修复漏洞</h2><p>修复后的安全版本：</p>
+<p>contract.sol</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 修复后的安全合约</span><br><span class="line">contract SafeVault &#123;</span><br><span class="line">mapping(address =&gt; uint256) public balances;</span><br><span class="line">address public owner;</span><br><span class="line">IERC20 public token;</span><br><span class="line">bool public paused;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">modifier <span class="title function_">onlyOwner</span>(<span class="params"></span>) &#123;</span><br><span class="line"><span class="built_in">require</span>(msg.<span class="property">sender</span> == owner, <span class="string">&quot;Not owner&quot;</span>);</span><br><span class="line">_;</span><br><span class="line">&#125;</span><br><span class="line">modifier <span class="title function_">notPaused</span>(<span class="params"></span>) &#123;</span><br><span class="line"><span class="built_in">require</span>(!paused, <span class="string">&quot;Paused&quot;</span>);</span><br><span class="line">_;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// CEI模式：先检查，再修改状态，最后交互</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">withdraw</span>(<span class="params"></span>) external notPaused &#123;</span><br><span class="line">uint256 bal = balances[msg.<span class="property">sender</span>];</span><br><span class="line"><span class="built_in">require</span>(bal &gt; <span class="number">0</span>, <span class="string">&quot;No balance&quot;</span>);</span><br><span class="line">balances[msg.<span class="property">sender</span>] = <span class="number">0</span>; <span class="comment">// ✅ 先清零（Checks-Effects-Interactions）</span></span><br><span class="line">(bool success,) = msg.<span class="property">sender</span>.<span class="property">call</span>&#123;<span class="attr">value</span>: bal&#125;(<span class="string">&quot;&quot;</span>);</span><br><span class="line"><span class="built_in">require</span>(success, <span class="string">&quot;Transfer failed&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">emergencyWithdraw</span>(<span class="params"></span>) external onlyOwner &#123;</span><br><span class="line"><span class="built_in">require</span>(paused, <span class="string">&quot;Not paused&quot;</span>); <span class="comment">// ✅ 只有pause后才能用</span></span><br><span class="line">token.<span class="title function_">transfer</span>(owner, token.<span class="title function_">balanceOf</span>(<span class="title function_">address</span>(<span class="variable language_">this</span>)));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">mint</span>(<span class="params">address to, uint256 amount</span>) external onlyOwner &#123; <span class="comment">// ✅ 加权限</span></span><br><span class="line">balances[to] += amount;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">deposit</span>(<span class="params">uint256 amount</span>) external notPaused &#123;</span><br><span class="line"><span class="built_in">require</span>(token.<span class="title function_">transferFrom</span>(msg.<span class="property">sender</span>, <span class="title function_">address</span>(<span class="variable language_">this</span>), amount), <span class="string">&quot;Transfer failed&quot;</span>); <span class="comment">// ✅ 检查返回值</span></span><br><span class="line">balances[msg.<span class="property">sender</span>] += amount;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">setPaused</span>(<span class="params">bool _paused</span>) external onlyOwner &#123;</span><br><span class="line">paused = _paused;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">SafeVault</span>.<span class="property">sol</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="下篇预告"><a href="#下篇预告" class="headerlink" title="下篇预告"></a>下篇预告</h2><p>下一期讲钱包安全实战：硬件钱包怎么选？多签怎么配？助记词怎么备份？</p>
+<p>━━━━━━━━━━━━━━━━━━━━━</p>
+<p>未经授权，禁止转载</p>
+<p>如有转载需求，请联系作者</p>
+<p>关注我，解锁更多可能</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io">区块链编程</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io/2026/07/17-2-%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%AE%A1%E8%AE%A1%E5%85%A5%E9%97%A8/">https://renrenwudi.github.io/2026/07/17-2-%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%AE%A1%E8%AE%A1%E5%85%A5%E9%97%A8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://renrenwudi.github.io" target="_blank">区块链编程</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Web3%E5%AE%89%E5%85%A8/">Web3安全</a><a class="post-meta__tags" href="/tags/Web3-%E5%AE%89%E5%85%A8%E6%B8%85%E5%8D%95/">Web3 安全清单</a></div><div class="post-share"><div class="social-share" data-image="/img/avatar.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="/" media="print" onload="this.media='all'"><script src="/" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/07/17-4-%E6%8E%88%E6%9D%83%E7%AE%A1%E7%90%86/" title="授权管理：用Revoke.cash守护你的钱包——ERC-20授权的坑与对策"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">授权管理：用Revoke.cash守护你的钱包——ERC-20授权的坑与对策</div></div><div class="info-2"><div class="info-item-1">授权管理 用Revoke.cash守护你的钱包——ERC-20授权的坑与对策授权机制回顾：为什么需要管理？ERC-20的approve机制是DeFi的基础——你授权合约使用你的Token，合约才能帮你做Swap、做LP、做借贷。但授权是双刃剑：授权的合约如果被黑或恶意，可以转走你授权额度的所有Token。 真实案例： 2022年某DeFi协议被黑，攻击者利用合约的漏洞转走了所有授权用户的Token——不是用户的私钥被盗，而是用户之前授权过这个合约。 你的授权 &#x3D; 合约可以动用你的资金授权管理 &#x3D; 限制合约能动用多少、多久 查看你的授权每次你连接钱包到DeFi网站，可能都会留下授权。这些授权不会自动过期——除非你主动撤销。用Revoke.cash可以查看所有授权： contract.sol 12// 用ethers.js查询你的所有授权（JavaScript）const &#123; ethers &#125; = require(&#x27;ethers&#x27;);   123const provider = new ethers.JsonRpcProvi...</div></div></div></a><a class="pagination-related" href="/2026/07/17-1-Web3%E8%BA%AB%E4%BB%BD%E9%AA%97%E5%B1%80/" title="Web3里的&quot;身份骗局&quot;：签名授权那些坑——从假网站到恶意授权的识别与防御"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Web3里的"身份骗局"：签名授权那些坑——从假网站到恶意授权的识别与防御</div></div><div class="info-2"><div class="info-item-1">Web3里的”身份骗局”签名授权那些坑——从假网站到恶意授权的识别与防御Web3身份骗局和传统骗局的区别传统骗局偷的是密码——你输入账号密码，对方拿去登录。但Web3骗局偷的不是密码，是授权（Approval）。你不需要输入任何东西，只要点一个”连接钱包”按钮，签一个名，你的资产就没了。 传统骗局：骗密码 -&gt; 登录你的账号 -&gt; 转走资金 Web3骗局：骗签名 -&gt; 直接授权转账 -&gt; 资产归零 区别：Web3骗局不需要你输入任何敏感信息，只需要你签一个名——而这个签名本身是合法的区块链交易。 这就是为什么Web3签名骗局比传统骗局更危险——你的硬件钱包也救不了你，因为签名是你自己授权的。 七种常见签名骗局手法手法一：假网站仿冒——克隆Uniswap&#x2F;1inch等知名DeFi网站，诱导用户连接钱包并签名 手法二：空投诱导——发送假的Token到你的地址，附带一个claim链接，点进去就触发恶意授权 手法三：社交工程仿冒——冒充官方客服，发私信给你一个”解决问题”的链接 手法四：NFT诱导——空投一个NFT到你的地址，NFT的图片上有claim网...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/07/17-1-Web3%E8%BA%AB%E4%BB%BD%E9%AA%97%E5%B1%80/" title="Web3里的&quot;身份骗局&quot;：签名授权那些坑——从假网站到恶意授权的识别与防御"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-11</div><div class="info-item-2">Web3里的&quot;身份骗局&quot;：签名授权那些坑——从假网站到恶意授权的识别与防御</div></div><div class="info-2"><div class="info-item-1">Web3里的”身份骗局”签名授权那些坑——从假网站到恶意授权的识别与防御Web3身份骗局和传统骗局的区别传统骗局偷的是密码——你输入账号密码，对方拿去登录。但Web3骗局偷的不是密码，是授权（Approval）。你不需要输入任何东西，只要点一个”连接钱包”按钮，签一个名，你的资产就没了。 传统骗局：骗密码 -&gt; 登录你的账号 -&gt; 转走资金 Web3骗局：骗签名 -&gt; 直接授权转账 -&gt; 资产归零 区别：Web3骗局不需要你输入任何敏感信息，只需要你签一个名——而这个签名本身是合法的区块链交易。 这就是为什么Web3签名骗局比传统骗局更危险——你的硬件钱包也救不了你，因为签名是你自己授权的。 七种常见签名骗局手法手法一：假网站仿冒——克隆Uniswap&#x2F;1inch等知名DeFi网站，诱导用户连接钱包并签名 手法二：空投诱导——发送假的Token到你的地址，附带一个claim链接，点进去就触发恶意授权 手法三：社交工程仿冒——冒充官方客服，发私信给你一个”解决问题”的链接 手法四：NFT诱导——空投一个NFT到你的地址，NFT的图片上有claim网...</div></div></div></a><a class="pagination-related" href="/2026/07/17-5-Web3%E5%AE%89%E5%85%A8%E6%B8%85%E5%8D%95/" title="Web3安全清单：从新人到老手的自检表——系列十七完结篇"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-11</div><div class="info-item-2">Web3安全清单：从新人到老手的自检表——系列十七完结篇</div></div><div class="info-2"><div class="info-item-1">Web3安全清单从新人到老手的自检表——系列十七完结篇为什么要做安全清单？安全不是一次性的事，是持续的习惯。很多被黑的人不是不知道安全知识，而是知道但没做到——因为没有一个系统化的检查清单。 这一期把整个系列十七的内容浓缩成一份可执行的安全清单。建议打印出来，每月对照检查一次。 钓鱼防护清单□ 所有DeFi网站用书签访问，不手动输入URL □ 安装安全插件（PocketUniverse&#x2F;Rabby&#x2F;Blockaid） □ 签名前仔细阅读交易内容，不懂的签名绝不签 □ 不点击Discord&#x2F;Telegram里陌生人发的链接 □ 不相信任何”官方客服”私信 □ 收到不明Token空投时，不要去claim——可能是钓鱼 □ 检查permit签名请求——看到Permit类型立即拒绝 合约交互清单□ 新协议先查Etherscan：合约是否开源？是否审计？ □ 查看合约权限：有没有onlyOwner？有没有timelock？ □ 大额交互前先跑Slither或看审计报告 □ 不在未审计的合约上放大额资金 □ 理解你在签什么——至少知道调用的是哪个函数 钱包安全清...</div></div></div></a><a class="pagination-related" href="/2026/07/17-3-%E9%92%B1%E5%8C%85%E5%AE%89%E5%85%A8%E5%AE%9E%E6%88%98/" title="钱包安全实战：从硬件钱包到多签方案——资产安全的最后一道防线"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-11</div><div class="info-item-2">钱包安全实战：从硬件钱包到多签方案——资产安全的最后一道防线</div></div><div class="info-2"><div class="info-item-1">钱包安全实战从硬件钱包到多签方案——资产安全的最后一道防线安全的本质：减少攻击面钱包安全的核心不是某一个工具，而是减少攻击面——让攻击者能接触到你的资产的路径尽可能少。 攻击面分层模型： 🔑 私钥层：助记词泄露 &#x3D; 全部归零📱 设备层：电脑&#x2F;手机被黑 &#x3D; 签名被篡改🌐 网络层：钓鱼&#x2F;MITM &#x3D; 骗你签恶意交易👥 社交层：社工攻击 &#x3D; 骗你主动转账 每一层都需要对应的防护措施。 硬件钱包：冷存储的核心硬件钱包的核心原理：私钥永远不离开设备。你签名的交易在硬件设备内部完成，电脑只能看到签名结果，看不到私钥。 Ledger：Secure Element芯片（EAL5+认证），抗物理攻击能力强 Trezor：开源固件，透明度高，但使用普通芯片（无SE） Keystone：二维码签名，气隔离——完全不存在USB连接被攻击的可能 contract.sol 123# 硬件钱包签名流程（Python伪代码）from ledger_sdk import LedgerClientfrom web3 import Web3   12...</div></div></div></a><a class="pagination-related" href="/2026/07/17-4-%E6%8E%88%E6%9D%83%E7%AE%A1%E7%90%86/" title="授权管理：用Revoke.cash守护你的钱包——ERC-20授权的坑与对策"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-11</div><div class="info-item-2">授权管理：用Revoke.cash守护你的钱包——ERC-20授权的坑与对策</div></div><div class="info-2"><div class="info-item-1">授权管理 用Revoke.cash守护你的钱包——ERC-20授权的坑与对策授权机制回顾：为什么需要管理？ERC-20的approve机制是DeFi的基础——你授权合约使用你的Token，合约才能帮你做Swap、做LP、做借贷。但授权是双刃剑：授权的合约如果被黑或恶意，可以转走你授权额度的所有Token。 真实案例： 2022年某DeFi协议被黑，攻击者利用合约的漏洞转走了所有授权用户的Token——不是用户的私钥被盗，而是用户之前授权过这个合约。 你的授权 &#x3D; 合约可以动用你的资金授权管理 &#x3D; 限制合约能动用多少、多久 查看你的授权每次你连接钱包到DeFi网站，可能都会留下授权。这些授权不会自动过期——除非你主动撤销。用Revoke.cash可以查看所有授权： contract.sol 12// 用ethers.js查询你的所有授权（JavaScript）const &#123; ethers &#125; = require(&#x27;ethers&#x27;);   123const provider = new ethers.JsonRpcProvi...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">区块链编程</div><div class="author-info-description">区块链技术布道者，分享 DeFi、Layer2、智能合约开发等前沿技术。</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">83</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">36</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/RenRenWuDi/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/RenRenWuDi" target="_blank" title="GitHub"><i class="fab fa-github"></i></a><a class="social-icon" href="/about/" target="_blank" title="微信公众号"><i class="fab fa-weixin"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎关注公众号「区块链编程」</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%AE%A1%E8%AE%A1%E5%85%A5%E9%97%A8"><span class="toc-number">1.</span> <span class="toc-text">智能合约审计入门</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E%E8%AF%BB%E4%BB%A3%E7%A0%81%E5%88%B0%E7%94%A8Slither%E2%80%94%E2%80%94%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%81%9A%E5%AE%89%E5%85%A8%E5%AE%A1%E8%AE%A1"><span class="toc-number">2.</span> <span class="toc-text">从读代码到用Slither——自己动手做安全审计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AD%A6%E5%AE%A1%E8%AE%A1%EF%BC%9F"><span class="toc-number">3.</span> <span class="toc-text">为什么要学审计？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%BB%E5%90%88%E7%BA%A6%E4%BB%A3%E7%A0%81%E7%9A%84%E4%BA%94%E4%B8%AA%E8%A6%81%E7%82%B9"><span class="toc-number">4.</span> <span class="toc-text">读合约代码的五个要点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8Slither%E5%81%9A%E8%87%AA%E5%8A%A8%E5%8C%96%E5%AE%A1%E8%AE%A1"><span class="toc-number">5.</span> <span class="toc-text">用Slither做自动化审计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E6%88%98%EF%BC%9A%E5%AE%A1%E8%AE%A1%E4%B8%80%E4%B8%AA%E6%9C%89%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%90%88%E7%BA%A6"><span class="toc-number">6.</span> <span class="toc-text">实战：审计一个有漏洞的合约</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E5%A4%8D%E6%BC%8F%E6%B4%9E"><span class="toc-number">7.</span> <span class="toc-text">修复漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E7%AF%87%E9%A2%84%E5%91%8A"><span class="toc-number">8.</span> <span class="toc-text">下篇预告</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/17-1-Web3%E8%BA%AB%E4%BB%BD%E9%AA%97%E5%B1%80/" title="Web3里的&quot;身份骗局&quot;：签名授权那些坑——从假网站到恶意授权的识别与防御">Web3里的&quot;身份骗局&quot;：签名授权那些坑——从假网站到恶意授权的识别与防御</a><time datetime="2026-07-11T02:00:00.000Z" title="发表于 2026-07-11 10:00:00">2026-07-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/17-2-%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%AE%A1%E8%AE%A1%E5%85%A5%E9%97%A8/" title="智能合约审计入门：从读代码到用Slither——自己动手做安全审计">智能合约审计入门：从读代码到用Slither——自己动手做安全审计</a><time datetime="2026-07-11T02:00:00.000Z" title="发表于 2026-07-11 10:00:00">2026-07-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/17-4-%E6%8E%88%E6%9D%83%E7%AE%A1%E7%90%86/" title="授权管理：用Revoke.cash守护你的钱包——ERC-20授权的坑与对策">授权管理：用Revoke.cash守护你的钱包——ERC-20授权的坑与对策</a><time datetime="2026-07-11T02:00:00.000Z" title="发表于 2026-07-11 10:00:00">2026-07-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/17-3-%E9%92%B1%E5%8C%85%E5%AE%89%E5%85%A8%E5%AE%9E%E6%88%98/" title="钱包安全实战：从硬件钱包到多签方案——资产安全的最后一道防线">钱包安全实战：从硬件钱包到多签方案——资产安全的最后一道防线</a><time datetime="2026-07-11T02:00:00.000Z" title="发表于 2026-07-11 10:00:00">2026-07-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/17-5-Web3%E5%AE%89%E5%85%A8%E6%B8%85%E5%8D%95/" title="Web3安全清单：从新人到老手的自检表——系列十七完结篇">Web3安全清单：从新人到老手的自检表——系列十七完结篇</a><time datetime="2026-07-11T02:00:00.000Z" title="发表于 2026-07-11 10:00:00">2026-07-11</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By 区块链编程</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">本文由 <a href="https://renrenwudi.github.io">区块链编程</a> 发布 · 转载请注明出处</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/"></script><script src="/"></script><script src="/"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'RenRenWuDi/RenRenWuDi.github.io',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !true) {
+    if (true) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="/js/wechat-card.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

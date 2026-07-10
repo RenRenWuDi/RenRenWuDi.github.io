@@ -1,0 +1,307 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>跨链开发：LayerZero与消息传递 | 区块链编程</title><meta name="author" content="区块链编程"><meta name="copyright" content="区块链编程"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="区块链是多链世界。以太坊有DeFi，Solana有高性能应用，Cosmos有应用链，比特币是价值存储。资产和数据在这些链之间流动，就需要跨链协议。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="跨链开发：LayerZero与消息传递">
+<meta property="og:url" content="https://renrenwudi.github.io/2026/05/8-5-%E8%B7%A8%E9%93%BE%E5%BC%80%E5%8F%91/index.html">
+<meta property="og:site_name" content="区块链编程">
+<meta property="og:description" content="区块链是多链世界。以太坊有DeFi，Solana有高性能应用，Cosmos有应用链，比特币是价值存储。资产和数据在这些链之间流动，就需要跨链协议。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://renrenwudi.github.io/img/avatar.png">
+<meta property="article:published_time" content="2026-05-11T02:00:00.000Z">
+<meta property="article:modified_time" content="2026-07-10T09:03:27.004Z">
+<meta property="article:author" content="区块链编程">
+<meta property="article:tag" content="多链生态">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://renrenwudi.github.io/img/avatar.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "跨链开发：LayerZero与消息传递",
+  "url": "https://renrenwudi.github.io/2026/05/8-5-%E8%B7%A8%E9%93%BE%E5%BC%80%E5%8F%91/",
+  "image": "https://renrenwudi.github.io/img/avatar.png",
+  "datePublished": "2026-05-11T02:00:00.000Z",
+  "dateModified": "2026-07-10T09:03:27.004Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "区块链编程",
+      "url": "https://renrenwudi.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://renrenwudi.github.io/2026/05/8-5-%E8%B7%A8%E9%93%BE%E5%BC%80%E5%8F%91/index.html"><link rel="preconnect"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="/"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#37c2fb')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: '/',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '跨链开发：LayerZero与消息传递',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-41F4NYXQZQ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-41F4NYXQZQ');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 8.1.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">83</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">36</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">区块链编程</span></a><a class="nav-page-title" href="/"><span class="site-name">跨链开发：LayerZero与消息传递</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">跨链开发：LayerZero与消息传递</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-05-11T02:00:00.000Z" title="发表于 2026-05-11 10:00:00">2026-05-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-07-10T09:03:27.004Z" title="更新于 2026-07-10 17:03:27">2026-07-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%A4%9A%E9%93%BE%E7%94%9F%E6%80%81/">多链生态</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">855</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p><strong>跨链开发</strong></p>
+<h2 id="LayerZero与消息传递"><a href="#LayerZero与消息传递" class="headerlink" title="LayerZero与消息传递"></a>LayerZero与消息传递</h2><h2 id="为什么需要跨链？"><a href="#为什么需要跨链？" class="headerlink" title="为什么需要跨链？"></a>为什么需要跨链？</h2><p>区块链是多链世界。以太坊有DeFi，Solana有高性能应用，Cosmos有应用链，比特币是价值存储。资产和数据在这些链之间流动，就需要跨链协议。</p>
+<p>跨链的核心需求：</p>
+<ul>
+<li>资产跨链：把代币从一条链移到另一条</li>
+<li>消息跨链：让合约跨链通信</li>
+<li>状态同步：读取其他链的状态</li>
+<li>互操作：调用其他链的合约</li>
+</ul>
+<h2 id="LayerZero是什么？"><a href="#LayerZero是什么？" class="headerlink" title="LayerZero是什么？"></a>LayerZero是什么？</h2><p>LayerZero是全链互操作协议（Omnichain Interoperability Protocol）。它让合约可以在任意链之间发送消息，实现真正的”一次部署，全链可用”。</p>
+<p>LayerZero核心组件：</p>
+<ul>
+<li>Endpoint：每条链上的入口合约</li>
+<li>Oracle：提供链的区块头</li>
+<li>Relayer：传递消息和证明</li>
+<li>ULN（User Application Network）：验证层</li>
+</ul>
+<h2 id="LayerZero工作原理"><a href="#LayerZero工作原理" class="headerlink" title="LayerZero工作原理"></a>LayerZero工作原理</h2><p>LayerZero用Oracle和Relayer两个独立角色来保证安全。Oracle提供源链的状态证明，Relayer传递消息。只有两者一致，消息才被接受。</p>
+<p>LayerZero消息流程：</p>
+<ol>
+<li>源链合约调用Endpoint.send()</li>
+<li>触发事件，包含消息和目标链信息</li>
+<li>Oracle提供源链区块头</li>
+<li>Relayer传递消息和证明</li>
+<li>目标链Endpoint验证</li>
+<li>调用目标合约的lzReceive()</li>
+</ol>
+<h2 id="LayerZero合约示例"><a href="#LayerZero合约示例" class="headerlink" title="LayerZero合约示例"></a>LayerZero合约示例</h2><p>CrossChainToken.sol</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// SPDX-License-Identifier: MIT</span><br><span class="line">pragma solidity ^0.8.20;</span><br><span class="line">import &quot;@layerzerolabs/contracts/LzApp.sol&quot;;</span><br><span class="line">contract CrossChainToken is LzApp &#123;</span><br><span class="line">string public name = &quot;CrossChainToken&quot;;</span><br><span class="line">mapping(address =&gt; uint256) public balanceOf;</span><br><span class="line">constructor(address _endpoint) LzApp(_endpoint) &#123;&#125;</span><br><span class="line">function mint(address to, uint256 amount) external &#123;</span><br><span class="line">balanceOf[to] += amount;</span><br><span class="line">&#125;</span><br><span class="line">function crossChainTransfer(uint16 dstChainId, address to, uint256 amount) external payable &#123;</span><br><span class="line">require(balanceOf[msg.sender] &gt;= amount);</span><br><span class="line">balanceOf[msg.sender] -= amount;</span><br><span class="line">bytes memory payload = abi.encode(to, amount);</span><br><span class="line">_lzSend(dstChainId, payload, payable(msg.sender), address(0), &quot;&quot;, msg.value);</span><br><span class="line">&#125;</span><br><span class="line">function _nonblockingLzReceive(uint16, bytes memory, bytes memory payload) internal override &#123;</span><br><span class="line">(address to, uint256 amount) = abi.decode(payload, (address, uint256));</span><br><span class="line">balanceOf[to] += amount;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="全链应用（Omnichain-App）"><a href="#全链应用（Omnichain-App）" class="headerlink" title="全链应用（Omnichain App）"></a>全链应用（Omnichain App）</h2><p>全链应用是一次部署到多条链，状态在各链间同步。用户可以在任意链上操作，体验一致。</p>
+<p>全链应用的优势：</p>
+<ul>
+<li>统一流动性：一条链的流动性全链可用</li>
+<li>最佳路由：自动选择最优路径</li>
+<li>用户体验：无需关心在哪条链</li>
+<li>组合性：与其他全链协议无缝组合</li>
+</ul>
+<h2 id="Stargate：LayerZero上的跨链DEX"><a href="#Stargate：LayerZero上的跨链DEX" class="headerlink" title="Stargate：LayerZero上的跨链DEX"></a>Stargate：LayerZero上的跨链DEX</h2><p>Stargate是LayerZero上的跨链原生资产桥。它实现了统一流动性池，用户可以在任意链Swap到任意链的资产。</p>
+<p>Stargate特点：</p>
+<ul>
+<li>统一流动性：所有链共享流动性池</li>
+<li>即时确认：无需等待源链确认</li>
+<li>保证交付：消息一定送达</li>
+<li>低滑点：大流动性降低滑点</li>
+</ul>
+<h2 id="跨链安全考量"><a href="#跨链安全考量" class="headerlink" title="跨链安全考量"></a>跨链安全考量</h2><p>跨链安全风险：</p>
+<ul>
+<li>Oracle作恶：提供虚假状态</li>
+<li>Relayer作恶：传递虚假消息</li>
+<li>双重花费：资产在两条链上同时存在</li>
+<li>代码漏洞：跨链合约被攻击</li>
+</ul>
+<p>LayerZero通过独立Oracle和Relayer降低风险：只有两者合谋才能攻击，而它们由不同实体运营。</p>
+<h2 id="其他跨链协议"><a href="#其他跨链协议" class="headerlink" title="其他跨链协议"></a>其他跨链协议</h2><p>Chainlink CCIP：Chainlink跨链互操作协议</p>
+<p>Wormhole：Solana生态跨链协议</p>
+<p>Multichain：多链资产桥（已出事）</p>
+<p>Axelar：Cosmos生态跨链协议</p>
+<p><strong>9. 总结</strong></p>
+<p>①  跨链是多链世界的基础设施</p>
+<p>②  LayerZero用Oracle+Relayer保证安全</p>
+<p>③  全链应用一次部署，全链可用</p>
+<p>④  Stargate实现跨链原生资产交换</p>
+<p>⑤  跨链安全需要多方验证</p>
+<p>系列八涵盖：Solana、Cosmos、Move、Bitcoin L2、跨链开发</p>
+<p>━━━━━━━━━━━━━━━━━━━━━</p>
+<p>未经授权，禁止转载</p>
+<p>如有转载需求，请联系作者</p>
+<p>关注我，解锁更多可能</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io">区块链编程</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io/2026/05/8-5-%E8%B7%A8%E9%93%BE%E5%BC%80%E5%8F%91/">https://renrenwudi.github.io/2026/05/8-5-%E8%B7%A8%E9%93%BE%E5%BC%80%E5%8F%91/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://renrenwudi.github.io" target="_blank">区块链编程</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%A4%9A%E9%93%BE%E7%94%9F%E6%80%81/">多链生态</a></div><div class="post-share"><div class="social-share" data-image="/img/avatar.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="/" media="print" onload="this.media='all'"><script src="/" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/05/9-1-Web3%E4%BA%A7%E5%93%81%E8%AE%BE%E8%AE%A1/" title="Web3产品设计：产品经理视角"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Web3产品设计：产品经理视角</div></div><div class="info-2"><div class="info-item-1">Web3产品设计产品经理视角Web3产品和Web2有什么不同？做Web3产品和做传统互联网产品，表面上看都是做App、做功能、做体验，但底层逻辑完全不同。Web2产品的护城河是数据和网络效应，Web3产品的护城河是协议和网络效应。 最核心的区别：Web2产品自己拥有数据和规则，Web3产品只是协议的前端，数据和规则都在链上。这意味着产品可以一夜之间被复制，但协议一旦建立就很难被颠覆。 Web3产品的核心特征：  数据在链上，产品只是展示层 规则是开源合约，无法单方面修改 用户真正拥有数据和资产 协议比产品更重要  Web2 PM vs Web3 PMWeb2产品经理的核心能力是增长和商业化——如何获取用户、如何变现。但Web3产品经理的技能树完全不同。 Web3产品经理的三大核心能力：  理解协议机制：知道合约逻辑和链上数据 设计Token经济：代币的发行、分发、使用场景 平衡去中心化和效率：完全去中心化体验差，完全中心化违背Web3精神  钱包优先设计（Wallet-First Design）Web3产品的第一个设计挑战：用户没有账户体系。用户进来第一步是连接钱包，而不是注册登...</div></div></div></a><a class="pagination-related" href="/2026/05/8-3-Move%E8%AF%AD%E8%A8%80/" title="Move语言：Sui与Aptos合约开发"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Move语言：Sui与Aptos合约开发</div></div><div class="info-2"><div class="info-item-1">Move语言Sui与Aptos合约开发Move语言是什么？Move是Facebook（现Meta）为Diem（原Libra）区块链开发的智能合约语言。Diem虽然没有成功，但Move语言被Sui和Aptos继承并发展，成为新一代高性能区块链的核心语言。 Move的核心设计理念：  资源作为一等公民：代币不能被复制或删除 形式化验证支持：可以用Move Prover证明代码正确性 静态类型系统：编译时捕获大部分错误 模块化设计：代码可复用，安全性高  Move vs SolidityMove和Solidity最核心的区别在于”资源”的处理方式。Solidity中，代币只是数字，可以随意复制。Move中，资源有严格的所有权规则——不能复制，不能凭空消失。 Move vs Solidity：  Solidity的代币只是uint256，可以无限复制 Move的代币是资源类型，有所有权语义 Move的”资源”类似Rust的Box，移动语义严格 Move可以形式化验证，Solidity难以验证  Sui和Aptos的区别Sui和Aptos都使用Move语言，但它们对Move做了不同的扩展。...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/05/8-1-Solana%E5%BC%80%E5%8F%91/" title="Solana开发：Anchor框架与Rust合约"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-05-11</div><div class="info-item-2">Solana开发：Anchor框架与Rust合约</div></div><div class="info-2"><div class="info-item-1">Solana开发Anchor框架与Rust合约Solana是什么？Solana是高性能区块链，TPS可达数万笔，出块时间约400毫秒。它用独特的历史证明（Proof of History）共识机制，让节点在不需要频繁通信的情况下就达成共识。 对开发者来说，Solana最大的不同是：合约用Rust编写，而不是Solidity。这带来了更高的性能，但也意味着更高的学习门槛。 Solana核心特点：  高吞吐量：理论TPS 65000+ 快确认：400ms出块时间 低费用：单笔交易约0.00025 SOL Rust合约：编译成BPF字节码 账户模型：与以太坊状态模型不同  Solana账户模型Solana使用账户模型，而不是以太坊的状态模型。在Solana中，所有数据都存在账户里，合约（Program）本身也是账户。 Solana账户类型：  程序账户：存储可执行代码 数据账户：存储程序状态 系统账户：原生程序（System Program） PDA（程序派生地址）：由程序控制的账户  关键概念：在Solana中，合约是”无状态”的。合约代码不存储数据，数据存在独立的账户中。合约执行时...</div></div></div></a><a class="pagination-related" href="/2026/05/8-3-Move%E8%AF%AD%E8%A8%80/" title="Move语言：Sui与Aptos合约开发"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-05-11</div><div class="info-item-2">Move语言：Sui与Aptos合约开发</div></div><div class="info-2"><div class="info-item-1">Move语言Sui与Aptos合约开发Move语言是什么？Move是Facebook（现Meta）为Diem（原Libra）区块链开发的智能合约语言。Diem虽然没有成功，但Move语言被Sui和Aptos继承并发展，成为新一代高性能区块链的核心语言。 Move的核心设计理念：  资源作为一等公民：代币不能被复制或删除 形式化验证支持：可以用Move Prover证明代码正确性 静态类型系统：编译时捕获大部分错误 模块化设计：代码可复用，安全性高  Move vs SolidityMove和Solidity最核心的区别在于”资源”的处理方式。Solidity中，代币只是数字，可以随意复制。Move中，资源有严格的所有权规则——不能复制，不能凭空消失。 Move vs Solidity：  Solidity的代币只是uint256，可以无限复制 Move的代币是资源类型，有所有权语义 Move的”资源”类似Rust的Box，移动语义严格 Move可以形式化验证，Solidity难以验证  Sui和Aptos的区别Sui和Aptos都使用Move语言，但它们对Move做了不同的扩展。...</div></div></div></a><a class="pagination-related" href="/2026/05/8-4-Bitcoin-L2/" title="Bitcoin L2：Stacks与闪电网络"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-05-11</div><div class="info-item-2">Bitcoin L2：Stacks与闪电网络</div></div><div class="info-2"><div class="info-item-1">Bitcoin L2Stacks与闪电网络比特币为什么需要L2？比特币是最安全的区块链，但它的脚本能力非常有限。比特币只能做简单的转账，无法运行复杂的智能合约。这让比特币在DeFi、NFT等应用上落后于以太坊。 比特币L2的目标：  扩展比特币的功能：智能合约、DeFi 继承比特币的安全性 提高比特币的吞吐量 降低交易费用  Stacks是什么？Stacks是一条比特币L2，它使用Clarity语言编写智能合约，通过Proof of Transfer（PoX）共识机制继承比特币的安全性。 Stacks核心特点：  Clarity语言：可预测、可分析、无图灵完备 PoX共识：用比特币质押生产Stacks区块 比特币锚定：所有Stacks区块锚定比特币区块 读取比特币状态：合约可以读取比特币链上数据  Clarity语言Clarity是Stacks的智能合约语言，设计目标是安全性和可预测性。它不是图灵完备的——没有循环，但可以用递归实现重复逻辑。 Clarity特点：  解释执行：不编译，直接解释运行 可预测：没有Gas，执行成本可预测 可分析：可以形式化验证 无递归限制：但有最大深...</div></div></div></a><a class="pagination-related" href="/2026/05/8-2-Cosmos%E7%94%9F%E6%80%81/" title="Cosmos生态：Cosmos SDK与IBC跨链通信"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-05-11</div><div class="info-item-2">Cosmos生态：Cosmos SDK与IBC跨链通信</div></div><div class="info-2"><div class="info-item-1">Cosmos生态Cosmos SDK与IBC跨链通信Cosmos是什么？Cosmos是”区块链互联网”——一个由多个独立区块链组成的网络，这些链通过IBC（跨链通信协议）互相连接。每条链可以有自己的共识机制、治理规则和应用逻辑。 Cosmos核心理念：  应用链：每个应用一条链 模块化：Cosmos SDK提供可复用模块 跨链：IBC协议实现链间通信 主权：每条链独立治理  Cosmos SDKCosmos SDK是一个模块化框架，用于构建区块链。开发者可以像搭积木一样组合各种模块（x&#x2F;auth、x&#x2F;bank、x&#x2F;staking等），快速构建应用链。 Cosmos SDK核心模块：  x&#x2F;auth：账户和签名 x&#x2F;bank：代币转账 x&#x2F;staking：PoS质押 x&#x2F;gov：链上治理 x&#x2F;distribution：奖励分配  IBC跨链通信协议IBC（Inter-Blockchain Communication）是Cosmos的核心创新。它让不同链之间可以安全地传递消息和代币。 IBC的工作原理： ...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">区块链编程</div><div class="author-info-description">区块链技术布道者，分享 DeFi、Layer2、智能合约开发等前沿技术。</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">83</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">36</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/RenRenWuDi/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/RenRenWuDi" target="_blank" title="GitHub"><i class="fab fa-github"></i></a><a class="social-icon" href="/about/" target="_blank" title="微信公众号"><i class="fab fa-weixin"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎关注公众号「区块链编程」</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#LayerZero%E4%B8%8E%E6%B6%88%E6%81%AF%E4%BC%A0%E9%80%92"><span class="toc-number">1.</span> <span class="toc-text">LayerZero与消息传递</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E8%B7%A8%E9%93%BE%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">为什么需要跨链？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LayerZero%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">3.</span> <span class="toc-text">LayerZero是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LayerZero%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-number">4.</span> <span class="toc-text">LayerZero工作原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LayerZero%E5%90%88%E7%BA%A6%E7%A4%BA%E4%BE%8B"><span class="toc-number">5.</span> <span class="toc-text">LayerZero合约示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E9%93%BE%E5%BA%94%E7%94%A8%EF%BC%88Omnichain-App%EF%BC%89"><span class="toc-number">6.</span> <span class="toc-text">全链应用（Omnichain App）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stargate%EF%BC%9ALayerZero%E4%B8%8A%E7%9A%84%E8%B7%A8%E9%93%BEDEX"><span class="toc-number">7.</span> <span class="toc-text">Stargate：LayerZero上的跨链DEX</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%A8%E9%93%BE%E5%AE%89%E5%85%A8%E8%80%83%E9%87%8F"><span class="toc-number">8.</span> <span class="toc-text">跨链安全考量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E8%B7%A8%E9%93%BE%E5%8D%8F%E8%AE%AE"><span class="toc-number">9.</span> <span class="toc-text">其他跨链协议</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/17-1-Web3%E8%BA%AB%E4%BB%BD%E9%AA%97%E5%B1%80/" title="Web3里的&quot;身份骗局&quot;：签名授权那些坑——从假网站到恶意授权的识别与防御">Web3里的&quot;身份骗局&quot;：签名授权那些坑——从假网站到恶意授权的识别与防御</a><time datetime="2026-07-11T02:00:00.000Z" title="发表于 2026-07-11 10:00:00">2026-07-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/17-2-%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%AE%A1%E8%AE%A1%E5%85%A5%E9%97%A8/" title="智能合约审计入门：从读代码到用Slither——自己动手做安全审计">智能合约审计入门：从读代码到用Slither——自己动手做安全审计</a><time datetime="2026-07-11T02:00:00.000Z" title="发表于 2026-07-11 10:00:00">2026-07-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/17-4-%E6%8E%88%E6%9D%83%E7%AE%A1%E7%90%86/" title="授权管理：用Revoke.cash守护你的钱包——ERC-20授权的坑与对策">授权管理：用Revoke.cash守护你的钱包——ERC-20授权的坑与对策</a><time datetime="2026-07-11T02:00:00.000Z" title="发表于 2026-07-11 10:00:00">2026-07-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/17-3-%E9%92%B1%E5%8C%85%E5%AE%89%E5%85%A8%E5%AE%9E%E6%88%98/" title="钱包安全实战：从硬件钱包到多签方案——资产安全的最后一道防线">钱包安全实战：从硬件钱包到多签方案——资产安全的最后一道防线</a><time datetime="2026-07-11T02:00:00.000Z" title="发表于 2026-07-11 10:00:00">2026-07-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/17-5-Web3%E5%AE%89%E5%85%A8%E6%B8%85%E5%8D%95/" title="Web3安全清单：从新人到老手的自检表——系列十七完结篇">Web3安全清单：从新人到老手的自检表——系列十七完结篇</a><time datetime="2026-07-11T02:00:00.000Z" title="发表于 2026-07-11 10:00:00">2026-07-11</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By 区块链编程</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">本文由 <a href="https://renrenwudi.github.io">区块链编程</a> 发布 · 转载请注明出处</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/"></script><script src="/"></script><script src="/"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'RenRenWuDi/RenRenWuDi.github.io',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !true) {
+    if (true) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="/js/wechat-card.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
