@@ -343,3 +343,15 @@ code {
   #article-container h2 { font-size: 20px; }
   #article-container h3 { font-size: 18px; }
 }
+/* 头像持续旋转动画 */
+@keyframes rotate-avatar {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.avatar-img img {
+  animation: rotate-avatar 8s linear infinite;
+}
+.avatar-img img:hover {
+  animation-play-state: paused;
+  transform: rotate(360deg) !important;
+}

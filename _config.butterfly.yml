@@ -29,7 +29,32 @@ code_word_wrap: false
 # =======================
 avatar:
   img: /img/avatar.png
-  effect: true
+  effect: true  # hover 旋转，附加 CSS 实现持续旋转
+
+# =======================
+# 侧边栏卡片
+# =======================
+aside:
+  position: right
+  card_author:
+    enable: true
+    description: 区块链技术布道者，分享 DeFi、Layer2、智能合约开发等前沿技术。
+    button:
+      enable: true
+      icon: fab fa-github
+      text: Follow Me
+      link: https://github.com/RenRenWuDi/
+  card_author_shape: circle
+  card_post_series: true
+  card_announcement:
+    enable: true
+    content: 欢迎关注公众号「区块链编程」
+  card_recent_post:
+    enable: true
+  card_newest_comments: false
+  card_categories:
+    enable: true
+    depth: 3
 
 # =======================
 # 网站图标
@@ -191,26 +216,7 @@ dark_mode:
   default: auto
   toggle: true
 
-# =======================
-# 侧边栏
-# =======================
-aside:
-  position: right
-  card_author:
-    enable: true
-    description: 区块链技术博主，专注 Web3 开发、DeFi 协议与智能合约安全
-  card_author_icon:
-  card_author_shape: circle
-  card_post_series: true
-  card_announcement:
-    enable: true
-    content: 欢迎关注公众号「区块链编程」
-  card_recent_post:
-    enable: true
-  card_newest_comments: false
-  card_categories:
-    enable: true
-    depth: 3
+
   card_tags:
     enable: true
     amount: 20

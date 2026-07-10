@@ -1,6 +1,6 @@
 ---
 title: Optimistic Rollup：欺诈证明与7天挑战期
-date: 2026-07-10 16:44:23
+date: 2026-04-16 10:00:00
 categories:
   - Layer2扩展
 tags:
