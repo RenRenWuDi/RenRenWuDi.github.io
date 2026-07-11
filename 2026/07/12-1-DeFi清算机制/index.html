@@ -1,0 +1,295 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>DeFi清算机制 | 区块链编程</title><meta name="author" content="区块链编程"><meta name="copyright" content="区块链编程"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="DeFi清算机制 - DeFi进阶系列文章">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DeFi清算机制">
+<meta property="og:url" content="https://renrenwudi.github.io/2026/07/12-1-DeFi%E6%B8%85%E7%AE%97%E6%9C%BA%E5%88%B6/index.html">
+<meta property="og:site_name" content="区块链编程">
+<meta property="og:description" content="DeFi清算机制 - DeFi进阶系列文章">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://renrenwudi.github.io/img/avatar.png">
+<meta property="article:published_time" content="2026-07-11T02:53:32.000Z">
+<meta property="article:modified_time" content="2026-07-11T03:14:40.269Z">
+<meta property="article:author" content="区块链编程">
+<meta property="article:tag" content="DeFi">
+<meta property="article:tag" content="清算">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://renrenwudi.github.io/img/avatar.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "DeFi清算机制",
+  "url": "https://renrenwudi.github.io/2026/07/12-1-DeFi%E6%B8%85%E7%AE%97%E6%9C%BA%E5%88%B6/",
+  "image": "https://renrenwudi.github.io/img/avatar.png",
+  "datePublished": "2026-07-11T02:53:32.000Z",
+  "dateModified": "2026-07-11T03:14:40.269Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "区块链编程",
+      "url": "https://renrenwudi.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://renrenwudi.github.io/2026/07/12-1-DeFi%E6%B8%85%E7%AE%97%E6%9C%BA%E5%88%B6/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#37c2fb')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'DeFi清算机制',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-41F4NYXQZQ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-41F4NYXQZQ');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 8.1.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">100</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">72</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">区块链编程</span></a><a class="nav-page-title" href="/"><span class="site-name">DeFi清算机制</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">DeFi清算机制</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-07-11T02:53:32.000Z" title="发表于 2026-07-11 10:53:32">2026-07-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-07-11T03:14:40.269Z" title="更新于 2026-07-11 11:14:40">2026-07-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/DeFi%E8%BF%9B%E9%98%B6/">DeFi进阶</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h3 id="系统如何防止坏账——自动清算的链上逻辑"><a href="#系统如何防止坏账——自动清算的链上逻辑" class="headerlink" title="系统如何防止坏账——自动清算的链上逻辑"></a>系统如何防止坏账——自动清算的链上逻辑</h3><h3 id="1-坏账是DeFi的生死线"><a href="#1-坏账是DeFi的生死线" class="headerlink" title="1. 坏账是DeFi的生死线"></a>1. 坏账是DeFi的生死线</h3><p>DeFi借贷协议的核心风险只有一件事：借款人还不起了怎么办？如果一个人的借款价值超过了抵押价值，这笔借款就变成了”坏账”——贷方受损，整个协议的资金池可能被掏空。</p>
+<p>解决这个问题的方式叫做”自动清算”：当抵押率跌破阈值，合约自动触发清算程序，把抵押物打折卖给清算人。整个过程不需要人工介入，毫秒级完成。</p>
+<p>清算的本质：\n\n当你的健康因子 &lt; 1 时，你的抵押物会被强制拍卖。\n买家的出价 &#x3D; 抵押物价值 × 清算激励折扣\n\n折扣越大，清算人越积极，清算越快——坏账越少。</p>
+<p><strong>2. 健康因子：清算的触发开关</strong></p>
+<p>健康因子（Health Factor，简称HF）是借贷协议的核心参数。它衡量的是：你的抵押物价值 vs 你的借款价值。</p>
+<p>contract.sol</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 健康因子计算</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">health_factor</span>(<span class="params">col_value, borrow_value, liq_threshold</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    col_value: 抵押物价值（USD）</span></span><br><span class="line"><span class="string">    borrow_value: 借款价值（USD）</span></span><br><span class="line"><span class="string">    liq_threshold: 清算阈值（百分比，如0.8表示80%）</span></span><br><span class="line"><span class="string">    健康因子 &lt; 1 → 触发清算</span></span><br><span class="line"><span class="string">    健康因子 &gt; 1 → 安全</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> borrow_value == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">float</span>(<span class="string">&#x27;inf&#x27;</span>)  <span class="comment"># 无借款，无限安全</span></span><br><span class="line">    hf = (col_value * liq_threshold) / borrow_value</span><br><span class="line">    <span class="keyword">return</span> hf</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 场景模拟</span></span><br><span class="line">scenarios = [</span><br><span class="line">    (10000, 5000, 0.80),  <span class="comment"># 抵押1万U，借5000U，阈值80%</span></span><br><span class="line">    (10000, 8000, 0.80),  <span class="comment"># 抵押1万U，借8000U，阈值80%</span></span><br><span class="line">    (10000, 8100, 0.80),  <span class="comment"># 抵押1万U，借8100U，阈值80%</span></span><br><span class="line">    (10000, 6000, 0.50),  <span class="comment"># 抵押1万U，借6000U，阈值50%</span></span><br><span class="line">]</span><br><span class="line"><span class="keyword">for</span> col, borrow, threshold <span class="keyword">in</span> scenarios:</span><br><span class="line">    hf = health_factor(col, borrow, threshold)</span><br><span class="line">    status = <span class="string">&quot;触发清算！&quot;</span> <span class="keyword">if</span> hf &lt; 1 <span class="keyword">else</span> <span class="string">&quot;安全&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(f<span class="string">&quot;抵押=&#123;col&#125;U, 借款=&#123;borrow&#125;U, 阈值=&#123;threshold&#125; -&gt; HF=&#123;hf:.2f&#125; [&#123;status&#125;]&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">health_factor.py</span><br></pre></td></tr></table></figure>
+
+<p>清算阈值（Liquidation Threshold）由协议设定，通常比最大LTV低5-10个百分点。比如Aave的ETH最大LTV是83%，清算阈值是82%。</p>
+<p>当ETH价格下跌，抵押物价值缩水，HF就会下降。跌破1的瞬间，清算程序立即启动。</p>
+<p><strong>3. 清算折扣：激励清算人入场</strong></p>
+<p>清算人的角色是”做市商”：他们监控链上健康因子，发现机会后立即发起清算交易，用折扣价买到抵押物，再去市场卖掉获利。</p>
+<p>清算激励通常用”清算奖金”（Liquidation Bonus）表示，范围5%-20%不等。以Aave V3为例：</p>
+<p>清算奖金 &#x3D; 抵押物价值的5%作为折扣</p>
+<p>清算人拿到：抵押物 × 95%的价值</p>
+<p>借款人的抵押物被扣掉：抵押物价值 × 清算奖金</p>
+<p>清算机制设计的关键平衡：\n\n折扣太小 → 清算了无利可图，坏账积累\n折扣太大 → 借款人损失过重，引发恐慌\n\n好的协议会在安全和公平之间找到平衡点。</p>
+<h3 id="4-清算合约代码实现"><a href="#4-清算合约代码实现" class="headerlink" title="4. 清算合约代码实现"></a>4. 清算合约代码实现</h3><p>以Compound V2的清算合约为例，核心逻辑如下：</p>
+<p>contract.sol</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// SPDX-License-Identifier: MIT</span><br><span class="line">pragma solidity ^0.8.20;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">contract SimpleLiquidation &#123;</span><br><span class="line">    uint256 public constant LIQUIDATION_BONUS = 5; // 5% 奖金</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">struct Market &#123;</span><br><span class="line">    address token;</span><br><span class="line">    uint256 collateralFactor;  // 抵押率（如80%存0.8）</span><br><span class="line">    uint256 price;              // Chainlink预言机价格</span><br><span class="line">&#125;</span><br><span class="line">Market public market;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">liquidate</span>(<span class="params">address borrower, uint256 repayAmount</span>)</span><br><span class="line">    external</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 第1步：检查健康因子</span></span><br><span class="line">    (uint256 collateralValue, uint256 borrowValue) =</span><br><span class="line">        <span class="title function_">getAccountValues</span>(borrower);</span><br><span class="line">    uint256 healthFactor = (collateralValue * <span class="number">100</span>) / borrowValue;</span><br><span class="line">    <span class="built_in">require</span>(healthFactor &lt; <span class="number">100</span>, <span class="string">&quot;Account healthy&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 第2步：计算清算收益</span><br><span class="line">// 清算人可以获得的抵押物数量</span><br><span class="line">uint256 reward = repayAmount * (100 + LIQUIDATION_BONUS)</span><br><span class="line">    * market.price / 100;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">    // 第3步：转移资产</span><br><span class="line">    // 借款人抵押物 → 清算人</span><br><span class="line">    transferFrom(market.token, msg.sender, reward);</span><br><span class="line">    // 清算人偿还借款</span><br><span class="line">    transferIn(borrowToken, msg.sender, repayAmount);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">function</span> <span class="title function_">getAccountValues</span>(<span class="params">address user</span>)</span><br><span class="line">        internal view <span class="title function_">returns</span> (uint256, uint256)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 获取用户的抵押物总价值和借款总价值</span></span><br><span class="line">        <span class="keyword">return</span> (userCollateral[user], userBorrows[user]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Liquidation.sol</span><br></pre></td></tr></table></figure>
+
+<p>实际协议（如Aave&#x2F;Compound）会复杂得多：</p>
+<h3 id="5-清算人的策略与生存空间"><a href="#5-清算人的策略与生存空间" class="headerlink" title="5. 清算人的策略与生存空间"></a>5. 清算人的策略与生存空间</h3><p>清算人在链上竞争，有三个关键能力决定谁能抢到清算：</p>
+<p>速度：监控链上健康因子变化 → 发现机会 → 发交易，速度越快越好</p>
+<p>Gas策略：清算机会稍纵即逝，高Gas竞价是常态</p>
+<p>资金规模：清算金额越大，规模效应越明显</p>
+<p>MEV对清算的影响：\n\nFlashbots MEV-Relay 让验证者能预先看到待处理交易。\n清算机器人往往通过 Flashbots 发送交易，\n支付给验证者的 MEV 奖励就是它的成本。\n\n没有 MEV 保护的清算交易可能被别人抢走。</p>
+<p>个人开发者可以通过搭建监控脚本 + 预设Gas策略参与清算——但要注意Gas竞价风险。</p>
+<h3 id="6-下篇预告"><a href="#6-下篇预告" class="headerlink" title="6. 下篇预告"></a>6. 下篇预告</h3><p>下一期讲预言机：DeFi清算靠价格触发，价格从哪来？Chainlink是如何做到去中心化的？</p>
+<p>✅ 健康因子 &#x3D; 抵押物价值 × 清算阈值 &#x2F; 借款价值</p>
+<p>✅ HF &lt; 1 触发自动清算，HF &gt; 1 安全</p>
+<p>✅ 清算折扣（5%-20%）激励清算人入场</p>
+<p>✅ 清算合约核心逻辑：检查HF → 计算折扣 → 转移资产</p>
+<p>✅ MEV让专业清算机器人占优，个人开发者可通过脚本参与</p>
+<p><strong>📖 下篇预告：预言机攻防：Chainlink如何守护价格</strong></p>
+<p>━━━━━━━━━━━━━━━━━━━━━</p>
+<h3 id="📢-本文由「区块链编程」原创出品"><a href="#📢-本文由「区块链编程」原创出品" class="headerlink" title="📢 本文由「区块链编程」原创出品"></a>📢 本文由「区块链编程」原创出品</h3><p>未经授权，禁止转载</p>
+<p>如有转载需求，请联系作者</p>
+<h3 id="👉-关注「区块链编程」"><a href="#👉-关注「区块链编程」" class="headerlink" title="👉 关注「区块链编程」"></a>👉 关注「区块链编程」</h3><p>关注我，解锁更多可能</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io">区块链编程</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io/2026/07/12-1-DeFi%E6%B8%85%E7%AE%97%E6%9C%BA%E5%88%B6/">https://renrenwudi.github.io/2026/07/12-1-DeFi%E6%B8%85%E7%AE%97%E6%9C%BA%E5%88%B6/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://renrenwudi.github.io" target="_blank">区块链编程</a>！</span></div></div><div id="wechat-card-insert"><div class="wechat-promo-card"><div class="promo-title">📱 关注公众号「区块链编程」</div><div class="promo-desc">更多区块链技术干货、Web3开发实战、量化交易策略<br>第一时间推送，关注「区块链编程」公众号</div><img class="promo-qr" src="/img/wechat-qr.png" data-lazy-src="/img/wechat-qr.png" alt="区块链编程公众号二维码"><a class="promo-cta" href="/about/">扫码关注</a></div></div><!--sync20260710--><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%B8%85%E7%AE%97/">清算</a><a class="post-meta__tags" href="/tags/DeFi/">DeFi</a></div><div class="post-share"><div class="social-share" data-image="/img/avatar.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/07/12-2-%E9%A2%84%E8%A8%80%E6%9C%BA%E6%94%BB%E9%98%B2/" title="预言机攻防"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">预言机攻防</div></div><div class="info-2"><div class="info-item-1">Chainlink如何守护价格——去中心化喂价的工程原理1. 预言机：DeFi的眼睛 DeFi借贷协议需要知道抵押物的实时价格，才能计算健康因子。问题来了：谁来告诉合约”ETH现在值多少钱”？ 区块链本身不知道外部世界的事。预言机（Oracle）就是连接链上合约和链下数据的桥——它把ETH&#x2F;USD的价格喂给链上合约，让合约能做出决策。 预言机的核心问题（The Oracle Problem）：\n\n区块链本身是确定性的（每个节点执行同一计算结果）。\n而价格是外部市场的（随时变化）。\n\n如何让确定性系统信任外部数据？\n答案：多数据源 + 聚合 + 博弈惩罚。 2. Chainlink的去中心化聚合机制Chainlink是目前最主流的预言机方案。它的核心设计是”去中心化聚合”：多个独立节点从不同交易所获取价格，然后聚合成一个答案。 contract.sol 12345678910111213# Chainlink价格聚合模拟def chainlink_aggregate(price_reports, deviation_threshold=0.5):    &qu...</div></div></div></a><a class="pagination-related" href="/2026/07/17-4-%E6%8E%88%E6%9D%83%E7%AE%A1%E7%90%86/" title="授权管理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">授权管理</div></div><div class="info-2"><div class="info-item-1">用Revoke.cash守护你的钱包——ERC-20授权的坑与对策1. 授权机制回顾：为什么需要管理？ ERC-20的approve机制是DeFi的基础——你授权合约使用你的Token，合约才能帮你做Swap、做LP、做借贷。但授权是双刃剑：授权的合约如果被黑或恶意，可以转走你授权额度的所有Token。 真实案例： 2022年某DeFi协议被黑，攻击者利用合约的漏洞转走了所有授权用户的Token——不是用户的私钥被盗，而是用户之前授权过这个合约。 你的授权 &#x3D; 合约可以动用你的资金授权管理 &#x3D; 限制合约能动用多少、多久 2. 查看你的授权每次你连接钱包到DeFi网站，可能都会留下授权。这些授权不会自动过期——除非你主动撤销。用Revoke.cash可以查看所有授权： contract.sol 12// 用ethers.js查询你的所有授权（JavaScript）const &#123; ethers &#125; = require(&#x27;ethers&#x27;);  123const provider = new ethers.JsonRpcProv...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/07/12-4-%E5%80%9F%E8%B4%B7%E5%8D%8F%E8%AE%AE%E6%B8%85%E7%AE%97%E7%BA%BF/" title="借贷协议清算线"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-11</div><div class="info-item-2">借贷协议清算线</div></div><div class="info-2"><div class="info-item-1">健康因子数学模型——Compound与Aave清算阈值设计1. 借贷协议的核心机制DeFi借贷协议让你”抵押crypto，借出crypto”。流程是：存入抵押物 → 获得借款额度 → 用额度借款。整个系统的安全边界由清算机制守护。 两个最主流的借贷协议：Compound V2（简单直接）和Aave V3（功能丰富）。它们的设计哲学有显著差异。 2. 健康因子的数学模型健康因子（Health Factor）的数学定义： HF &#x3D; Σ(抵押物价值 × 清算阈值) &#x2F; Σ(借款价值)\n\n当HF ≥ 1时，账户安全\n当HF &lt; 1时，触发清算\n\n清算触发后的执行顺序：\n1. 清算人发起清算交易\n2. 抵押物打折出售\n3. 借款债务被偿还\n4. 剩余抵押物归还借款人 3. Compound vs Aave清算阈值对比两协议的清算阈值设计理念不同： contract.sol 12345678910# Compound vs Aave 清算阈值对比def compound_vs_aave(asset, price, supply_amount):  ...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">区块链编程</div><div class="author-info-description">区块链技术布道者，分享 DeFi、Layer2、智能合约开发等前沿技术。</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">100</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">72</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/RenRenWuDi/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/RenRenWuDi" target="_blank" title="GitHub"><i class="fab fa-github"></i></a><a class="social-icon" href="/about/" target="_blank" title="微信公众号"><i class="fab fa-weixin"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎关注公众号「区块链编程」</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%A6%82%E4%BD%95%E9%98%B2%E6%AD%A2%E5%9D%8F%E8%B4%A6%E2%80%94%E2%80%94%E8%87%AA%E5%8A%A8%E6%B8%85%E7%AE%97%E7%9A%84%E9%93%BE%E4%B8%8A%E9%80%BB%E8%BE%91"><span class="toc-number">1.</span> <span class="toc-text">系统如何防止坏账——自动清算的链上逻辑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%9D%8F%E8%B4%A6%E6%98%AFDeFi%E7%9A%84%E7%94%9F%E6%AD%BB%E7%BA%BF"><span class="toc-number">2.</span> <span class="toc-text">1. 坏账是DeFi的生死线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%B8%85%E7%AE%97%E5%90%88%E7%BA%A6%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">4. 清算合约代码实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%B8%85%E7%AE%97%E4%BA%BA%E7%9A%84%E7%AD%96%E7%95%A5%E4%B8%8E%E7%94%9F%E5%AD%98%E7%A9%BA%E9%97%B4"><span class="toc-number">4.</span> <span class="toc-text">5. 清算人的策略与生存空间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E4%B8%8B%E7%AF%87%E9%A2%84%E5%91%8A"><span class="toc-number">5.</span> <span class="toc-text">6. 下篇预告</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%A2-%E6%9C%AC%E6%96%87%E7%94%B1%E3%80%8C%E5%8C%BA%E5%9D%97%E9%93%BE%E7%BC%96%E7%A8%8B%E3%80%8D%E5%8E%9F%E5%88%9B%E5%87%BA%E5%93%81"><span class="toc-number">6.</span> <span class="toc-text">📢 本文由「区块链编程」原创出品</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%91%89-%E5%85%B3%E6%B3%A8%E3%80%8C%E5%8C%BA%E5%9D%97%E9%93%BE%E7%BC%96%E7%A8%8B%E3%80%8D"><span class="toc-number">7.</span> <span class="toc-text">👉 关注「区块链编程」</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/12-1-DeFi%E6%B8%85%E7%AE%97%E6%9C%BA%E5%88%B6/" title="DeFi清算机制">DeFi清算机制</a><time datetime="2026-07-11T02:53:32.000Z" title="发表于 2026-07-11 10:53:32">2026-07-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/12-2-%E9%A2%84%E8%A8%80%E6%9C%BA%E6%94%BB%E9%98%B2/" title="预言机攻防">预言机攻防</a><time datetime="2026-07-11T02:53:32.000Z" title="发表于 2026-07-11 10:53:32">2026-07-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/12-3-AMM%E6%9C%BA%E5%88%B6%E5%AF%B9%E6%AF%94/" title="AMM机制对比">AMM机制对比</a><time datetime="2026-07-11T02:53:32.000Z" title="发表于 2026-07-11 10:53:32">2026-07-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/12-4-%E5%80%9F%E8%B4%B7%E5%8D%8F%E8%AE%AE%E6%B8%85%E7%AE%97%E7%BA%BF/" title="借贷协议清算线">借贷协议清算线</a><time datetime="2026-07-11T02:53:32.000Z" title="发表于 2026-07-11 10:53:32">2026-07-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/12-5-DeFi%E7%9B%91%E6%8E%A7%E4%BB%AA%E8%A1%A8%E7%9B%98/" title="DeFi监控仪表盘">DeFi监控仪表盘</a><time datetime="2026-07-11T02:53:32.000Z" title="发表于 2026-07-11 10:53:32">2026-07-11</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By 区块链编程</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">本文由 <a href="https://renrenwudi.github.io">区块链编程</a> 发布 · 转载请注明出处</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'RenRenWuDi/RenRenWuDi.github.io',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !true) {
+    if (true) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="/js/wechat-card.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
