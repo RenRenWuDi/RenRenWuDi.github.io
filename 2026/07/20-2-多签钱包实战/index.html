@@ -1,0 +1,295 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>多签钱包实战 | 区块链编程</title><meta name="author" content="区块链编程"><meta name="copyright" content="区块链编程"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="多签钱包实战 - 钱包专题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多签钱包实战">
+<meta property="og:url" content="https://renrenwudi.github.io/2026/07/20-2-%E5%A4%9A%E7%AD%BE%E9%92%B1%E5%8C%85%E5%AE%9E%E6%88%98/index.html">
+<meta property="og:site_name" content="区块链编程">
+<meta property="og:description" content="多签钱包实战 - 钱包专题">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://renrenwudi.github.io/img/avatar.png">
+<meta property="article:published_time" content="2026-07-12T16:50:26.000Z">
+<meta property="article:modified_time" content="2026-07-14T10:40:36.585Z">
+<meta property="article:author" content="区块链编程">
+<meta property="article:tag" content="多签">
+<meta property="article:tag" content="钱包">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://renrenwudi.github.io/img/avatar.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "多签钱包实战",
+  "url": "https://renrenwudi.github.io/2026/07/20-2-%E5%A4%9A%E7%AD%BE%E9%92%B1%E5%8C%85%E5%AE%9E%E6%88%98/",
+  "image": "https://renrenwudi.github.io/img/avatar.png",
+  "datePublished": "2026-07-12T16:50:26.000Z",
+  "dateModified": "2026-07-14T10:40:36.585Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "区块链编程",
+      "url": "https://renrenwudi.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://renrenwudi.github.io/2026/07/20-2-%E5%A4%9A%E7%AD%BE%E9%92%B1%E5%8C%85%E5%AE%9E%E6%88%98/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#37c2fb')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '多签钱包实战',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-41F4NYXQZQ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-41F4NYXQZQ');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 8.1.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">111</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">74</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">区块链编程</span></a><a class="nav-page-title" href="/"><span class="site-name">多签钱包实战</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">多签钱包实战</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-07-12T16:50:26.000Z" title="发表于 2026-07-13 00:50:26">2026-07-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-07-14T10:40:36.585Z" title="更新于 2026-07-14 18:40:36">2026-07-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%92%B1%E5%8C%85%E4%B8%93%E9%A2%98/">钱包专题</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h3 id="Gnosis-Safe部署与企业资产管理最佳实践"><a href="#Gnosis-Safe部署与企业资产管理最佳实践" class="headerlink" title="Gnosis Safe部署与企业资产管理最佳实践"></a>Gnosis Safe部署与企业资产管理最佳实践</h3><h3 id="1-为什么需要多签钱包？"><a href="#1-为什么需要多签钱包？" class="headerlink" title="1. 为什么需要多签钱包？"></a>1. 为什么需要多签钱包？</h3><p>单人EOA钱包最大的风险是单点故障：私钥泄露 &#x3D; 资产全丢；密码忘了 &#x3D; 资产永久无法访问。多签钱包通过多人共管来解决这个问题——N个人中只要有M个人同意，就能执行操作。</p>
+<p>类比：</p>
+<p>公司公章要两个人同时签字才能生效，这就是多签。Gnosis Safe就是区块链上的”双人签字”机制。</p>
+<p>多签的好处：防单点故障、流程可控（大于X ETH需审批）、资产传承。</p>
+<h3 id="2-M-of-N阈值签名原理"><a href="#2-M-of-N阈值签名原理" class="headerlink" title="2. M-of-N阈值签名原理"></a>2. M-of-N阈值签名原理</h3><p>N：总签名者数量</p>
+<p>M：阈值，至少M个人签名，交易才生效</p>
+<p>常见配置：2-of-3（3人中任意2人）、3-of-5（5人中任意3人）</p>
+<p>contract.sol</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 多签权限检查模拟</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">multi_sig_check</span>(<span class="params">signers, threshold, signed_indices</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;检查签名数是否达到阈值&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(signed_indices) &lt; threshold:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">f&quot;还需<span class="subst">&#123;threshold - <span class="built_in">len</span>(signed_indices)&#125;</span>个签名，当前<span class="subst">&#123;<span class="built_in">len</span>(signed_indices)&#125;</span>/<span class="subst">&#123;threshold&#125;</span>&quot;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;已满足阈值，交易将执行&quot;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(multi_sig_check([&quot;Alice&quot;,&quot;Bob&quot;,&quot;Charlie&quot;], 2, [0, 1]))</span><br><span class="line">print(multi_sig_check([&quot;Alice&quot;,&quot;Bob&quot;,&quot;Charlie&quot;], 3, [0, 1]))</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">multisig.py</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-Gnosis-Safe部署教程"><a href="#3-Gnosis-Safe部署教程" class="headerlink" title="3. Gnosis Safe部署教程"></a>3. Gnosis Safe部署教程</h3><p>Gnosis Safe是完全基于智能合约的多签钱包，不需要KYC，可以自己部署：</p>
+<p>步骤一：访问 app.safe.global，创建新Safe</p>
+<p>步骤二：选择链（以太坊主网、Arbitrum、Polygon等）</p>
+<p>步骤三：添加签名者（EOA地址），至少2个</p>
+<p>步骤四：设置阈值（如3-of-5）</p>
+<p>步骤五：Metamask签名，确认部署交易</p>
+<p>步骤六：等待合约上链，记录Safe地址</p>
+<p>反事实地址特性：Gnosis Safe使用CREATE2，部署参数（签名者列表+阈值）决定合约地址。同样的参数在任意链会得到同样的Safe地址——这意味着Safe还没部署就可以预知地址，提前收款。</p>
+<h3 id="4-Safe日常操作与合约调用"><a href="#4-Safe日常操作与合约调用" class="headerlink" title="4. Safe日常操作与合约调用"></a>4. Safe日常操作与合约调用</h3><p>contract.sol</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Gnosis Safe 交易创建示例（safe-core-sdk）</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Safe</span> <span class="keyword">from</span> <span class="string">&quot;@gnosis.pm/safe-core-sdk&quot;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">EthersSafe</span> <span class="keyword">from</span> <span class="string">&quot;@gnosis.pm/safe-ethers-lib&quot;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> safe = <span class="keyword">await</span> <span class="title class_">Safe</span>.<span class="title function_">create</span>(&#123;</span><br><span class="line">  ethAdapter,</span><br><span class="line">  <span class="attr">safeAddress</span>: <span class="string">&quot;0xYourSafeAddress&quot;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建转账交易</span></span><br><span class="line"><span class="keyword">const</span> tx = <span class="keyword">await</span> safe.<span class="title function_">createTransaction</span>(&#123;</span><br><span class="line">  <span class="attr">to</span>: <span class="string">&quot;0xReceiverAddress&quot;</span>,</span><br><span class="line">  <span class="attr">value</span>: <span class="string">&quot;1000000000000000000&quot;</span>, <span class="comment">// 1 ETH</span></span><br><span class="line">  <span class="attr">data</span>: <span class="string">&quot;0x&quot;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 签名（需threshold个Owner分别签名）</span><br><span class="line">await safe.signTransaction(tx)</span><br><span class="line">await safe.executeTransaction(tx)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">safe_tx.js</span><br></pre></td></tr></table></figure>
+
+<p>所有操作都需要达到阈值才真正执行，链上完全透明，不可篡改。</p>
+<h3 id="5-阈值设置的最佳实践"><a href="#5-阈值设置的最佳实践" class="headerlink" title="5. 阈值设置的最佳实践"></a>5. 阈值设置的最佳实践</h3><p>阈值设置参考：</p>
+<p>2-of-3（适合小团队）：容错率高，任一人失误可恢复<br>3-of-5（适合中型DAO）：容忍2人离线，需多数人同意<br>4-of-7（适合大型组织）：高度安全，决策门槛高</p>
+<p>原则：不要1-of-N（等于没多签），不要N-of-N（一人卡死全部）。</p>
+<p>核心团队运营：2-of-3</p>
+<p>DAO国库资产：3-of-5或更高</p>
+<p>个人家庭资产：2-of-3（配偶+子女信任圈）</p>
+<h3 id="6-企业资产管理最佳实践"><a href="#6-企业资产管理最佳实践" class="headerlink" title="6. 企业资产管理最佳实践"></a>6. 企业资产管理最佳实践</h3><p>地理分散：签名者分布在不同地区，避免自然灾害导致全员无法操作</p>
+<p>职责分离：签名权由不同角色持有，禁止单人持有多个签名权</p>
+<p>时间锁：大于X ETH的转账设置24-48小时延迟，发现异常可紧急撤销</p>
+<p>定期审计：每季度审查签名者列表，更新离职成员</p>
+<p>备用方案：制定核心签名者意外去世的预案（如纸质备份存放于律师事务所）</p>
+<h3 id="7-下篇预告"><a href="#7-下篇预告" class="headerlink" title="7. 下篇预告"></a>7. 下篇预告</h3><p>下一期讲硬件钱包和冷存储：Ledger怎么用？离线签名是什么原理？金属备份怎么做？</p>
+<p>✅ 多签&#x3D;M-of-N阈值模型，达到阈值才执行，防单点故障</p>
+<p>✅ Gnosis Safe基于智能合约，有反事实地址特性</p>
+<p>✅ 阈值设置：2-of-3适合小团队，3-of-5适合DAO国库</p>
+<p>✅ 企业多签：地理分散+职责分离+时间锁+定期审计</p>
+<p>✅ 多签钱包是企业级加密资产管理的标配</p>
+<p><strong>📖 下篇预告：硬件钱包与冷存储：Ledger&#x2F;Trezor与离线签名</strong></p>
+<p>━━━━━━━━━━━━━━━━━━━━━</p>
+<h3 id="📢-本文由「区块链编程」原创出品"><a href="#📢-本文由「区块链编程」原创出品" class="headerlink" title="📢 本文由「区块链编程」原创出品"></a>📢 本文由「区块链编程」原创出品</h3><p>未经授权，禁止转载</p>
+<p>如有转载需求，请联系作者</p>
+<h3 id="👉-关注「区块链编程」"><a href="#👉-关注「区块链编程」" class="headerlink" title="👉 关注「区块链编程」"></a>👉 关注「区块链编程」</h3><p>关注我，解锁更多可能</p>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"多签钱包实战","datePublished":"2026-07-12T16:50:26.000Z","dateModified":"2026-07-14T10:40:36.585Z","author":{"@type":"Person","name":"区块链编程"},"publisher":{"@type":"Organization","name":"区块链编程","url":"https://renrenwudi.github.io"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://renrenwudi.github.io/2026/07/20-2-%E5%A4%9A%E7%AD%BE%E9%92%B1%E5%8C%85%E5%AE%9E%E6%88%98/"},"description":"多签钱包实战 - 钱包专题","keywords":"钱包, 多签"}</script></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io">区块链编程</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io/2026/07/20-2-%E5%A4%9A%E7%AD%BE%E9%92%B1%E5%8C%85%E5%AE%9E%E6%88%98/">https://renrenwudi.github.io/2026/07/20-2-%E5%A4%9A%E7%AD%BE%E9%92%B1%E5%8C%85%E5%AE%9E%E6%88%98/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://renrenwudi.github.io" target="_blank">区块链编程</a>！</span></div></div><div id="wechat-card-insert"><div class="wechat-promo-card"><div class="promo-title">📱 关注公众号「区块链编程」</div><div class="promo-desc">更多区块链技术干货、Web3开发实战、量化交易策略<br>第一时间推送，关注「区块链编程」公众号</div><img class="promo-qr" src="/img/wechat-qr.png" data-lazy-src="/img/wechat-qr.png" alt="区块链编程公众号二维码"><a class="promo-cta" href="/about/">扫码关注</a></div></div><!--sync20260710--><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%92%B1%E5%8C%85/">钱包</a><a class="post-meta__tags" href="/tags/%E5%A4%9A%E7%AD%BE/">多签</a></div><div class="post-share"><div class="social-share" data-image="/img/avatar.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/07/20-1-%E9%92%B1%E5%8C%85%E7%9A%84%E5%8E%9F%E7%90%86%E4%B8%8E%E5%88%86%E7%B1%BB/" title="钱包的原理与分类"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">钱包的原理与分类</div></div><div class="info-2"><div class="info-item-1">私钥&#x2F;公钥&#x2F;地址：从数学到链上的完整链路 1. 钱包的本质是什么？很多人以为钱包是”装币”的地方。但严格来说，Web3钱包只是一把钥匙——它不存币，币永远在区块链的公开账本上。钱包存的是私钥，用私钥控制对应地址上的资产。 类比： 区块链 &#x3D; 银行的金库（公开账本，记录谁有多少钱）钱包 &#x3D; 保险柜钥匙（保管私钥，控制金库里属于你的格子）没有钥匙，金库里的钱还在，但谁也拿不出来。 理解这一点很重要：你的资产安全取决于私钥的安全，而不是钱包应用本身。只要私钥在，换一个钱包应用一样能控制同样的资产。 2. 私钥、公钥、地址：三者关系 从私钥到地址，经历了两个数学运算： 完整链路： 私钥（256位随机数）    ↓ Keccak-256哈希公钥（64字节）    ↓ Keccak-256哈希 → 取最后20字节地址（40位十六进制数，0x开头） 这个过程是单向的——可以从私钥推出地址，但从地址无法反推私钥。这就是密码学保证的安全性。 contract.sol 12# 从私钥生成以太坊地址（Python，Keccak-256）import hashli...</div></div></div></a><a class="pagination-related" href="/2026/07/15-5-%E5%BC%80%E6%BA%90%E5%8D%8F%E4%BD%9C%E5%B7%A5%E5%85%B7/" title="开源协作工具"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">开源协作工具</div></div><div class="info-2"><div class="info-item-1">从Issue到提案的完整工作流——Gitcoin、Snapshot、DAO治理1. 开源协作的Web3化传统开源项目依赖GitHub Issue&#x2F;PR流程，贡献者很难获得经济激励。Web3引入了新的协作工具：Gitcoin Grants、Snapshot投票、DAO国库管理等。 2. Gitcoin Grants：众筹激励 Gitcoin Grants是一个开源项目众筹平台。项目通过”二次方融资”（Quadratic Funding）获得匹配资金——小额捐赠也能撬动大额匹配。 二次方融资原理：\n\n匹配金额 &#x3D; (√捐赠1 + √捐赠2 + …)² - 已筹金额\n\n特点：小额捐赠者越多，匹配资金越多\n这鼓励项目获得广泛的社区支持，而不是依赖大金主。 3. Snapshot：链下投票 Snapshot是DAO最常用的投票工具。它在链下进行投票（免Gas），结果可以链上执行。 contract.sol 12345// Snapshot投票结果执行合约interface ISnapshotStrategy &#123;    function getVoti...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/06/13-2-%E5%A4%9A%E7%AD%BE%E9%92%B1%E5%8C%85%E5%AE%9E%E6%88%98/" title="多签钱包实战"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-16</div><div class="info-item-2">多签钱包实战</div></div><div class="info-2"><div class="info-item-1">Gnosis Safe部署与企业资产管理最佳实践1. 为什么需要多签钱包？单人EOA钱包最大的风险是单点故障：私钥泄露 &#x3D; 资产全丢；密码忘了 &#x3D; 资产永久无法访问。多签钱包通过多人共管来解决这个问题——N个人中只要有M个人同意，就能执行操作。 类比：\n\n公司公章要两个人同时签字才能生效，这就是多签。Gnosis Safe就是区块链上的”双人签字”机制。\n\n多签的好处：防单点故障、流程可控（大于X ETH需审批）、资产传承。 2. M-of-N阈值签名原理N：总签名者数量 M：阈值，至少M个人签名，交易才生效 常见配置：2-of-3（3人中任意2人）、3-of-5（5人中任意3人） contract.sol 123456# 多签权限检查模拟def multi_sig_check(signers, threshold, signed_indices):    &quot;&quot;&quot;检查签名数是否达到阈值&quot;&quot;&quot;    if len(signed_indices) &lt; threshold:        re...</div></div></div></a><a class="pagination-related" href="/2026/06/13-3-%E7%A1%AC%E4%BB%B6%E9%92%B1%E5%8C%85%E4%B8%8E%E5%86%B7%E5%AD%98%E5%82%A8/" title="硬件钱包与冷存储"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-16</div><div class="info-item-2">硬件钱包与冷存储</div></div><div class="info-2"><div class="info-item-1">Ledger&#x2F;Trezor使用与离线签名原理1. 硬件钱包的核心原理硬件钱包的本质是一个专用微型电脑，设计哲学：私钥永远不离开安全芯片（Secure Element）。即使电脑中了木马，攻击者也无法提取私钥——因为私钥从未出现在电脑上。 工作原理：\n\n📱 硬件钱包：Secure Enclave存储私钥，全程离线\n💻 电脑：生成交易请求，发送到硬件钱包\n🔐 硬件钱包：显示交易详情，用户确认，用私钥签名\n✅ 电脑：收到签名结果，广播到区块链\n\n私钥只在Secure Enclave内部，从不触网。签名在硬件内完成，只有签名结果（不是私钥）发回电脑。 2. Ledger vs TrezorLedger：Secure Element芯片（类似手机安全芯片），防物理拆解。2023年有数据泄露事件（用户地址泄露，非私钥），固件部分闭源。推荐Nano X（蓝牙）或Nano S Plus Trezor：完全开源（STM32芯片），代码完全可审计。无Secure Element但抗物理攻击能力足够。推荐Model T（触摸屏）或Model One（入门） 选择建议：\n...</div></div></div></a><a class="pagination-related" href="/2026/06/13-1-%E9%92%B1%E5%8C%85%E7%9A%84%E5%8E%9F%E7%90%86%E4%B8%8E%E5%88%86%E7%B1%BB/" title="钱包的原理与分类"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-16</div><div class="info-item-2">钱包的原理与分类</div></div><div class="info-2"><div class="info-item-1">私钥&#x2F;公钥&#x2F;地址：从数学到链上的完整链路 1. 钱包的本质是什么？很多人以为钱包是”装币”的地方。但严格来说，Web3钱包只是一把钥匙——它不存币，币永远在区块链的公开账本上。钱包存的是私钥，用私钥控制对应地址上的资产。 类比：\n\n区块链 &#x3D; 银行的金库（公开账本，记录谁有多少钱）\n钱包 &#x3D; 保险柜钥匙（保管私钥，控制金库里属于你的格子）\n没有钥匙，金库里的钱还在，但谁也拿不出来。 理解这一点很重要：你的资产安全取决于私钥的安全，而不是钱包应用本身。只要私钥在，换一个钱包应用一样能控制同样的资产。 2. 私钥、公钥、地址：三者关系 从私钥到地址，经历了两个数学运算： 完整链路：\n\n私钥（256位随机数）\n    ↓ Keccak-256哈希\n公钥（64字节）\n    ↓ Keccak-256哈希 → 取最后20字节\n地址（40位十六进制数，0x开头） 这个过程是单向的——可以从私钥推出地址，但从地址无法反推私钥。这就是密码学保证的安全性。 contract.sol 12# 从私钥生成以太坊地址（Python，Keccak...</div></div></div></a><a class="pagination-related" href="/2026/07/20-5-%E9%92%B1%E5%8C%85%E5%AE%89%E5%85%A8%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="钱包安全最佳实践"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-13</div><div class="info-item-2">钱包安全最佳实践</div></div><div class="info-2"><div class="info-item-1">钓鱼识别、授权管理与被盗应急处理1. 钱包安全：90%的被盗源于这三点 区块链资产安全事故中，90%以上的被盗都来自三个原因：助记词泄露、钓鱼授权、合约漏洞。 钱包安全铁律： 🔐 助记词 &#x3D; 资产完全控制权，只存在物理介质，绝不上网⚠️ 授权 &#x3D; 给DApp”扣款额度”，授权过度等于把资产拱手相让🔗 签名 &#x3D; 确认交易，签名内容一定要看清楚再点确认 2. 钓鱼网站的识别方法钓鱼网站伪装成正规DApp，诱骗用户输入助记词或授权。以下是识别方法： 域名检查：仔细核对域名，拼写相近（如 un1swap.io vs uniswap.io）、多了一个字母的都要警惕 官方验证：只信任搜索结果的自然排名第一位，或手动输入已知正确域名 Google广告（带”Ad”标签）往往是钓鱼链接，不要点 Etherscan域名验证：热门DApp有Verified标签，可对照合约地址 最关键的原则：Metamask永远不会要求你输入助记词。任何人、任何网站要求输入助记词，一定是钓鱼。正规DApp只连接Metamask，不会要求输入任何密钥。 3. 授权管理：Revoke.ca...</div></div></div></a><a class="pagination-related" href="/2026/07/17-3-%E9%92%B1%E5%8C%85%E5%AE%89%E5%85%A8%E5%AE%9E%E6%88%98/" title="钱包安全实战"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-11</div><div class="info-item-2">钱包安全实战</div></div><div class="info-2"><div class="info-item-1">从硬件钱包到多签方案——资产安全的最后一道防线1. 安全的本质：减少攻击面 钱包安全的核心不是某一个工具，而是减少攻击面——让攻击者能接触到你的资产的路径尽可能少。 攻击面分层模型： 🔑 私钥层：助记词泄露 &#x3D; 全部归零📱 设备层：电脑&#x2F;手机被黑 &#x3D; 签名被篡改🌐 网络层：钓鱼&#x2F;MITM &#x3D; 骗你签恶意交易👥 社交层：社工攻击 &#x3D; 骗你主动转账 每一层都需要对应的防护措施。 2. 硬件钱包：冷存储的核心 硬件钱包的核心原理：私钥永远不离开设备。你签名的交易在硬件设备内部完成，电脑只能看到签名结果，看不到私钥。 Ledger：Secure Element芯片（EAL5+认证），抗物理攻击能力强 Trezor：开源固件，透明度高，但使用普通芯片（无SE） Keystone：二维码签名，气隔离——完全不存在USB连接被攻击的可能 contract.sol 123# 硬件钱包签名流程（Python伪代码）from ledger_sdk import LedgerClientfrom web3 import Web3  1...</div></div></div></a><a class="pagination-related" href="/2026/06/13-5-%E9%92%B1%E5%8C%85%E5%AE%89%E5%85%A8%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="钱包安全最佳实践"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-16</div><div class="info-item-2">钱包安全最佳实践</div></div><div class="info-2"><div class="info-item-1">钓鱼识别、授权管理与被盗应急处理1. 钱包安全：90%的被盗源于这三点 区块链资产安全事故中，90%以上的被盗都来自三个原因：助记词泄露、钓鱼授权、合约漏洞。 钱包安全铁律：\n\n🔐 助记词 &#x3D; 资产完全控制权，只存在物理介质，绝不上网\n⚠️ 授权 &#x3D; 给DApp”扣款额度”，授权过度等于把资产拱手相让\n🔗 签名 &#x3D; 确认交易，签名内容一定要看清楚再点确认 2. 钓鱼网站的识别方法钓鱼网站伪装成正规DApp，诱骗用户输入助记词或授权。以下是识别方法： 域名检查：仔细核对域名，拼写相近（如 un1swap.io vs uniswap.io）、多了一个字母的都要警惕 官方验证：只信任搜索结果的自然排名第一位，或手动输入已知正确域名 Google广告（带”Ad”标签）往往是钓鱼链接，不要点 Etherscan域名验证：热门DApp有Verified标签，可对照合约地址 最关键的原则：Metamask永远不会要求你输入助记词。任何人、任何网站要求输入助记词，一定是钓鱼。正规DApp只连接Metamask，不会要求输入任何密钥。 3. 授权管理：Re...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">区块链编程</div><div class="author-info-description">区块链技术布道者，分享 DeFi、Layer2、智能合约开发等前沿技术。</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">111</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">74</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/RenRenWuDi/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/RenRenWuDi" target="_blank" title="GitHub"><i class="fab fa-github"></i></a><a class="social-icon" href="/about/" target="_blank" title="微信公众号"><i class="fab fa-weixin"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎关注公众号「区块链编程」</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Gnosis-Safe%E9%83%A8%E7%BD%B2%E4%B8%8E%E4%BC%81%E4%B8%9A%E8%B5%84%E4%BA%A7%E7%AE%A1%E7%90%86%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-number">1.</span> <span class="toc-text">Gnosis Safe部署与企业资产管理最佳实践</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%A4%9A%E7%AD%BE%E9%92%B1%E5%8C%85%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">1. 为什么需要多签钱包？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-M-of-N%E9%98%88%E5%80%BC%E7%AD%BE%E5%90%8D%E5%8E%9F%E7%90%86"><span class="toc-number">3.</span> <span class="toc-text">2. M-of-N阈值签名原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Gnosis-Safe%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B"><span class="toc-number">4.</span> <span class="toc-text">3. Gnosis Safe部署教程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Safe%E6%97%A5%E5%B8%B8%E6%93%8D%E4%BD%9C%E4%B8%8E%E5%90%88%E7%BA%A6%E8%B0%83%E7%94%A8"><span class="toc-number">5.</span> <span class="toc-text">4. Safe日常操作与合约调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E9%98%88%E5%80%BC%E8%AE%BE%E7%BD%AE%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-number">6.</span> <span class="toc-text">5. 阈值设置的最佳实践</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E4%BC%81%E4%B8%9A%E8%B5%84%E4%BA%A7%E7%AE%A1%E7%90%86%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-number">7.</span> <span class="toc-text">6. 企业资产管理最佳实践</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E4%B8%8B%E7%AF%87%E9%A2%84%E5%91%8A"><span class="toc-number">8.</span> <span class="toc-text">7. 下篇预告</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%A2-%E6%9C%AC%E6%96%87%E7%94%B1%E3%80%8C%E5%8C%BA%E5%9D%97%E9%93%BE%E7%BC%96%E7%A8%8B%E3%80%8D%E5%8E%9F%E5%88%9B%E5%87%BA%E5%93%81"><span class="toc-number">9.</span> <span class="toc-text">📢 本文由「区块链编程」原创出品</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%91%89-%E5%85%B3%E6%B3%A8%E3%80%8C%E5%8C%BA%E5%9D%97%E9%93%BE%E7%BC%96%E7%A8%8B%E3%80%8D"><span class="toc-number">10.</span> <span class="toc-text">👉 关注「区块链编程」</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/19-1-tacit%E6%98%AF%E4%BB%80%E4%B9%88-%E6%AF%94%E7%89%B9%E5%B8%81%E4%B8%8A%E7%9A%84%E6%9C%BA%E5%AF%86DeFi%E5%B1%82/" title="tacit是什么？比特币上的机密DeFi层">tacit是什么？比特币上的机密DeFi层</a><time datetime="2026-07-12T17:19:26.000Z" title="发表于 2026-07-13 01:19:26">2026-07-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/17-3-DeFi%E4%BA%A4%E4%BA%92%E5%AE%89%E5%85%A8/" title="DeFi交互安全">DeFi交互安全</a><time datetime="2026-07-12T17:19:26.000Z" title="发表于 2026-07-13 01:19:26">2026-07-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/19-3-%E5%8E%9F%E7%94%9FAMM%E4%B8%8E%E5%8E%9F%E5%AD%90%E5%B8%82%E5%9C%BA-%E6%AF%94%E7%89%B9%E5%B8%81L1%E4%B8%8A%E7%9A%84DeFi/" title="原生AMM与原子市场：比特币L1上的DeFi">原生AMM与原子市场：比特币L1上的DeFi</a><time datetime="2026-07-12T17:19:26.000Z" title="发表于 2026-07-13 01:19:26">2026-07-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/19-4-%E8%B7%A8%E9%93%BEZK%E5%8F%8D%E5%B0%84%E4%B8%8E%E6%9C%BA%E5%AF%86%E7%A8%B3%E5%AE%9A%E5%B8%81-%E4%BB%A5%E5%A4%AA%E5%9D%8A%E9%80%9A%E9%81%93/" title="跨链ZK反射与机密稳定币：以太坊通道">跨链ZK反射与机密稳定币：以太坊通道</a><time datetime="2026-07-12T17:19:26.000Z" title="发表于 2026-07-13 01:19:26">2026-07-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/19-2-%E6%9C%BA%E5%AF%86%E4%BB%B7%E5%80%BC%E4%B8%8E%E5%8C%BF%E5%90%8D%E8%8A%B1%E8%B4%B9-ZK%E9%9A%90%E7%A7%81%E6%9C%BA%E5%88%B6/" title="机密价值与匿名花费：ZK隐私机制">机密价值与匿名花费：ZK隐私机制</a><time datetime="2026-07-12T17:19:26.000Z" title="发表于 2026-07-13 01:19:26">2026-07-13</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By 区块链编程</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">本文由 <a href="https://renrenwudi.github.io">区块链编程</a> 发布 · 转载请注明出处</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'RenRenWuDi/RenRenWuDi.github.io',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !true) {
+    if (true) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="/js/wechat-card.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
