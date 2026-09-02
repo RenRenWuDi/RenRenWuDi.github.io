@@ -1,0 +1,267 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>SPL Token 标准：Solana 链上资产发行入门 | 区块链编程</title><meta name="author" content="区块链编程"><meta name="copyright" content="区块链编程"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Blockchain Programming Tutorial - Multi-chain ecosystem | blockchain-dev.blog">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SPL Token 标准：Solana 链上资产发行入门">
+<meta property="og:url" content="https://renrenwudi.github.io/2026/08/31-1-SPLToken%E6%A0%87%E5%87%86-Solana%E9%93%BE%E4%B8%8A%E8%B5%84%E4%BA%A7%E5%8F%91%E8%A1%8C%E5%85%A5%E9%97%A8/">
+<meta property="og:site_name" content="区块链编程">
+<meta property="og:description" content="Blockchain Programming Tutorial - Multi-chain ecosystem | blockchain-dev.blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://renrenwudi.github.io/img/avatar.png">
+<meta property="article:published_time" content="2026-08-19T04:44:18.000Z">
+<meta property="article:modified_time" content="2026-09-02T05:08:32.341Z">
+<meta property="article:author" content="区块链编程">
+<meta property="article:tag" content="Solana">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://renrenwudi.github.io/img/avatar.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "SPL Token 标准：Solana 链上资产发行入门",
+  "url": "https://renrenwudi.github.io/2026/08/31-1-SPLToken%E6%A0%87%E5%87%86-Solana%E9%93%BE%E4%B8%8A%E8%B5%84%E4%BA%A7%E5%8F%91%E8%A1%8C%E5%85%A5%E9%97%A8/",
+  "image": "https://renrenwudi.github.io/img/avatar.png",
+  "datePublished": "2026-08-19T04:44:18.000Z",
+  "dateModified": "2026-09-02T05:08:32.341Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "区块链编程",
+      "url": "https://renrenwudi.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://renrenwudi.github.io/2026/08/31-1-SPLToken%E6%A0%87%E5%87%86-Solana%E9%93%BE%E4%B8%8A%E8%B5%84%E4%BA%A7%E5%8F%91%E8%A1%8C%E5%85%A5%E9%97%A8/"><link rel="preconnect"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="/"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#37c2fb')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: '/',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'SPL Token 标准：Solana 链上资产发行入门',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-41F4NYXQZQ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-41F4NYXQZQ');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 8.1.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">134</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">110</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">区块链编程</span></a><a class="nav-page-title" href="/"><span class="site-name">SPL Token 标准：Solana 链上资产发行入门</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">SPL Token 标准：Solana 链上资产发行入门</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-08-19T04:44:18.000Z" title="发表于 2026-08-19 12:44:18">2026-08-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-02T05:08:32.341Z" title="更新于 2026-09-02 13:08:32">2026-09-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%A4%9A%E9%93%BE%E7%94%9F%E6%80%81/">多链生态</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h3 id="Solana-上的原生资产发行标准，与以太坊-ERC-20-有什么本质区别"><a href="#Solana-上的原生资产发行标准，与以太坊-ERC-20-有什么本质区别" class="headerlink" title="Solana 上的原生资产发行标准，与以太坊 ERC-20 有什么本质区别"></a>Solana 上的原生资产发行标准，与以太坊 ERC-20 有什么本质区别</h3><h3 id="1-SPL-Token-是什么"><a href="#1-SPL-Token-是什么" class="headerlink" title="1. SPL Token 是什么"></a>1. SPL Token 是什么</h3><p>在以太坊上，ERC-20 代币是一套统一的接口标准：任何遵循这个接口的合约都可以被钱包、DApp、交易所识别。代币本身是合约里的一条记录，全网每个节点都存着同一份合约状态。</p>
+<p>Solana 的 SPL Token（Solana Program Library Token）思路完全不同。SPL 代币不是”一个合约记录多个人”，而是”每种代币都有自己独立的账户体系”——每个持有者的余额存在自己的代币账户里，发行方只管维护总量和元数据，不存在一个”合约”来统一存储所有人的余额。</p>
+<p>类比：<br>以太坊的 ERC-20 像一张共享表格，所有人把自己的余额写在同一张表上（合约存储），查余额就是查这张表。Solana 的 SPL 像每个人手里一本独立的账本（代币账户），转账就是从你的账本划一笔到对方的账本，不需要经过中央表格。</p>
+<h3 id="2-代币账户（Token-Account）的结构"><a href="#2-代币账户（Token-Account）的结构" class="headerlink" title="2. 代币账户（Token Account）的结构"></a>2. 代币账户（Token Account）的结构</h3><p>Solana 上每持有一种 SPL 代币，都需要一个对应的代币账户（Token Account）。这个账户存储三个核心信息：代币的 mint 地址（代表这是哪种资产）、持有者公钥（谁拥有这批代币）、以及余额。</p>
+<p>有趣的地方在于：代币账户本身也是一个 Solana 账户，也有自己的公钥。私钥持有者可以对代币账户进行操作，比如转账。代币账户的地址通常是由”所有者公钥 + mint 地址”通过某种确定性算法派生出来的，这意味着同一个用户在不同的代币上会有不同的代币账户地址。</p>
+<p>spl_token_account.rs</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// SPL 代币账户结构（Anchor Rust）</span><br><span class="line">#[account]</span><br><span class="line">pub struct TokenAccount &#123;</span><br><span class="line">    pub mint: Pubkey,        // 这种代币的铸造地址</span><br><span class="line">    pub owner: Pubkey,      // 账户所有者公钥</span><br><span class="line">    pub amount: u64,        // 代币余额</span><br><span class="line">    pub delegate: Option&lt;Pubkey&gt;,   // 授权第三方操作的地址</span><br><span class="line">    pub state: AccountState,        // 账户状态（已初始化/冻结）</span><br><span class="line">    pub is_native: Option&lt;u64&gt;,     // 是否原生 SOL</span><br><span class="line">    pub delegated_amount: u64,       // 已授权金额</span><br><span class="line">    pub close_authority: Option&lt;Pubkey&gt;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>3. Mint：每种代币的”出生证”</strong></p>
+<p>Mint 账户是 SPL 代币系统的另一块基石。每种代币对应一个 Mint 账户，里面记录：代币总量（total supply）、小数位数（decimals）、铸造权限（mint authority）、冻结权限（freeze authority）。</p>
+<p>链上资产的发行者通常只保留 Mint Authority，然后在发行时一次性把所有代币铸造出来，发送到自己的账户，再通过流动性池分发给市场。这个过程在 Solana 上只需要几秒钟，Gas 费用几乎可以忽略不计——这就是为什么 Solana 能成为社区资产发行主战场的原因。</p>
+<p>spl_mint.rs</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// Mint 账户结构（Anchor）</span><br><span class="line">#[account]</span><br><span class="line">pub struct Mint &#123;</span><br><span class="line">    pub mint_authority: Option&lt;Pubkey&gt;,  // 铸造权限，可选（铸造完毕后可以撤销）</span><br><span class="line">    pub supply: u64,                     // 代币总量</span><br><span class="line">    pub decimals: u8,                   // 小数位数（通常 6 或 9）</span><br><span class="line">    pub is_initialized: bool,           // 是否已初始化</span><br><span class="line">    pub freeze_authority: Option&lt;Pubkey&gt;, // 冻结权限（可冻结某地址的代币）</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-为什么-Solana-链上资产交易能”秒级完成”"><a href="#4-为什么-Solana-链上资产交易能”秒级完成”" class="headerlink" title="4. 为什么 Solana 链上资产交易能”秒级完成”"></a>4. 为什么 Solana 链上资产交易能”秒级完成”</h3><p>以太坊转账需要矿工打包、等待确认，ERC-20 转账还要多一次合约调用。Solana 用 Proof of History（历史证明）替代了传统的区块排序，把交易处理的并行度大幅提升。</p>
+<p>SPL 代币转账实际上是两条指令：先从发送者的代币账户扣除余额，再向接收者代币账户增加余额。这两条指令可以在同一个区块内完成，加上 Solana 的拜占庭容错设计，最终确认时间可以低至 400-600 毫秒。对于需要快速买卖的链上资产，Solana 的速度优势极其明显。</p>
+<p>SPL Token 速度优势的本质：<br>Solana 的并行指令执行 + 历史证明让代币转账可以在一个区块内完成确认，而不需要像以太坊那样等下一个区块。400 毫秒确认在”拼手速”场景里，是实实在在的竞争优势。</p>
+<p><strong>下篇预告</strong></p>
+<p>下一期讲 Pump.fun——Solana 上每天有大量社区资产发行，每个都能自动完成价格发现，这背后的 bonding curve 机制是如何运作的？</p>
+<p>✅ SPL Token 用”代币账户”替代以太坊的”合约记录”，每种代币有独立账户体系</p>
+<p>✅ 代币账户由持有者公钥和 mint 地址派生确定</p>
+<p>✅ Mint 账户记录每种代币的总量、铸造权限等元数据</p>
+<p>✅ Solana 的并行执行让 SPL 转账确认时间低至 400 毫秒</p>
+<p>✅ 社区资产发行成本低、速度快，这是 Solana 成为发行主战场的技术底层</p>
+<p>📖 下篇预告：Bonding Curve：Solana 上的数学做市机制</p>
+<p>━━━━━━━━━━━━━━━━━━━━━</p>
+<h3 id="📢-本文由「区块链编程」原创出品"><a href="#📢-本文由「区块链编程」原创出品" class="headerlink" title="📢 本文由「区块链编程」原创出品"></a>📢 本文由「区块链编程」原创出品</h3><p>未经授权，禁止转载</p>
+<p>如有转载需求，请联系作者</p>
+<h3 id="👉-关注「区块链编程」"><a href="#👉-关注「区块链编程」" class="headerlink" title="👉 关注「区块链编程」"></a>👉 关注「区块链编程」</h3><p>关注我，解锁更多可能</p>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"SPL Token 标准：Solana 链上资产发行入门","datePublished":"2026-08-19T04:44:18.000Z","dateModified":"2026-09-02T05:08:32.341Z","author":{"@type":"Person","name":"区块链编程"},"publisher":{"@type":"Organization","name":"区块链编程","url":"https://renrenwudi.github.io"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://renrenwudi.github.io/2026/08/31-1-SPLToken%E6%A0%87%E5%87%86-Solana%E9%93%BE%E4%B8%8A%E8%B5%84%E4%BA%A7%E5%8F%91%E8%A1%8C%E5%85%A5%E9%97%A8/"},"description":"Blockchain Programming Tutorial - Multi-chain ecosystem | blockchain-dev.blog","keywords":"Solana"}</script></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io">区块链编程</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io/2026/08/31-1-SPLToken%E6%A0%87%E5%87%86-Solana%E9%93%BE%E4%B8%8A%E8%B5%84%E4%BA%A7%E5%8F%91%E8%A1%8C%E5%85%A5%E9%97%A8/">https://renrenwudi.github.io/2026/08/31-1-SPLToken%E6%A0%87%E5%87%86-Solana%E9%93%BE%E4%B8%8A%E8%B5%84%E4%BA%A7%E5%8F%91%E8%A1%8C%E5%85%A5%E9%97%A8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://renrenwudi.github.io" target="_blank">区块链编程</a>！</span></div></div><div id="wechat-card-insert"><div class="wechat-promo-card"><div class="promo-title">📱 关注公众号「区块链编程」</div><div class="promo-desc">更多区块链技术干货、Web3开发实战、量化交易策略<br>第一时间推送，关注「区块链编程」公众号</div><img class="promo-qr" src="/img/wechat-qr.png" data-lazy-src="/img/wechat-qr.png" alt="区块链编程公众号二维码"><a class="promo-cta" href="/about/">扫码关注</a></div></div><!--sync20260710--><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Solana/">Solana</a></div><div class="post-share"><div class="social-share" data-image="/img/avatar.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="/" media="print" onload="this.media='all'"><script src="/" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/08/31-2-BondingCurve-Solana%E4%B8%8A%E7%9A%84%E6%95%B0%E5%AD%A6%E5%81%9A%E5%B8%82%E6%9C%BA%E5%88%B6/" title="Bonding Curve：Solana 上的数学做市机制"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Bonding Curve：Solana 上的数学做市机制</div></div><div class="info-2"><div class="info-item-1">发行即定价，无流动性池，联合曲线如何自动完成价格发现1. 传统链上资产发行的问题在 Pump.fun 这类协议出现之前，一个链上资产的发行流程是这样的：先在 Solana 上创建一个 SPL 代币（几秒钟搞定），然后找流动性池（在 Raydium 或 Orca 上建立 SOL-资产 交易对），注入初始流动性，等待市场交易。 这个流程有几个问题。第一，流动性池需要真实的 SOL 作为初始资金，通常要几百到几千美元——对于只是想试试水的创作者来说门槛不低。第二，一旦流动性池建立，团队手里的大量代币随时可以砸盘，Rug Pull 的风险完全由后来的买家承担。第三，早期交易深度极差，几百美元就能把价格砸下去一大截。 Pump.fun 的设计目标：让资产发行完全去中心化——任何人花几美元就能发行一个代币，不需要准备初始流动性，价格通过数学公式自动调节，团队在资产”成熟”之前无法提前抛售。 2. Bonding Curve 的数学原理Bonding Curve（联合曲线）是一种用数学公式控制资产价格的机制。Pump.fun 用的是一条线性联合曲线，核心公式是：价格 &#x3D; 基准价 + ...</div></div></div></a><a class="pagination-related" href="/2026/08/25-5-PUSD%E5%8E%9F%E7%94%9F%E7%A8%B3%E5%AE%9A%E5%B8%81-Gavin%E7%9A%84%E7%A8%B3%E5%AE%9A%E5%B8%81%E9%87%8E%E5%BF%83/" title="PUSD 原生稳定币：Gavin 的稳定币野心"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">PUSD 原生稳定币：Gavin 的稳定币野心</div></div><div class="info-2"><div class="info-item-1">用 DOT 作为抵押品，在波卡上发行一个原生的链上稳定币1. Gavin 为什么在这个时候提出 PUSD2025 年 9 月，Polkadot 创始人 Gavin Wood 在社区提出了 PUSD 的构想。这不是一个突然冒出来的想法，而是波卡生态 2026 年一系列基础设施升级的自然延伸。 在 PUSD 之前，波卡已经有了几块重要的基础设施：JAM 给 relay 链带来了通用计算能力；DOT 经济模型完成了货币政策的重构；Agile Coretime 把开发者进入门槛降到了几美元；USDC 通过 Asset Hub 进入了波卡生态——但这一切都围绕 DOT 这个波动性资产运转。Gavin 想要的最后一块拼图是：一个原生的、由波卡自己发行的稳定币，作为波卡生态的价值结算层。 稳定币的逻辑不只是”用来支付”，更重要的是它改变了波卡的激励结构。当区块奖励以 DOT 发放时，验证者的收入随 DOT 价格波动——价格跌了，收入购买力下降，网络安全性在市场下行时反而最脆弱。PUSD 把这个波动性抽走了：验证者的出块奖励以稳定币发放，收入更可预期，网络安全性不再和 DOT 价格强相关。 一句...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/08/31-4-Solana%E4%BA%A4%E6%98%93%E4%BC%98%E5%85%88%E7%BA%A7-MEV%E4%B8%8E%E9%93%BE%E4%B8%8A%E7%8B%99%E5%87%BB%E7%9A%84%E6%9C%BA%E5%88%B6/" title="Solana 交易优先级：MEV 与链上狙击的机制"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-19</div><div class="info-item-2">Solana 交易优先级：MEV 与链上狙击的机制</div></div><div class="info-2"><div class="info-item-1">为什么普通交易总是慢半拍？交易排序与抢先交易的底层逻辑1. 为什么”手速”永远打不过程序你在社交媒体上看到一个社区分享了某个链上资产的合约地址，复制粘贴到钱包，点买入——这时候链上可能已经有几十个程序在同一秒内完成了交易。人的手速极限大约是 300-500 毫秒，Solana 区块确认时间是 400 毫秒，程序化的交易可以在你打开钱包的那 0.1 秒内完成。 Solana 的架构让程序化交易比以太坊更容易实现”先发制人”。以太坊的区块打包有 MEV 竞拍机制（验证者按 Gas 价格排序），程序之间通过提高 Gas 竞争；在 Solana 上，交易可以直接发送到领导验证者（Leader Validator），跳过 Gas 竞拍，直接按接收顺序打包进区块。 Solana 程序化交易的核心优势：通过直接向当前 Slot 的 Leader Validator 发送交易，跳过内存池竞拍，实现亚毫秒级的交易广播。这是 Solana 抢先交易比以太坊 MEV 更简单直接的根本原因。 2. Jito bundle：Solana 上的交易打包机制 Jito 是 Solana 上的一个重要基础设施，...</div></div></div></a><a class="pagination-related" href="/2026/08/31-2-BondingCurve-Solana%E4%B8%8A%E7%9A%84%E6%95%B0%E5%AD%A6%E5%81%9A%E5%B8%82%E6%9C%BA%E5%88%B6/" title="Bonding Curve：Solana 上的数学做市机制"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-19</div><div class="info-item-2">Bonding Curve：Solana 上的数学做市机制</div></div><div class="info-2"><div class="info-item-1">发行即定价，无流动性池，联合曲线如何自动完成价格发现1. 传统链上资产发行的问题在 Pump.fun 这类协议出现之前，一个链上资产的发行流程是这样的：先在 Solana 上创建一个 SPL 代币（几秒钟搞定），然后找流动性池（在 Raydium 或 Orca 上建立 SOL-资产 交易对），注入初始流动性，等待市场交易。 这个流程有几个问题。第一，流动性池需要真实的 SOL 作为初始资金，通常要几百到几千美元——对于只是想试试水的创作者来说门槛不低。第二，一旦流动性池建立，团队手里的大量代币随时可以砸盘，Rug Pull 的风险完全由后来的买家承担。第三，早期交易深度极差，几百美元就能把价格砸下去一大截。 Pump.fun 的设计目标：让资产发行完全去中心化——任何人花几美元就能发行一个代币，不需要准备初始流动性，价格通过数学公式自动调节，团队在资产”成熟”之前无法提前抛售。 2. Bonding Curve 的数学原理Bonding Curve（联合曲线）是一种用数学公式控制资产价格的机制。Pump.fun 用的是一条线性联合曲线，核心公式是：价格 &#x3D; 基准价 + ...</div></div></div></a><a class="pagination-related" href="/2026/05/8-1-Solana%E5%BC%80%E5%8F%91/" title="Solana开发"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-05-11</div><div class="info-item-2">Solana开发</div></div><div class="info-2"><div class="info-item-1">Anchor框架与Rust合约1. Solana是什么？Solana是高性能区块链，TPS可达数万笔，出块时间约400毫秒。它用独特的历史证明（Proof of History）共识机制，让节点在不需要频繁通信的情况下就达成共识。 对开发者来说，Solana最大的不同是：合约用Rust编写，而不是Solidity。这带来了更高的性能，但也意味着更高的学习门槛。 Solana核心特点：  高吞吐量：理论TPS 65000+ 快确认：400ms出块时间 低费用：单笔交易约0.00025 SOL Rust合约：编译成BPF字节码 账户模型：与以太坊状态模型不同  2. Solana账户模型Solana使用账户模型，而不是以太坊的状态模型。在Solana中，所有数据都存在账户里，合约（Program）本身也是账户。 Solana账户类型：  程序账户：存储可执行代码 数据账户：存储程序状态 系统账户：原生程序（System Program） PDA（程序派生地址）：由程序控制的账户  关键概念：在Solana中，合约是”无状态”的。合约代码不存储数据，数据存在独立的账户中。合约执行时，需...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">区块链编程</div><div class="author-info-description">区块链技术布道者，分享 DeFi、Layer2、智能合约开发等前沿技术。</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">134</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">110</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/RenRenWuDi/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/RenRenWuDi" target="_blank" title="GitHub"><i class="fab fa-github"></i></a><a class="social-icon" href="/about/" target="_blank" title="微信公众号"><i class="fab fa-weixin"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎关注公众号「区块链编程」</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Solana-%E4%B8%8A%E7%9A%84%E5%8E%9F%E7%94%9F%E8%B5%84%E4%BA%A7%E5%8F%91%E8%A1%8C%E6%A0%87%E5%87%86%EF%BC%8C%E4%B8%8E%E4%BB%A5%E5%A4%AA%E5%9D%8A-ERC-20-%E6%9C%89%E4%BB%80%E4%B9%88%E6%9C%AC%E8%B4%A8%E5%8C%BA%E5%88%AB"><span class="toc-number">1.</span> <span class="toc-text">Solana 上的原生资产发行标准，与以太坊 ERC-20 有什么本质区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-SPL-Token-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">2.</span> <span class="toc-text">1. SPL Token 是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%BB%A3%E5%B8%81%E8%B4%A6%E6%88%B7%EF%BC%88Token-Account%EF%BC%89%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text">2. 代币账户（Token Account）的结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%B8%BA%E4%BB%80%E4%B9%88-Solana-%E9%93%BE%E4%B8%8A%E8%B5%84%E4%BA%A7%E4%BA%A4%E6%98%93%E8%83%BD%E2%80%9D%E7%A7%92%E7%BA%A7%E5%AE%8C%E6%88%90%E2%80%9D"><span class="toc-number">4.</span> <span class="toc-text">4. 为什么 Solana 链上资产交易能”秒级完成”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%A2-%E6%9C%AC%E6%96%87%E7%94%B1%E3%80%8C%E5%8C%BA%E5%9D%97%E9%93%BE%E7%BC%96%E7%A8%8B%E3%80%8D%E5%8E%9F%E5%88%9B%E5%87%BA%E5%93%81"><span class="toc-number">5.</span> <span class="toc-text">📢 本文由「区块链编程」原创出品</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%91%89-%E5%85%B3%E6%B3%A8%E3%80%8C%E5%8C%BA%E5%9D%97%E9%93%BE%E7%BC%96%E7%A8%8B%E3%80%8D"><span class="toc-number">6.</span> <span class="toc-text">👉 关注「区块链编程」</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/08/21-1-RWA%E5%88%B0%E5%BA%95%E6%98%AF%E4%BB%80%E4%B9%88/" title="RWA 到底是什么：用一张图讲透资产上链的逻辑">RWA 到底是什么：用一张图讲透资产上链的逻辑</a><time datetime="2026-08-26T01:28:17.000Z" title="发表于 2026-08-26 09:28:17">2026-08-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/08/21-4-RWA%E7%94%9F%E6%80%81%E5%85%A8%E6%99%AF/" title="RWA 生态全景：谁在发行、谁在托管、谁在清算">RWA 生态全景：谁在发行、谁在托管、谁在清算</a><time datetime="2026-08-26T01:28:17.000Z" title="发表于 2026-08-26 09:28:17">2026-08-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/08/21-3-%E9%BB%84%E9%87%91%E4%B8%8E%E5%A4%A7%E5%AE%97%E5%95%86%E5%93%81%E4%BB%A3%E5%B8%81%E5%8C%96/" title="黄金与大宗商品代币化：最&quot;看得懂&quot;的 RWA 案例">黄金与大宗商品代币化：最&quot;看得懂&quot;的 RWA 案例</a><time datetime="2026-08-26T01:28:17.000Z" title="发表于 2026-08-26 09:28:17">2026-08-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/08/21-5-%E5%82%A8%E5%A4%87%E8%AF%81%E6%98%8E%E4%B8%8E%E9%A3%8E%E9%99%A9%E8%AF%86%E5%88%AB/" title="储备证明与风险识别：怎么判断一个 RWA 是不是真 1:1">储备证明与风险识别：怎么判断一个 RWA 是不是真 1:1</a><time datetime="2026-08-26T01:28:17.000Z" title="发表于 2026-08-26 09:28:17">2026-08-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/08/21-2-%E6%99%AE%E9%80%9A%E4%BA%BA%E6%80%8E%E4%B9%88%E5%8F%82%E4%B8%8ERWA/" title="普通人怎么&quot;参与&quot;RWA：合规准入与持有路径">普通人怎么&quot;参与&quot;RWA：合规准入与持有路径</a><time datetime="2026-08-26T01:28:17.000Z" title="发表于 2026-08-26 09:28:17">2026-08-26</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By 区块链编程</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">本文由 <a href="https://renrenwudi.github.io">区块链编程</a> 发布 · 转载请注明出处</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/"></script><script src="/"></script><script src="/"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'RenRenWuDi/RenRenWuDi.github.io',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !true) {
+    if (true) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="/js/wechat-card.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

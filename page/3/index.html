@@ -1,0 +1,209 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>区块链编程 - 用代码读懂区块链 · 用文字记录成长</title><meta name="author" content="区块链编程"><meta name="copyright" content="区块链编程"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="区块链编程 - 专注区块链技术深度文章、Web3 开发实战、量化交易编程。用代码读懂区块链，用文字记录成长。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="区块链编程">
+<meta property="og:url" content="https://renrenwudi.github.io/page/3/">
+<meta property="og:site_name" content="区块链编程">
+<meta property="og:description" content="区块链编程 - 专注区块链技术深度文章、Web3 开发实战、量化交易编程。用代码读懂区块链，用文字记录成长。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://renrenwudi.github.io/img/avatar.png">
+<meta property="article:author" content="区块链编程">
+<meta property="article:tag" content="区块链,区块链编程,Web3,智能合约,以太坊,DeFi,加密货币,量化交易">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://renrenwudi.github.io/img/avatar.png"><script type="application/ld+json"></script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://renrenwudi.github.io/page/3/"><link rel="preconnect"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="/"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#37c2fb')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: '/',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '区块链编程',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'home'
+}</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-41F4NYXQZQ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-41F4NYXQZQ');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 8.1.2"><meta property="og:site_name" content="区块链编程 - 用代码读懂区块链 · 用文字记录成长"/>
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">134</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">110</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">区块链编程</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">区块链编程</h1><div id="site_social_icons"><a class="social-icon" href="https://github.com/RenRenWuDi" target="_blank" title="GitHub"><i class="fab fa-github"></i></a><a class="social-icon" href="/about/" target="_blank" title="微信公众号"><i class="fab fa-weixin"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2026/08/24-1-%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E%E6%98%AF%E4%BB%80%E4%B9%88/" title="零知识证明是什么：用&quot;21岁证明&quot;讲清楚">零知识证明是什么：用&quot;21岁证明&quot;讲清楚</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-08-03T18:12:05.000Z" title="发表于 2026-08-04 02:12:05">2026-08-04</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-02T05:08:31.503Z" title="更新于 2026-09-02 13:08:31">2026-09-02</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/">零知识证明</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Blockchain/">Blockchain</a></span></div><div class="content">交互式证明直觉、完备性与可靠性1. 从酒保的难题说起设想一个场景：你要向酒保证明自己已满 21 岁，但不想出示身份证——因为证件上还有你的姓名、地址、具体生日。能不能只让酒保确信”我够年龄”这件事为真，却不暴露任何多余信息？零知识证明（Zero-Knowledge Proof，ZK）解决的就是这类问题：一方（证明者）向另一方（验证者）证明”某个陈述为真”，且不泄露这个陈述之外的任何信息。 注意”之外”这两个字。ZK 并不隐藏”陈述本身为真”——你要证明的东西，验证者最终是确信的。它隐藏的是”你用来证明它的那部分私密信息”。在酒保的例子里，陈述是”我≥21岁”（验证者会知道并确信），私密信息是”你确切的出生日期”（验证者一无所知）。这个区分是理解 ZK 的全部起点。 一句话记住： ZK &#x3D; 证明你知道某件事 &#x2F; 某陈述为真，但什么都不用透露。 酒保最终确信”你≥21岁”，却不知道你 22 还是 30，也不知道你生日。 2. 交互式证明：一轮轮”拷问” 最经典、也最好懂的 ZK 是交互式的。证明者和验证者反复对话：验证者每轮抛一个随机问题，证明者用自己掌握的秘密算...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2026/08/18-1-RWA%E4%BB%A3%E5%B8%81%E5%8C%96%E5%85%A5%E9%97%A8/" title="RWA代币化入门：把现实资产搬上链">RWA代币化入门：把现实资产搬上链</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-08-03T18:10:21.000Z" title="发表于 2026-08-04 02:10:21">2026-08-04</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-02T05:08:31.280Z" title="更新于 2026-09-02 13:08:31">2026-09-02</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/RWA%E4%BB%A3%E5%B8%81%E5%8C%96/">RWA代币化</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Blockchain/">Blockchain</a></span></div><div class="content">从美债到房产，聊聊资产上链到底改变了什么1. RWA 不是”把资产拍成照片存链上”RWA（Real World Assets，现实世界资产）代币化的本质，是把一份现实资产的权益，通过区块链表达成一个可编程的数字凭证（Token）。注意这里的关键词是”权益”和”可编程”——Token 不是资产的照片，而是资产某种权利的链上载体。 举一个具体的例子。假设某机构持有 1 亿美元的美国短期国债，它想让这些国债”上链”。做法不是把国债扫描成图片，而是在链上发行 1 亿份 Token，每一份对应 1 美元国债的份额；再由一个离线托管方真实持有那些国债，并定期把国债的票息状态同步到链上。链上持有 Token 的人，本质上持有的是”对那 1 亿美元国债的按比例索取权”。 这套机制最近几年被金融机构逐步采用。一个标志性事件是：美国证券市场核心清算机构 DTCC 宣布试点资产代币化结算，把这套技术从加密圈带进了传统金融的基础设施层。这意味着 RWA 不再只是加密项目的小众实验，而是开始触碰真实金融系统的主干。 一句话理解： 传统持有：买一份国债，凭证在银行系统里。RWA 代币化：把这份权益拆成链上 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2026/08/18-2-%E7%BE%8E%E5%80%BA%E4%BB%A3%E5%B8%81%E5%8C%96/" title="美债代币化：把美国国债份额搬上链">美债代币化：把美国国债份额搬上链</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-08-03T18:10:21.000Z" title="发表于 2026-08-04 02:10:21">2026-08-04</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-02T05:08:31.318Z" title="更新于 2026-09-02 13:08:31">2026-09-02</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/RWA%E4%BB%A3%E5%B8%81%E5%8C%96/">RWA代币化</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Blockchain/">Blockchain</a></span></div><div class="content">Ondo、Hashport 如何用区块链封装国债持仓1. 美债代币化到底封装了什么美国国债是全球流动性最好的美元资产之一，但它传统上只能通过银行或基金持有，且在交易时段外无法操作。美债代币化要做的，是把”持有国债”这件事用区块链重新封装一遍：项目方把国债买进一个 SPV（特殊目的载体）基金，然后把基金份额代币化；持有链上 Token 的人，拿到的是可交易、可合约交互、按规则累积票息的份额凭证。 这里的核心不是”把国债搬上链”，而是”把国债的操作逻辑搬到链上”。底层国债仍由托管方在现实金融系统里保管，链上发生的一切——转让、计息、赎回——都是对那份底层权益的映射。理解这个分层，是理解所有 RWA 产品的钥匙。 核心结构： 底层资产 &#x3D; 真实美国国债（由 SPV 持有）链上 Token &#x3D; 基金份额的权益凭证票息来源 &#x3D; 国债本身的票面利息 持有者持有的是”有国债背书的份额”，其价值锚定底层资产净值。 2. 两类代表性产品的封装思路Ondo Finance 的 OUSG 和 Hashport 的 USDY 是同一套逻辑的不同封装。OUSG 定位更偏机构：...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2026/08/18-3-DTCC%E8%BF%9B%E5%9C%BARWA/" title="DTCC进场：华尔街清算机构拥抱资产代币化">DTCC进场：华尔街清算机构拥抱资产代币化</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-08-03T18:10:21.000Z" title="发表于 2026-08-04 02:10:21">2026-08-04</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-02T05:08:31.346Z" title="更新于 2026-09-02 13:08:31">2026-09-02</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/RWA%E4%BB%A3%E5%B8%81%E5%8C%96/">RWA代币化</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%B8%85%E7%AE%97/">清算</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/DeFi/">DeFi</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Liquidation/">Liquidation</a></span></div><div class="content">7月试点、10月全量，代币化怎么重塑证券结算1. DTCC 到底管着什么要理解 DTCC 进场的含义，得先知道它是谁。DTCC（美国存托与清算公司）是全球金融体系的”账本”——几乎所有美国证券交易（股票、债券、ETF）的资金和证券交割，背后都由它处理。每天经它结算的资产规模以万亿计。它不是某家银行，而是整个市场的”后台中枢”：券商之间不直接互相交货交钱，而是都通过 DTCC 这个中央对手方来清算和交割。 当一个”结算海量资产的机构”宣布试点资产代币化、并计划逐步全量推出时，含义和加密圈的小项目完全不同。后者验证的是”能不能做”，DTCC 参与验证的是”机构愿不愿意采用”。前者是技术可行性，后者是行业采纳度——后者的信号意义远大于前者。 为什么重要？ 加密圈的 RWA 项目，资产量级有限。DTCC 参与，意味着未来可能有大规模资产进入链上结算赛道。它验证的不再是”能不能做”，而是”行业愿不愿意采用”。 2. 传统结算的”时间差”问题传统证券交易不是”一手交钱一手交货”同时完成，而是分成”交易”和”结算”两个环节，中间有 T+1 或 T+2 的时间差。你在周一卖出股票，理论上周三才真...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2026/08/18-4-RWA%E5%90%88%E8%A7%84%E6%A1%86%E6%9E%B6/" title="RWA合规框架：美国、欧盟与中国三大路线">RWA合规框架：美国、欧盟与中国三大路线</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-08-03T18:10:21.000Z" title="发表于 2026-08-04 02:10:21">2026-08-04</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-02T05:08:31.382Z" title="更新于 2026-09-02 13:08:31">2026-09-02</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/RWA%E4%BB%A3%E5%B8%81%E5%8C%96/">RWA代币化</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Blockchain/">Blockchain</a></span></div><div class="content">MiCA、Genius Act、中国八部门政策怎么管代币化资产1. 合规为什么是 RWA 的第一生死线加密原生资产可以”先跑后审”，代码上线了再说。但 RWA 绑定的是现实资产和法币价值，它的合规性不是可选项，而是从第一天起就必须面对的门槛。一旦触碰红线，后果不是”代码有 bug”，而是托管账户被冻结、产品被下架、团队承担现实法律责任。所以做 RWA 的第一步不是写合约，而是搞清楚”在哪个市场、卖给谁、怎么被监管”。 2026 年，全球三大经济体——美国、欧盟、中国——都给出了各自的 RWA 监管框架。理解这些框架的差异，是判断一个 RWA 项目能不能”在合规框架下落地”的关键。下面逐一拆解。 2. 美国：《GENIUS Act》把资产分成三类 美国的思路是”分类监管”。《GENIUS Act》把加密资产分成三类。第一类是数字商品，如比特币、以太坊这类”纯去中心化资产”，归商品监管框架，相对宽松。第二类是证券类资产——这正是代币化股票、债券的核心归属——归 SEC 管，需要符合特定的豁免条例，且通常限定在特定投资者范围内。第三类是稳定币，新设了”支付稳定币”类别，明确了储备资产要...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2026/08/18-5-%E4%BB%8E%E9%9B%B6%E5%AE%9E%E7%8E%B0%E4%BB%A3%E5%B8%81%E5%8C%96%E5%80%BA%E5%88%B8%E5%90%88%E7%BA%A6/" title="从零实现一个代币化债券合约">从零实现一个代币化债券合约</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-08-03T18:10:21.000Z" title="发表于 2026-08-04 02:10:21">2026-08-04</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-02T05:08:31.471Z" title="更新于 2026-09-02 13:08:31">2026-09-02</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/RWA%E4%BB%A3%E5%B8%81%E5%8C%96/">RWA代币化</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Blockchain/">Blockchain</a></span></div><div class="content">ERC-3643合规Token + 债券票息自动分发的完整代码1. 目标：一个最小但完整的代币化债券 前面四篇讲了 RWA 的格局、美债、DTCC、合规框架。这一篇把理论落地成代码：写一个最小但完整的代币化债券合约。它要具备三个现实功能。第一是合规——只有白名单地址能持有和交易（参考 ERC-3643 思路）。第二是票息——按持有份额和时间自动登记应得利息，可在到期日领取。第三是赎回——债券到期后，持有人可把 Token 换回对应本金。 我们会继承 OpenZeppelin 的 ERC-20，再加上白名单与票息逻辑。为了在一份文件里讲清楚，做了适度简化——比如利息以 Token 增发形式支付，真实系统会用稳定币支付——但核心流程是完整的，你拿到的是一个能跑通”发行→交易→生息→赎回”闭环的债券。 2. 全局状态与构造函数债券合约要先定几个全局参数：票息率、到期时间、以及每个地址”上次登记票息的时间”。票息率的表达有个工程细节——链上通常不用浮点数（Solidity 不支持原生小数），而是用”基点”（basis point）表示，1 个基点 &#x3D; 0.01%。所以 4.5%...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2026/08/23-1-RGB%E5%9B%9E%E5%BD%92-USDT%E9%87%8D%E5%9B%9E%E6%AF%94%E7%89%B9%E5%B8%81%E5%8E%9F%E7%94%9F%E5%8F%91%E8%A1%8C/" title="RGB回归：USDT重回比特币原生发行">RGB回归：USDT重回比特币原生发行</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-08-03T17:15:57.000Z" title="发表于 2026-08-04 01:15:57">2026-08-04</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-02T05:08:31.040Z" title="更新于 2026-09-02 13:08:31">2026-09-02</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%AF%94%E7%89%B9%E5%B8%81%E6%96%B0%E5%8D%8F%E8%AE%AE/">比特币新协议</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%AF%94%E7%89%B9%E5%B8%81/">比特币</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/BTC/">BTC</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Bitcoin/">Bitcoin</a></span></div><div class="content">客户端验证，让比特币成为稳定币的家乡1. 一个被遗忘的12年2014年，USDT第一次在比特币上发行，用的还是Omni Layer协议。后来以太坊起来了，USDT把主战场搬到了ETH，比特币上的USDT渐渐成了化石。 2026年7月6日，Tether宣布要通过RGB协议把USDT原生发行回比特币。7月30日，RGB官方把自己重新定位为比特币多层生态的”通用资产标准”。12年后，稳定币终于要回老家了。 为什么重要？比特币是流动性最深、最安全的链。USDT回到比特币原生发行，意味着用户可以直接在比特币链上持有、转账稳定币，而不必先把BTC换成WBTC再跨到以太坊。 2. RGB的核心思想：客户端验证 比特币脚本极简，没法像以太坊那样跑复杂合约。RGB的解法是：把复杂逻辑放到链下，链上只做”承诺”（commitment）。 具体来说，RGB的资产发行、转账都在链下计算，只把一笔交易的”承诺哈希”写进比特币的Taproot输出里。验证方（接收者）自己拿着历史数据在本地校验，不需要全网节点重跑。 **• **链上只存：一个哈希承诺（几十字节） **• **链下存：完整的资产状态、所有权证明...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2026/08/23-2-Ark%E5%8D%8F%E8%AE%AE-%E6%AF%94%E7%89%B9%E5%B8%81%E5%8E%9F%E7%94%9F%E6%89%A9%E5%AE%B9/" title="Ark协议：比特币原生扩容，无需软分叉">Ark协议：比特币原生扩容，无需软分叉</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-08-03T17:15:57.000Z" title="发表于 2026-08-04 01:15:57">2026-08-04</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-02T05:08:31.072Z" title="更新于 2026-09-02 13:08:31">2026-09-02</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%AF%94%E7%89%B9%E5%B8%81%E6%96%B0%E5%8D%8F%E8%AE%AE/">比特币新协议</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%AF%94%E7%89%B9%E5%B8%81/">比特币</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/BTC/">BTC</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Bitcoin/">Bitcoin</a></span></div><div class="content">服务商池 + 虚拟UTXO，给任意地址开箱即付1. 闪电网络的痛点闪电网络很快，但它有个绕不开的问题：开通道要锁资金、要上链交易。你想给一个陌生人付钱，要么先开通道，要么找一条已有路径。流动性碎片化严重。 Ark的思路完全不同：不需要点对点通道，而是由一个”服务商”（Ark服务商）统一托管一批用户的资金，在链下做批量结算。 一句话概括Ark：服务商把一堆用户的资金聚合成一个UTXO上链，之后这些用户在链下互相转账，最后只把净额写回链上。类似”共同账户 + 内部记账”。 2. 虚拟UTXO（vUTXO）Ark的核心概念是vUTXO。它不是比特币链上的真实UTXO，而是服务商承诺”你有权赎回”的链下凭证。 **• **真实UTXO：在比特币链上，全网认可 **• **vUTXO：由Ark服务商背书，随时可赎回成真实UTXO **• **批量：一个真实UTXO可以背书成成千上万个vUTXO 3. Ark的交易流程🏦 服务商把N个用户的资金聚合成1个链上UTXO  ↓ 📇 为每个用户生成对应的vUTXO（链下凭证）  ↓ 💸 用户之间用vUTXO互转，全程链下  ↓ 🔒 想退出时...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2026/08/23-4-%E9%9D%99%E9%BB%98%E6%94%AF%E4%BB%98%E4%B8%8E%E6%AF%94%E7%89%B9%E5%B8%81%E9%9A%90%E7%A7%81%E6%96%B0%E6%96%B9%E6%A1%88/" title="静默支付与比特币隐私新方案">静默支付与比特币隐私新方案</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-08-03T17:15:57.000Z" title="发表于 2026-08-04 01:15:57">2026-08-04</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-02T05:08:31.169Z" title="更新于 2026-09-02 13:08:31">2026-09-02</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%AF%94%E7%89%B9%E5%B8%81%E6%96%B0%E5%8D%8F%E8%AE%AE/">比特币新协议</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%AF%94%E7%89%B9%E5%B8%81/">比特币</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/BTC/">BTC</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Bitcoin/">Bitcoin</a></span></div><div class="content">每次收款地址都不同，且外人无法关联1. 比特币收款的隐私漏洞传统做法是把同一个地址发给所有人。结果就是：任何人都能在区块浏览器里看到”这个地址收了多少钱、和谁往来”。一旦地址和现实身份绑定，你的全部财务历史就透明了。 HD钱包（BIP32）能生成新地址，但得先和付款方协调”下一个地址是什么”。静默支付（Silent Payments，BIP352）打破了这个限制——付款方自己就能算出专属的一次性地址，无需任何链下沟通。 静默支付的核心：收款方只公开一个”扫描密钥”。付款方用这个密钥 + 自己的交易输入，算出只有收款方能识别的一次性地址。每次付款都不同，但收款方用一个密钥就能扫出所有到账。 2. 它是怎么算出来的简化说：付款方拿自己的交易输入（提供熵源）和收款方的扫描公钥，做一次椭圆曲线点乘，得到一个共享秘密，再推导出新地址。因为输入每次不同，地址也每次不同。 **• **收款方：只公布一个扫描公钥，永远不变 **• **付款方：用自己交易的输入 + 扫描公钥，算出一次性地址 **• **链上：地址每次都新，外人无法把两次付款关联到同一个人 3. 与CoinJoin、tacit隐私...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2026/08/23-3-FROST%E9%97%A8%E9%99%90%E7%AD%BE%E5%90%8D/" title="FROST门限签名：比特币多签的下一代">FROST门限签名：比特币多签的下一代</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-08-03T17:15:57.000Z" title="发表于 2026-08-04 01:15:57">2026-08-04</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-02T05:08:31.137Z" title="更新于 2026-09-02 13:08:31">2026-09-02</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%AF%94%E7%89%B9%E5%B8%81%E6%96%B0%E5%8D%8F%E8%AE%AE/">比特币新协议</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%AF%94%E7%89%B9%E5%B8%81/">比特币</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/BTC/">BTC</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Bitcoin/">Bitcoin</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E5%A4%9A%E7%AD%BE/">多签</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Multi-sig/">Multi-sig</a></span></div><div class="content">多设备共控一个公钥，链上看不出多签痕迹1. 传统多签的代价比特币原生多签（如2-of-3）要把所有公钥和脚本都写进交易。结果：体积大、手续费高，而且链上一眼就能看出”这是个多签地址”，隐私差。 Taproot部分缓解了这个问题，但多签仍然要在某些路径暴露脚本。有没有一种方法，让多签交易看起来和单签一模一样？ FROST的答案：多个设备共控一个公钥，最终签名和单签无法区分，交易体积也和单签几乎一样。链上完全看不出”背后有N个人”。 2. FROST是什么FROST（Flexible Round-Optimized Schnorr Threshold）是一种门限签名方案。它基于Schnorr签名，允许多个参与者合作生成一个签名，而不需要任何人掌握完整私钥。 **• **门限：比如3-of-5，任意3个设备聚在一起就能签名 **• **动态：增删设备不用重新上链，只需更新链下配置 **• **隐私：最终签名和单签无法区分 **• **便宜：交易体积≈单签，省手续费 3. FROST的签名流程🗝️ 各自持有私钥分片，从不拼出完整私钥  ↓ 🤝 一轮交互：生成一次性随机数承诺  ↓ ✍...</div></div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/2/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#content-inner">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/#content-inner">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/#content-inner">14</a><a class="extend next" rel="next" href="/page/4/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">区块链编程</div><div class="author-info-description">区块链技术布道者，分享 DeFi、Layer2、智能合约开发等前沿技术。</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">134</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">110</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/RenRenWuDi/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/RenRenWuDi" target="_blank" title="GitHub"><i class="fab fa-github"></i></a><a class="social-icon" href="/about/" target="_blank" title="微信公众号"><i class="fab fa-weixin"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎关注公众号「区块链编程」</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/08/21-1-RWA%E5%88%B0%E5%BA%95%E6%98%AF%E4%BB%80%E4%B9%88/" title="RWA 到底是什么：用一张图讲透资产上链的逻辑">RWA 到底是什么：用一张图讲透资产上链的逻辑</a><time datetime="2026-08-26T01:28:17.000Z" title="发表于 2026-08-26 09:28:17">2026-08-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/08/21-4-RWA%E7%94%9F%E6%80%81%E5%85%A8%E6%99%AF/" title="RWA 生态全景：谁在发行、谁在托管、谁在清算">RWA 生态全景：谁在发行、谁在托管、谁在清算</a><time datetime="2026-08-26T01:28:17.000Z" title="发表于 2026-08-26 09:28:17">2026-08-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/08/21-3-%E9%BB%84%E9%87%91%E4%B8%8E%E5%A4%A7%E5%AE%97%E5%95%86%E5%93%81%E4%BB%A3%E5%B8%81%E5%8C%96/" title="黄金与大宗商品代币化：最&quot;看得懂&quot;的 RWA 案例">黄金与大宗商品代币化：最&quot;看得懂&quot;的 RWA 案例</a><time datetime="2026-08-26T01:28:17.000Z" title="发表于 2026-08-26 09:28:17">2026-08-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/08/21-5-%E5%82%A8%E5%A4%87%E8%AF%81%E6%98%8E%E4%B8%8E%E9%A3%8E%E9%99%A9%E8%AF%86%E5%88%AB/" title="储备证明与风险识别：怎么判断一个 RWA 是不是真 1:1">储备证明与风险识别：怎么判断一个 RWA 是不是真 1:1</a><time datetime="2026-08-26T01:28:17.000Z" title="发表于 2026-08-26 09:28:17">2026-08-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/08/21-2-%E6%99%AE%E9%80%9A%E4%BA%BA%E6%80%8E%E4%B9%88%E5%8F%82%E4%B8%8ERWA/" title="普通人怎么&quot;参与&quot;RWA：合规准入与持有路径">普通人怎么&quot;参与&quot;RWA：合规准入与持有路径</a><time datetime="2026-08-26T01:28:17.000Z" title="发表于 2026-08-26 09:28:17">2026-08-26</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+      <i class="fas fa-angle-right"></i></a>
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/DAO%E6%B2%BB%E7%90%86/"><span class="card-category-list-name">DAO治理</span><span class="card-category-list-count">5</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/DeFi%E5%8D%8F%E8%AE%AE/"><span class="card-category-list-name">DeFi协议</span><span class="card-category-list-count">5</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/DeFi%E8%BF%9B%E9%98%B6/"><span class="card-category-list-name">DeFi进阶</span><span class="card-category-list-count">10</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Layer2%E6%89%A9%E5%B1%95/"><span class="card-category-list-name">Layer2扩展</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/RWA%E4%BB%A3%E5%B8%81%E5%8C%96/"><span class="card-category-list-name">RWA代币化</span><span class="card-category-list-count">10</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Solidity%E5%BC%80%E5%8F%91/"><span class="card-category-list-name">Solidity开发</span><span class="card-category-list-count">6</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%89%8D%E6%B2%BF%E6%8A%80%E6%9C%AF/"><span class="card-category-list-name">前沿技术</span><span class="card-category-list-count">6</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%9F%BA%E7%A1%80/"><span class="card-category-list-name">区块链基础</span><span class="card-category-list-count">7</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/Solidity/" style="font-size: 1.1em; color: #999">Solidity</a> <a href="/tags/%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA/" style="font-size: 1.1em; color: #999">整数溢出</a> <a href="/tags/Move%E8%AF%AD%E8%A8%80/" style="font-size: 1.1em; color: #999">Move语言</a> <a href="/tags/%E6%B5%81%E5%8A%A8%E6%80%A7%E5%86%8D%E8%B4%A8%E6%8A%BC/" style="font-size: 1.1em; color: #999">流动性再质押</a> <a href="/tags/Indexing/" style="font-size: 1.1em; color: #999">Indexing</a> <a href="/tags/%E5%A4%9A%E7%AD%BE/" style="font-size: 1.15em; color: #999b9e">多签</a> <a href="/tags/ERC-4337/" style="font-size: 1.15em; color: #999b9e">ERC-4337</a> <a href="/tags/Ethereum/" style="font-size: 1.1em; color: #999">Ethereum</a> <a href="/tags/Mempool/" style="font-size: 1.1em; color: #999">Mempool</a> <a href="/tags/BTC/" style="font-size: 1.5em; color: #99a9bf">BTC</a> <a href="/tags/DEX/" style="font-size: 1.2em; color: #999da3">DEX</a> <a href="/tags/%E8%B7%A8%E9%93%BE%E6%A1%A5/" style="font-size: 1.35em; color: #99a3b1">跨链桥</a> <a href="/tags/%E6%AF%94%E7%89%B9%E5%B8%81/" style="font-size: 1.45em; color: #99a7ba">比特币</a> <a href="/tags/DeFi/" style="font-size: 1.4em; color: #99a5b6">DeFi</a> <a href="/tags/Privacy-DeFi/" style="font-size: 1.1em; color: #999">Privacy DeFi</a> <a href="/tags/Solana/" style="font-size: 1.25em; color: #999fa7">Solana</a> <a href="/tags/%E6%B8%85%E7%AE%97/" style="font-size: 1.25em; color: #999fa7">清算</a> <a href="/tags/EigenLayer/" style="font-size: 1.1em; color: #999">EigenLayer</a> <a href="/tags/Rollup/" style="font-size: 1.2em; color: #999da3">Rollup</a> <a href="/tags/DAO/" style="font-size: 1.25em; color: #999fa7">DAO</a> <a href="/tags/%E4%BA%A4%E6%98%93%E6%B1%A0/" style="font-size: 1.1em; color: #999">交易池</a> <a href="/tags/%E5%AE%89%E5%85%A8/" style="font-size: 1.5em; color: #99a9bf">安全</a> <a href="/tags/Account-Abstraction/" style="font-size: 1.15em; color: #999b9e">Account Abstraction</a> <a href="/tags/%E9%97%AA%E7%94%B5%E8%B4%B7/" style="font-size: 1.1em; color: #999">闪电贷</a> <a href="/tags/Multi-sig/" style="font-size: 1.15em; color: #999b9e">Multi-sig</a> <a href="/tags/%E4%BA%92%E6%93%8D%E4%BD%9C/" style="font-size: 1.35em; color: #99a3b1">互操作</a> <a href="/tags/Consensus/" style="font-size: 1.1em; color: #999">Consensus</a> <a href="/tags/The-Graph/" style="font-size: 1.1em; color: #999">The Graph</a> <a href="/tags/%E6%8A%95%E7%A5%A8/" style="font-size: 1.2em; color: #999da3">投票</a> <a href="/tags/%E9%A2%84%E8%A8%80%E6%9C%BA/" style="font-size: 1.15em; color: #999b9e">预言机</a> <a href="/tags/Hardhat/" style="font-size: 1.1em; color: #999">Hardhat</a> <a href="/tags/IPFS/" style="font-size: 1.15em; color: #999b9e">IPFS</a> <a href="/tags/MEV/" style="font-size: 1.2em; color: #999da3">MEV</a> <a href="/tags/Oracle/" style="font-size: 1.15em; color: #999b9e">Oracle</a> <a href="/tags/%E4%BB%A3%E5%B8%81/" style="font-size: 1.1em; color: #999">代币</a> <a href="/tags/Web3/" style="font-size: 1.3em; color: #99a1ac">Web3</a> <a href="/tags/%E7%AC%A6%E6%96%87%E5%8D%8F%E8%AE%AE/" style="font-size: 1.1em; color: #999">符文协议</a> <a href="/tags/Zero-Knowledge-Proof/" style="font-size: 1.35em; color: #99a3b1">Zero-Knowledge Proof</a> <a href="/tags/%E6%84%8F%E5%9B%BE%E6%9E%B6%E6%9E%84/" style="font-size: 1.1em; color: #999">意图架构</a> <a href="/tags/%E7%A9%BA%E6%8A%95/" style="font-size: 1.3em; color: #99a1ac">空投</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/08/">
+            <span class="card-archive-list-date">
+              八月 2026
+            </span>
+            <span class="card-archive-list-count">31</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/07/">
+            <span class="card-archive-list-date">
+              七月 2026
+            </span>
+            <span class="card-archive-list-count">33</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/06/">
+            <span class="card-archive-list-date">
+              六月 2026
+            </span>
+            <span class="card-archive-list-count">25</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/05/">
+            <span class="card-archive-list-date">
+              五月 2026
+            </span>
+            <span class="card-archive-list-count">20</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/04/">
+            <span class="card-archive-list-date">
+              四月 2026
+            </span>
+            <span class="card-archive-list-count">25</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">134</div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">175.8k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-09-02T06:05:28.401Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By 区块链编程</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">本文由 <a href="https://renrenwudi.github.io">区块链编程</a> 发布 · 转载请注明出处</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/"></script><script src="/"></script><script src="/"></script><div class="js-pjax"></div><script src="/js/wechat-card.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

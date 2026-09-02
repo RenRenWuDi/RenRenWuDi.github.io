@@ -1,0 +1,357 @@
+/* ============================================
+   区块链编程博客 - 自定义样式
+   作者: 区块链编程
+   更新: 2026-07-08
+   ============================================ */
+
+/* ===== 全局字体优化 ===== */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== 代码块样式优化 ===== */
+code {
+  font-family: "JetBrains Mono", "Fira Code", "Source Code Pro", Consolas, "Courier New", monospace;
+}
+
+.highlight {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* ===== 文章标题样式 ===== */
+.article-title {
+  font-weight: 700;
+}
+
+/* ===== 微信公众号引流卡片 ===== */
+.wechat-promo-card {
+  margin: 40px 0 20px;
+  padding: 24px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e8f4fd 100%);
+  border: 1px solid #37c2fb;
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.wechat-promo-card:hover {
+  box-shadow: 0 4px 20px rgba(55, 194, 251, 0.15);
+  transform: translateY(-2px);
+}
+
+.wechat-promo-card .promo-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+}
+
+.wechat-promo-card .promo-desc {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+.wechat-promo-card .promo-qr {
+  width: 140px;
+  height: 140px;
+  border-radius: 8px;
+  border: 4px solid #fff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+.wechat-promo-card .promo-cta {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 8px 24px;
+  background: #07c160;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 20px;
+  text-decoration: none;
+}
+
+.wechat-promo-card .promo-cta:hover {
+  background: #06ad56;
+  color: #fff;
+}
+
+/* 暗色模式下的公众号卡片 */
+[data-theme="dark"] .wechat-promo-card {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-color: #37c2fb;
+}
+
+[data-theme="dark"] .wechat-promo-card .promo-title {
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .wechat-promo-card .promo-desc {
+  color: #999;
+}
+
+/* ===== 文章底部版权样式 ===== */
+.post-copyright {
+  border-radius: 8px;
+}
+
+/* ===== AdSense 广告位样式 ===== */
+.ad-container {
+  margin: 20px auto;
+  text-align: center;
+  min-height: 90px;
+}
+
+.ad-container ins.adsbygoogle {
+  display: block;
+}
+
+/* ===== 移动端适配 ===== */
+@media (max-width: 768px) {
+  .wechat-promo-card {
+    padding: 16px;
+  }
+  .wechat-promo-card .promo-qr {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+/* ===== 阅读体验优化 ===== */
+.article-container {
+  line-height: 1.8;
+}
+
+.article-container p {
+  margin-bottom: 1.2em;
+}
+
+/* ===== 滚动条美化 ===== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #37c2fb;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* ===== 选中文字颜色 ===== */
+::selection {
+  background: rgba(55, 194, 251, 0.3);
+  color: #333;
+}
+
+/* ============================================
+   排版美化增强 (2026-07-10)
+   ============================================ */
+
+/* ===== 文章标题居中 ===== */
+#post-info .post-title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 800;
+  margin: 0 auto 20px;
+  line-height: 1.4;
+  max-width: 90%;
+}
+
+/* ===== 副标题/简介居中 ===== */
+#post-info #post-meta {
+  text-align: center;
+  margin: 0 auto;
+}
+
+/* ===== 首屏封面图：仅在有 cover 时显示 ===== */
+.post-bg {
+  background-attachment: scroll !important;
+}
+
+/* ===== 文章内文容器：增加视觉呼吸感 ===== */
+#article-container {
+  padding: 30px 0 20px;
+  font-size: 16px;
+  line-height: 1.85;
+  color: #2c3e50;
+}
+
+/* ===== 段落首行缩进 2em（中文排版传统） ===== */
+#article-container p {
+  text-indent: 2em;
+  margin: 0 0 1em;
+}
+
+/* 引用块、列表、代码块不缩进 */
+#article-container blockquote p,
+#article-container ul p,
+#article-container ol p,
+#article-container .highlight p,
+#article-container table p {
+  text-indent: 0;
+}
+
+/* ===== 标题：上下留白，左对齐加色条 ===== */
+#article-container h1,
+#article-container h2,
+#article-container h3,
+#article-container h4,
+#article-container h5,
+#article-container h6 {
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 1.6em 0 0.8em;
+  text-indent: 0;
+}
+
+#article-container h2 {
+  font-size: 24px;
+  padding-left: 12px;
+  border-left: 5px solid #37c2fb;
+  background: linear-gradient(to right, rgba(55,194,251,0.08), transparent 50%);
+}
+
+#article-container h3 {
+  font-size: 20px;
+  color: #37c2fb;
+}
+
+#article-container h4 {
+  font-size: 17px;
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+/* ===== 引用块：左侧色条 ===== */
+#article-container blockquote {
+  margin: 1.5em 0;
+  padding: 12px 20px;
+  background: #f8f9fa;
+  border-left: 4px solid #37c2fb;
+  color: #555;
+  border-radius: 0 6px 6px 0;
+}
+
+/* ===== 强调：文件名/小标题加粗高亮 ===== */
+#article-container strong {
+  color: #d6336c;
+  font-weight: 700;
+}
+
+/* ===== 列表：紧凑对齐 ===== */
+#article-container ul,
+#article-container ol {
+  margin: 1em 0;
+  padding-left: 2em;
+}
+
+#article-container li {
+  margin: 0.4em 0;
+}
+
+/* ===== 代码块：卡片化 + 复制按钮更醒目 ===== */
+#article-container figure.highlight,
+#article-container pre {
+  margin: 1.4em 0;
+  border-radius: 10px;
+  border: 1px solid #e8e8e8;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  overflow: hidden;
+}
+
+#article-container figure.highlight table {
+  border-radius: 10px;
+}
+
+/* 行内 code 样式：浅蓝底 */
+#article-container p code,
+#article-container li code {
+  background: rgba(55, 194, 251, 0.12);
+  color: #d6336c;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.92em;
+  font-weight: 500;
+  word-break: break-all;
+}
+
+/* ===== 顶部导航条：加底色、加粗 ===== */
+#nav {
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+}
+
+#nav .site-name,
+#nav .menus_item .site-page {
+  font-weight: 600;
+  color: #333 !important;
+}
+
+#nav .menus_item .site-page:hover {
+  color: #37c2fb !important;
+}
+
+/* 导航 icon 与文字间距 */
+#nav .menus_item i + span {
+  margin-left: 4px;
+}
+
+/* ===== 暗色模式适配 ===== */
+[data-theme="dark"] #article-container {
+  color: #d0d0d0;
+}
+
+[data-theme="dark"] #article-container h2 {
+  background: linear-gradient(to right, rgba(55,194,251,0.15), transparent 50%);
+}
+
+[data-theme="dark"] #article-container blockquote {
+  background: #1a1a2e;
+  color: #b0b0b0;
+}
+
+[data-theme="dark"] #nav {
+  background: rgba(20,20,30,0.85) !important;
+}
+
+[data-theme="dark"] #nav .site-name,
+[data-theme="dark"] #nav .menus_item .site-page {
+  color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] #article-container p code,
+[data-theme="dark"] #article-container li code {
+  background: rgba(55, 194, 251, 0.18);
+  color: #ff8aa3;
+}
+
+/* ===== 移动端排版调整 ===== */
+@media (max-width: 768px) {
+  #post-info .post-title { font-size: 24px; }
+  #article-container { font-size: 15px; }
+  #article-container h2 { font-size: 20px; }
+  #article-container h3 { font-size: 18px; }
+}
+/* 头像持续旋转动画 */
+@keyframes rotate-avatar {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.avatar-img img {
+  animation: rotate-avatar 8s linear infinite;
+}
+.avatar-img img:hover {
+  animation-play-state: paused;
+  transform: rotate(360deg) !important;
+}

@@ -1,0 +1,267 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>zkVM与递归证明：用ZK验证任意计算 | 区块链编程</title><meta name="author" content="区块链编程"><meta name="copyright" content="区块链编程"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="ZK - Blockchain | blockchain-dev.blog">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zkVM与递归证明：用ZK验证任意计算">
+<meta property="og:url" content="https://renrenwudi.github.io/2026/08/24-4-zkVM%E4%B8%8E%E9%80%92%E5%BD%92%E8%AF%81%E6%98%8E/">
+<meta property="og:site_name" content="区块链编程">
+<meta property="og:description" content="ZK - Blockchain | blockchain-dev.blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://renrenwudi.github.io/img/avatar.png">
+<meta property="article:published_time" content="2026-08-19T04:44:16.000Z">
+<meta property="article:modified_time" content="2026-09-02T05:08:31.580Z">
+<meta property="article:author" content="区块链编程">
+<meta property="article:tag" content="ZK">
+<meta property="article:tag" content="Zero-Knowledge Proof">
+<meta property="article:tag" content="零知识证明">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://renrenwudi.github.io/img/avatar.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "zkVM与递归证明：用ZK验证任意计算",
+  "url": "https://renrenwudi.github.io/2026/08/24-4-zkVM%E4%B8%8E%E9%80%92%E5%BD%92%E8%AF%81%E6%98%8E/",
+  "image": "https://renrenwudi.github.io/img/avatar.png",
+  "datePublished": "2026-08-19T04:44:16.000Z",
+  "dateModified": "2026-09-02T05:08:31.580Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "区块链编程",
+      "url": "https://renrenwudi.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://renrenwudi.github.io/2026/08/24-4-zkVM%E4%B8%8E%E9%80%92%E5%BD%92%E8%AF%81%E6%98%8E/"><link rel="preconnect"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="/"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#37c2fb')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: '/',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'zkVM与递归证明：用ZK验证任意计算',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-41F4NYXQZQ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-41F4NYXQZQ');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 8.1.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">134</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">110</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">区块链编程</span></a><a class="nav-page-title" href="/"><span class="site-name">zkVM与递归证明：用ZK验证任意计算</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">zkVM与递归证明：用ZK验证任意计算</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-08-19T04:44:16.000Z" title="发表于 2026-08-19 12:44:16">2026-08-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-02T05:08:31.580Z" title="更新于 2026-09-02 13:08:31">2026-09-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/">零知识证明</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h3 id="zkVM原理、递归证明、BitVM为何能借它上比特币"><a href="#zkVM原理、递归证明、BitVM为何能借它上比特币" class="headerlink" title="zkVM原理、递归证明、BitVM为何能借它上比特币"></a>zkVM原理、递归证明、BitVM为何能借它上比特币</h3><h3 id="1-从”固定电路”到”任意程序”"><a href="#1-从”固定电路”到”任意程序”" class="headerlink" title="1. 从”固定电路”到”任意程序”"></a>1. 从”固定电路”到”任意程序”</h3><p>前面写的电路（Square、Circom）只能表达特定计算——你想要一个新的逻辑，就得写一个新的电路、做一次新的编译。但现实需求往往是”证明我运行了任意一段程序，结果正确”。这就需要 zkVM：一个能用 ZK 证明”某段代码确实被执行过、且输出正确”的虚拟机。</p>
+<p>两者的区别可以这样理解：普通电路是”为某一道题定制的解法”，zkVM 是”一台能运行任意程序的机器，并且能为任何程序的运行结果出具 ZK 证明”。你给我程序和输出，zkVM 不仅能跑出结果，还能出具一份证明”这个结果确实由该程序按规则算出、我没作弊”。这正是把 ZK 从”专用证明”升级为”通用计算证明”的关键一步。</p>
+<p>一句话：</p>
+<p>zkVM &#x3D; 给任意程序执行装上”ZK 证明器”。<br>你给我程序和输出，我不仅能跑，还能证明”我没作弊、输出是真的”。</p>
+<h3 id="2-zkVM-内部在做什么"><a href="#2-zkVM-内部在做什么" class="headerlink" title="2. zkVM 内部在做什么"></a>2. zkVM 内部在做什么</h3><p>zkVM 的实现思路是：把 CPU 的执行过程（取指令、译码、执行、写回）建模成电路。每执行一条指令，就对应电路里的一组约束。整段程序跑完，所有指令的约束拼起来，就是一个巨大的算术电路——而它的 witness 就是整段执行的轨迹（每条指令的输入输出）。证明者用这个轨迹生成 ZK 证明，验证者只需验证这条证明，就能确信”程序确实按规则跑完了、最终输出是真的”。</p>
+<p>不同 zkVM 的差异主要在”怎么把执行建模成电路”。有的用 STARK（不需要可信设置、证明较大但验证友好），有的用 SNARK（证明小但需要设置）。但它们的对外能力一致：给一段程序和一个输出，返回一份可验证”该程序产出了该输出”的证明。这让开发者可以用普通编程语言写逻辑，而不必手写算术电路——门槛大幅降低。</p>
+<p><strong>3. 递归证明：把证明叠起来</strong></p>
+<p>单个 zkVM 证明有固定开销。如果计算很长（比如一百万步），直接生成一个证明会非常庞大、验证也慢。递归证明（recursion）的思路是：用 ZK 证明去证明”另一个 ZK 证明是有效的”。具体做法是把长计算切成很多小段，每段出一个证明，再用一个父电路去验证这些子证明——而父电路本身又能被证明。这样层层聚合，最终浓缩成一个证明。</p>
+<p>递归的价值在于”把验证成本从 O(计算量) 降到 O(1)”。验证者不需要重跑那一百万步，只需要验证最终那一个聚合证明。这在区块链上尤其关键：链下做海量计算，链上只验证一个极小证明。这也是 ZK-Rollup 能把 thousands 笔交易压缩成一条链上证明的根本原理。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 递归证明的直觉：用证明验证证明</span></span><br><span class="line"><span class="comment"># 伪代码：把多个子证明聚合成一个父证明</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">recursive_prove</span>(<span class="params">child_proofs</span>):</span><br><span class="line">    <span class="comment"># 父电路的&quot;计算&quot; = 验证每个子证明有效</span></span><br><span class="line">    asserts = [verify(p) <span class="keyword">for</span> p <span class="keyword">in</span> child_proofs]</span><br><span class="line">    <span class="comment"># 用 ZK 证明&quot;所有子证明都有效&quot;</span></span><br><span class="line">    <span class="keyword">return</span> zk_prove(asserts)  <span class="comment"># 输出一个聚合证明</span></span><br><span class="line"><span class="comment"># 链下做 100 万步，链上只验 1 个聚合证明</span></span><br><span class="line">final = recursive_prove(batch_prove_all_steps())</span><br><span class="line">recursion.py</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-为什么比特币需要它"><a href="#4-为什么比特币需要它" class="headerlink" title="4. 为什么比特币需要它"></a>4. 为什么比特币需要它</h3><p>比特币的脚本语言极简，几乎不能做复杂计算——它本质上是个验证器，不是计算机。但它有一个宝贵的能力：可以去验证一条 ZK 证明，只要证明体积足够小、验证是固定开销。这就是 BitVM 思路的核心：复杂计算不在比特币上跑，而在比特币之外（其他链或离线环境）用 zkVM 跑完，生成证明；比特币上只部署一个轻量验证合约，检查这条证明是否有效。</p>
+<p>验证通过，就意味着比特币”承认”了链下那笔复杂计算的结果。这等于给比特币接上了一扇”信任链下计算”的窗——链下做重活，链上做最终的信任锚定。比特币不必自己执行复杂逻辑，只需”验证一个证明”，而验证的成本是固定的、极小的。这套机制让比特币在不改共识规则的前提下，获得了近似图灵完备的能力。</p>
+<p>BitVM 的精髓：</p>
+<p>比特币不必自己执行复杂逻辑，<br>只需”验证一个证明”——而验证的成本固定、极小。<br>这就等于给比特币接上了图灵完备的计算能力，且不改共识规则。</p>
+<h3 id="5-信任模型与局限"><a href="#5-信任模型与局限" class="headerlink" title="5. 信任模型与局限"></a>5. 信任模型与局限</h3><p>BitVM 的信任假设是”乐观 + 欺诈证明”：正常情况下，只需要验证者在线挑战可疑的证明，不诚实的提交会被惩罚。底层依赖 SNARK 或 STARK 证明系统，证明必须小到比特币能承载。现实约束是比特币的区块空间和脚本限制——这决定了证明必须足够精简，否则连”上链验证”这一步都做不到。</p>
+<p>要强调的是，这不是让比特币变成以太坊，而是给比特币开了一扇受控的窗。它在保持比特币极简、安全的前提下，让”链下复杂计算 + 链上信任锚定”成为可能。对开发者来说，这意味着可以在比特币生态里构建更复杂的应用逻辑，而无需等待比特币脚本语言本身的升级。</p>
+<h3 id="6-下篇预告"><a href="#6-下篇预告" class="headerlink" title="6. 下篇预告"></a>6. 下篇预告</h3><p>📖 下篇预告：ZK 应用全景：隐私、扩容、身份三大战场</p>
+<p>✅ zkVM &#x3D; 给任意程序执行装 ZK 证明器，证明”输出真的由程序算出”</p>
+<p>✅ 内部：把 CPU 执行轨迹建模成电路，轨迹即 witness</p>
+<p>✅ 递归证明：用证明验证证明，把海量计算聚合成单个证明</p>
+<p>✅ 链上只需验最终证明，验证成本从 O(计算量) 降到 O(1)</p>
+<p>✅ BitVM：链下 zkVM 跑复杂计算 → 比特币只验证证明</p>
+<p>━━━━━━━━━━━━━━━━━━━━━</p>
+<h3 id="📢-本文由「区块链编程」原创出品"><a href="#📢-本文由「区块链编程」原创出品" class="headerlink" title="📢 本文由「区块链编程」原创出品"></a>📢 本文由「区块链编程」原创出品</h3><p>未经授权，禁止转载</p>
+<p>如有转载需求，请联系作者</p>
+<h3 id="👉-关注「区块链编程」"><a href="#👉-关注「区块链编程」" class="headerlink" title="👉 关注「区块链编程」"></a>👉 关注「区块链编程」</h3><p>关注我，解锁更多可能</p>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"zkVM与递归证明：用ZK验证任意计算","datePublished":"2026-08-19T04:44:16.000Z","dateModified":"2026-09-02T05:08:31.580Z","author":{"@type":"Person","name":"区块链编程"},"publisher":{"@type":"Organization","name":"区块链编程","url":"https://renrenwudi.github.io"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://renrenwudi.github.io/2026/08/24-4-zkVM%E4%B8%8E%E9%80%92%E5%BD%92%E8%AF%81%E6%98%8E/"},"description":"ZK - Blockchain | blockchain-dev.blog","keywords":"ZK, 零知识证明, Zero-Knowledge Proof"}</script></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io">区块链编程</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://renrenwudi.github.io/2026/08/24-4-zkVM%E4%B8%8E%E9%80%92%E5%BD%92%E8%AF%81%E6%98%8E/">https://renrenwudi.github.io/2026/08/24-4-zkVM%E4%B8%8E%E9%80%92%E5%BD%92%E8%AF%81%E6%98%8E/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://renrenwudi.github.io" target="_blank">区块链编程</a>！</span></div></div><div id="wechat-card-insert"><div class="wechat-promo-card"><div class="promo-title">📱 关注公众号「区块链编程」</div><div class="promo-desc">更多区块链技术干货、Web3开发实战、量化交易策略<br>第一时间推送，关注「区块链编程」公众号</div><img class="promo-qr" src="/img/wechat-qr.png" data-lazy-src="/img/wechat-qr.png" alt="区块链编程公众号二维码"><a class="promo-cta" href="/about/">扫码关注</a></div></div><!--sync20260710--><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/ZK/">ZK</a><a class="post-meta__tags" href="/tags/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/">零知识证明</a><a class="post-meta__tags" href="/tags/Zero-Knowledge-Proof/">Zero-Knowledge Proof</a></div><div class="post-share"><div class="social-share" data-image="/img/avatar.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="/" media="print" onload="this.media='all'"><script src="/" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/08/25-1-JAM-%E6%B3%A2%E5%8D%A1%E4%BB%8E%E8%B7%A8%E9%93%BE%E8%BF%9E%E6%8E%A5%E5%99%A8%E5%88%B0%E5%A4%9A%E6%A0%B8%E8%AE%A1%E7%AE%97%E5%B9%B3%E5%8F%B0/" title="JAM：波卡从跨链连接器到多核计算平台"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">JAM：波卡从跨链连接器到多核计算平台</div></div><div class="info-2"><div class="info-item-1">一次完整升级，波卡的 relay chain 正在变成通用计算机1. 为什么说 JAM 是波卡最大的一次升级？Polkadot 的 relay chain（relay 链）是整个网络的”中枢神经”——它负责连接所有平行链，传递跨链消息，验证区块安全。从 2020 年主网上线到现在，这套 relay 链一直沿用最初的设计架构。 JAM（Join-Accumulate Machine）要做的事情是：从头重写 relay 链的核心逻辑，不是一点一点迭代，而是一次性完整升级。这在区块链世界里极其罕见——通常为了向后兼容，任何升级都是渐进式的。Gavin Wood 敢这么做，源于 JAM 架构上的根本性改变，使得新旧版本可以在同一套规则下共存。 JAM 的核心改变：原来 relay 链只负责”连接”——它传递消息，但自己几乎不跑任何计算。JAM 把 relay 链从”跨链路由器”升级为”多核计算平台”：它自己也可以跑智能合约、处理通用计算，还能跑 ZK-Rollup。 2. 无状态架构：为什么这次重构是可信的 传统区块链节点需要保存完整状态——谁的账户有多少钱、每个合约的存储内容是什么。状...</div></div></div></a><a class="pagination-related" href="/2026/08/24-3-Circom%E5%AE%9E%E6%88%98/" title="Circom实战：写出你的第一个ZK电路"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Circom实战：写出你的第一个ZK电路</div></div><div class="info-2"><div class="info-item-1">编译、生成证明、验证的完整流程1. 在 ZK 里，”计算”长什么样进入实战前要先扭转一个观念：ZK 里的”程序”不是普通代码，而是一个算术电路——一组约束方程。证明者要证明的是”我知道一组输入，让这些方程都成立”。电路不”运行”出结果，而是”声明”一组等式必须成立。这个区别是新手最容易卡住的地方：你不是在写 if-else 算答案，而是在写”什么关系必须为真”。 举个例子。我们想证明”我知道一个数 x，它的平方公开输出是 out，但我不告诉你 x”。在电路里，这不是写一句 out = x*x 然后 print，而是声明一条约束 out &lt;== x * x，并标记 x 是私有输入、out 是公开输出。证明者提供 x 的具体值（叫 witness，见证），验证者只看到 out 和最终的证明，永远不知道 x。 电路的本质： 不是”运行程序”，而是”声明一组等式必须成立”。证明者提供私有的 witness（见证值），验证者只看到公开输入和最终的证明。 2. 第一个电路：证明知道平方根 下面这个 Circom 电路，声明了”私有输入 x 的平方等于公开输出 out”。注意三个关键字：...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/04/4-3-ZK-Rollup/" title="ZK Rollup"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-16</div><div class="info-item-2">ZK Rollup</div></div><div class="info-2"><div class="info-item-1">零知识证明的魔法1. 零知识证明入门零知识证明（Zero-Knowledge Proof）让你”证明”你知道某个答案，而不需要透露答案本身。 零知识证明的三个特性： • 完整性：如果陈述是真的，证明者总能说服验证者• 可靠性：如果陈述是假的，没有证明者能说服验证者• 零知识：验证者除了”是真的”之外，什么都不知道 现实中的类比想象你在山洞里，山洞有两个入口A和B，里面有一扇需要密码才能打开的门。 你告诉验证者：”我知道打开这扇门的密码” 验证者随机喊：”从B入口进来！” 你每次都能从正确的入口进入（因为你知道密码） 验证者不知道密码是什么，只知道你会开门 2. ZK Rollup vs OP RollupZK Rollup用数学证明替代欺诈证明，每个批次都附带证明。 核心区别： • OP：乐观假设，只在挑战时验证• ZK：每个批次都附带数学证明• ZK不需要7天挑战期• ZK验证成本更低（证明验证比重新执行便宜） 3. SNARK vs STARKSNARK（Succinct Non-Interactive ARguments of Knowledge）： 证明小、验证快、需要可...</div></div></div></a><a class="pagination-related" href="/2026/07/19-2-%E6%9C%BA%E5%AF%86%E4%BB%B7%E5%80%BC%E4%B8%8E%E5%8C%BF%E5%90%8D%E8%8A%B1%E8%B4%B9-ZK%E9%9A%90%E7%A7%81%E6%9C%BA%E5%88%B6/" title="机密价值与匿名花费：ZK隐私机制"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-18</div><div class="info-item-2">机密价值与匿名花费：ZK隐私机制</div></div><div class="info-2"><div class="info-item-1">Pedersen承诺+Bulletproofs+Groth16：隐藏金额的数学原理 1. 隐私的两个维度tacit的隐私不是简单的”加密”。它区分了两个维度： 机密价值（Confidential Value）：隐藏转账金额，但证明金额正确且非负 匿名花费（Anonymous Spend）：断开输入UTXO和输出UTXO之间的关联 两个维度用不同的密码学工具实现：机密价值用Pedersen承诺+Bulletproofs，匿名花费用Groth16+Poseidon-Merkle+nullifiers。 2. Pedersen承诺：隐藏金额的核心 Pedersen承诺是一个经典的密码学工具，核心思想是：你可以承诺一个值而不泄露它，之后打开承诺时别人能验证你承诺的确实是这个值。 Pedersen承诺的数学： 选两个生成元 G, H（椭圆曲线上的点）承诺 C &#x3D; vG + rH其中 v &#x3D; 金额，r &#x3D; 盲因子（随机数） C 是椭圆曲线上的一个点，从C无法反推v和r（基于离散对数难题）但知道v和r的人可以验证C确实承诺了v。 在tacit中，每笔交易的输出是一...</div></div></div></a><a class="pagination-related" href="/2026/05/7-2-ZK%E5%BA%94%E7%94%A8/" title="ZK应用"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-05-06</div><div class="info-item-2">ZK应用</div></div><div class="info-2"><div class="info-item-1">zkEVM、隐私交易与可验证计算1. ZK的世界正在扩张零知识证明（ZK）在以太坊生态中的应用已经从L2扩容扩展到了更广阔的领域：zkEVM让以太坊原生支持ZK验证，隐私协议让链上交易无法追踪，可验证计算让链下计算可以被信任。 ZK不再只是Layer2的技术，它是整个Web3基础设施的重要组成部分。 ZK应用全景图： • L2扩容：zkSync、StarkNet、Polygon zkEVM• zkEVM：以太坊原生的ZK验证• 隐私交易：Aztec、zkmoney• 可验证计算：Modulus Labs、Risc Zero• 身份认证：Worldcoin、zkID 2. zkEVM的四种类zkEVM是将EVM执行环境用零知识证明来验证的技术。根据与EVM的兼容程度，分为四种类型。 Type1（以太坊等效）： 完全兼容以太坊，可以验证以太坊区块。包括官方Ethereum Foundation的zkEVM。兼容性最高，但证明生成最慢。 Type2（EVM等效）： 完全兼容EVM字节码，但修改了状态树和哈希函数。包括Scroll、PolygonzkEVM。兼容性高，证明速度中等。 Ty...</div></div></div></a><a class="pagination-related" href="/2026/08/24-5-ZK%E5%BA%94%E7%94%A8%E5%85%A8%E6%99%AF/" title="ZK应用全景：隐私、扩容、身份三大战场"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-19</div><div class="info-item-2">ZK应用全景：隐私、扩容、身份三大战场</div></div><div class="info-2"><div class="info-item-1">ZK在隐私支付、L2扩容、链上身份(DID)的落地1. 战场一：隐私支付 ZK 最直观的用途是”隐藏交易细节”。在传统区块链（如比特币、以太坊）上，余额、金额、收发方全部公开在链上，任何人都能查。ZK 可以让验证者确认”这笔交易合法”——具体说，确认”输入等于输出、签名有效、发送方确实拥有这些钱”——却看不到金额和地址。验证的是规则，暴露的是结论。 代表方案是 Zcash，它用 zk-SNARK 隐藏发送方、接收方和金额，链上只公开”有一笔有效的交易发生了”。Aztec 这类 L2 则把思路用在”隐私账户”上，链上只留证明、不留明文余额。但这里有个工程上的边界：ZK 能隐藏”内容”，却通常需要某种”防双花锚点”保持公开——完全匿名和可审计之间，要按场景权衡。隐私不是无代价的，它往往以”合规出口更难设计”为代价。 **• **代表：Zcash 用 zk-SNARK 隐藏发送方、接收方、金额，只公开”交易有效” **• **代表：Aztec 等 L2 用 ZK 做”隐私账户”，链上只留证明不留明文 **• **技术点：需证明”支出者拥有这笔钱且未双花”，但不暴露钱的来龙去脉 隐私的边...</div></div></div></a><a class="pagination-related" href="/2026/08/24-3-Circom%E5%AE%9E%E6%88%98/" title="Circom实战：写出你的第一个ZK电路"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-19</div><div class="info-item-2">Circom实战：写出你的第一个ZK电路</div></div><div class="info-2"><div class="info-item-1">编译、生成证明、验证的完整流程1. 在 ZK 里，”计算”长什么样进入实战前要先扭转一个观念：ZK 里的”程序”不是普通代码，而是一个算术电路——一组约束方程。证明者要证明的是”我知道一组输入，让这些方程都成立”。电路不”运行”出结果，而是”声明”一组等式必须成立。这个区别是新手最容易卡住的地方：你不是在写 if-else 算答案，而是在写”什么关系必须为真”。 举个例子。我们想证明”我知道一个数 x，它的平方公开输出是 out，但我不告诉你 x”。在电路里，这不是写一句 out = x*x 然后 print，而是声明一条约束 out &lt;== x * x，并标记 x 是私有输入、out 是公开输出。证明者提供 x 的具体值（叫 witness，见证），验证者只看到 out 和最终的证明，永远不知道 x。 电路的本质： 不是”运行程序”，而是”声明一组等式必须成立”。证明者提供私有的 witness（见证值），验证者只看到公开输入和最终的证明。 2. 第一个电路：证明知道平方根 下面这个 Circom 电路，声明了”私有输入 x 的平方等于公开输出 out”。注意三个关键字：...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">区块链编程</div><div class="author-info-description">区块链技术布道者，分享 DeFi、Layer2、智能合约开发等前沿技术。</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">134</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">110</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/RenRenWuDi/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/RenRenWuDi" target="_blank" title="GitHub"><i class="fab fa-github"></i></a><a class="social-icon" href="/about/" target="_blank" title="微信公众号"><i class="fab fa-weixin"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎关注公众号「区块链编程」</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#zkVM%E5%8E%9F%E7%90%86%E3%80%81%E9%80%92%E5%BD%92%E8%AF%81%E6%98%8E%E3%80%81BitVM%E4%B8%BA%E4%BD%95%E8%83%BD%E5%80%9F%E5%AE%83%E4%B8%8A%E6%AF%94%E7%89%B9%E5%B8%81"><span class="toc-number">1.</span> <span class="toc-text">zkVM原理、递归证明、BitVM为何能借它上比特币</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BB%8E%E2%80%9D%E5%9B%BA%E5%AE%9A%E7%94%B5%E8%B7%AF%E2%80%9D%E5%88%B0%E2%80%9D%E4%BB%BB%E6%84%8F%E7%A8%8B%E5%BA%8F%E2%80%9D"><span class="toc-number">2.</span> <span class="toc-text">1. 从”固定电路”到”任意程序”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-zkVM-%E5%86%85%E9%83%A8%E5%9C%A8%E5%81%9A%E4%BB%80%E4%B9%88"><span class="toc-number">3.</span> <span class="toc-text">2. zkVM 内部在做什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%94%E7%89%B9%E5%B8%81%E9%9C%80%E8%A6%81%E5%AE%83"><span class="toc-number">4.</span> <span class="toc-text">4. 为什么比特币需要它</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E4%BF%A1%E4%BB%BB%E6%A8%A1%E5%9E%8B%E4%B8%8E%E5%B1%80%E9%99%90"><span class="toc-number">5.</span> <span class="toc-text">5. 信任模型与局限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E4%B8%8B%E7%AF%87%E9%A2%84%E5%91%8A"><span class="toc-number">6.</span> <span class="toc-text">6. 下篇预告</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%A2-%E6%9C%AC%E6%96%87%E7%94%B1%E3%80%8C%E5%8C%BA%E5%9D%97%E9%93%BE%E7%BC%96%E7%A8%8B%E3%80%8D%E5%8E%9F%E5%88%9B%E5%87%BA%E5%93%81"><span class="toc-number">7.</span> <span class="toc-text">📢 本文由「区块链编程」原创出品</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%91%89-%E5%85%B3%E6%B3%A8%E3%80%8C%E5%8C%BA%E5%9D%97%E9%93%BE%E7%BC%96%E7%A8%8B%E3%80%8D"><span class="toc-number">8.</span> <span class="toc-text">👉 关注「区块链编程」</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/08/21-1-RWA%E5%88%B0%E5%BA%95%E6%98%AF%E4%BB%80%E4%B9%88/" title="RWA 到底是什么：用一张图讲透资产上链的逻辑">RWA 到底是什么：用一张图讲透资产上链的逻辑</a><time datetime="2026-08-26T01:28:17.000Z" title="发表于 2026-08-26 09:28:17">2026-08-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/08/21-4-RWA%E7%94%9F%E6%80%81%E5%85%A8%E6%99%AF/" title="RWA 生态全景：谁在发行、谁在托管、谁在清算">RWA 生态全景：谁在发行、谁在托管、谁在清算</a><time datetime="2026-08-26T01:28:17.000Z" title="发表于 2026-08-26 09:28:17">2026-08-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/08/21-3-%E9%BB%84%E9%87%91%E4%B8%8E%E5%A4%A7%E5%AE%97%E5%95%86%E5%93%81%E4%BB%A3%E5%B8%81%E5%8C%96/" title="黄金与大宗商品代币化：最&quot;看得懂&quot;的 RWA 案例">黄金与大宗商品代币化：最&quot;看得懂&quot;的 RWA 案例</a><time datetime="2026-08-26T01:28:17.000Z" title="发表于 2026-08-26 09:28:17">2026-08-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/08/21-5-%E5%82%A8%E5%A4%87%E8%AF%81%E6%98%8E%E4%B8%8E%E9%A3%8E%E9%99%A9%E8%AF%86%E5%88%AB/" title="储备证明与风险识别：怎么判断一个 RWA 是不是真 1:1">储备证明与风险识别：怎么判断一个 RWA 是不是真 1:1</a><time datetime="2026-08-26T01:28:17.000Z" title="发表于 2026-08-26 09:28:17">2026-08-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/08/21-2-%E6%99%AE%E9%80%9A%E4%BA%BA%E6%80%8E%E4%B9%88%E5%8F%82%E4%B8%8ERWA/" title="普通人怎么&quot;参与&quot;RWA：合规准入与持有路径">普通人怎么&quot;参与&quot;RWA：合规准入与持有路径</a><time datetime="2026-08-26T01:28:17.000Z" title="发表于 2026-08-26 09:28:17">2026-08-26</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By 区块链编程</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">本文由 <a href="https://renrenwudi.github.io">区块链编程</a> 发布 · 转载请注明出处</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/"></script><script src="/"></script><script src="/"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'RenRenWuDi/RenRenWuDi.github.io',
+      'data-repo-id': '',
+      'data-category-id': '',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !true) {
+    if (true) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="/js/wechat-card.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
