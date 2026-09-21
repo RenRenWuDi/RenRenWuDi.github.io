@@ -40,16 +40,16 @@ importers:
         version: 2.0.0
       hexo-renderer-marked:
         specifier: ^7.0.0
-        version: 7.0.1
+        version: 7.0.1(supports-color@5.5.0)
       hexo-renderer-pug:
         specifier: ^3.0.0
         version: 3.0.0
       hexo-renderer-stylus:
         specifier: ^3.0.1
-        version: 3.0.1
+        version: 3.0.1(supports-color@5.5.0)
       hexo-server:
         specifier: ^3.0.0
-        version: 3.0.0
+        version: 3.0.0(supports-color@5.5.0)
       hexo-util:
         specifier: ^4.0.0
         version: 4.0.0
@@ -57,8 +57,8 @@ importers:
         specifier: ^6.0.1
         version: 6.0.1
       moment-timezone:
-        specifier: ^0.6.2
-        version: 0.6.2
+        specifier: ^0.6.4
+        version: 0.6.4
 
 packages:
 
@@ -781,8 +781,8 @@ packages:
   moment-timezone@0.5.46:
     resolution: {integrity: sha512-ZXm9b36esbe7OmdABqIWJuBBiLLwAjrN7CE+7sYdCCx82Nabt1wHDj8TVseS59QIlfFPbOoiBPm6ca9BioG4hw==}
 
-  moment-timezone@0.6.2:
-    resolution: {integrity: sha512-lDsQv8FoGdBUdf0+TjGsq2orxKuXdwFlQ6Zw6TX3xIcTwTfEpCLyKqvEauvCHJ8iu3KBV8+uPhlv70YsNGdUBQ==}
+  moment-timezone@0.6.4:
+    resolution: {integrity: sha512-JHUK8Mgheach4uMQmIV/pIfrv0ubPiDCPPqc7Mi604je1UblP6Gbm+FfV+Oh88KP03rZqGCZG3t0wmpfdlDv+w==}
 
   moment@2.30.1:
     resolution: {integrity: sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==}
@@ -1195,15 +1195,15 @@ snapshots:
 
   acorn@7.1.1: {}
 
-  agent-base@7.0.2:
+  agent-base@7.0.2(supports-color@5.5.0):
     dependencies:
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
 
-  agent-base@7.1.0:
+  agent-base@7.1.0(supports-color@5.5.0):
     dependencies:
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -1341,11 +1341,11 @@ snapshots:
     dependencies:
       mime-db: 1.54.0
 
-  compression@1.8.1:
+  compression@1.8.1(supports-color@5.5.0):
     dependencies:
       bytes: 3.1.2
       compressible: 2.0.18
-      debug: 2.6.9
+      debug: 2.6.9(supports-color@5.5.0)
       negotiator: 0.6.4
       on-headers: 1.1.0
       safe-buffer: 5.2.1
@@ -1355,10 +1355,10 @@ snapshots:
 
   concat-map@0.0.1: {}
 
-  connect@3.7.0:
+  connect@3.7.0(supports-color@5.5.0):
     dependencies:
-      debug: 2.6.9
-      finalhandler: 1.1.2
+      debug: 2.6.9(supports-color@5.5.0)
+      finalhandler: 1.1.2(supports-color@5.5.0)
       parseurl: 1.3.3
       utils-merge: 1.0.1
     transitivePeerDependencies:
@@ -1394,13 +1394,17 @@ snapshots:
       whatwg-mimetype: 4.0.0
       whatwg-url: 14.0.0
 
-  debug@2.6.9:
+  debug@2.6.9(supports-color@5.5.0):
     dependencies:
       ms: 2.0.0
+    optionalDependencies:
+      supports-color: 5.5.0
 
-  debug@4.4.3:
+  debug@4.4.3(supports-color@5.5.0):
     dependencies:
       ms: 2.1.3
+    optionalDependencies:
+      supports-color: 5.5.0
 
   decimal.js@10.6.0: {}
 
@@ -1540,9 +1544,9 @@ snapshots:
     dependencies:
       to-regex-range: 5.0.1
 
-  finalhandler@1.1.2:
+  finalhandler@1.1.2(supports-color@5.5.0):
     dependencies:
-      debug: 2.6.9
+      debug: 2.6.9(supports-color@5.5.0)
       encodeurl: 1.0.2
       escape-html: 1.0.3
       on-finished: 2.3.0
@@ -1702,11 +1706,11 @@ snapshots:
     dependencies:
       ejs: 3.1.6
 
-  hexo-renderer-marked@7.0.1:
+  hexo-renderer-marked@7.0.1(supports-color@5.5.0):
     dependencies:
       dompurify: 3.4.11
       hexo-util: 3.3.0
-      jsdom: 25.0.1
+      jsdom: 25.0.1(supports-color@5.5.0)
       marked: 15.0.4
     transitivePeerDependencies:
       - bufferutil
@@ -1718,23 +1722,23 @@ snapshots:
     dependencies:
       pug: 3.0.4
 
-  hexo-renderer-stylus@3.0.1:
+  hexo-renderer-stylus@3.0.1(supports-color@5.5.0):
     dependencies:
-      nib: 1.2.0(stylus@0.62.0)
-      stylus: 0.62.0
+      nib: 1.2.0(stylus@0.62.0(supports-color@5.5.0))
+      stylus: 0.62.0(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
 
-  hexo-server@3.0.0:
+  hexo-server@3.0.0(supports-color@5.5.0):
     dependencies:
       bluebird: 3.7.2
-      compression: 1.8.1
-      connect: 3.7.0
+      compression: 1.8.1(supports-color@5.5.0)
+      connect: 3.7.0(supports-color@5.5.0)
       mime: 3.0.0
-      morgan: 1.11.0
+      morgan: 1.11.0(supports-color@5.5.0)
       open: 8.4.2
       picocolors: 1.1.1
-      serve-static: 1.16.3
+      serve-static: 1.16.3(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -1834,17 +1838,17 @@ snapshots:
       statuses: 2.0.2
       toidentifier: 1.0.1
 
-  http-proxy-agent@7.0.2:
+  http-proxy-agent@7.0.2(supports-color@5.5.0):
     dependencies:
-      agent-base: 7.1.0
-      debug: 4.4.3
+      agent-base: 7.1.0(supports-color@5.5.0)
+      debug: 4.4.3(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
 
-  https-proxy-agent@7.0.5:
+  https-proxy-agent@7.0.5(supports-color@5.5.0):
     dependencies:
-      agent-base: 7.0.2
-      debug: 4.4.3
+      agent-base: 7.0.2(supports-color@5.5.0)
+      debug: 4.4.3(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -1919,15 +1923,15 @@ snapshots:
     dependencies:
       argparse: 2.0.1
 
-  jsdom@25.0.1:
+  jsdom@25.0.1(supports-color@5.5.0):
     dependencies:
       cssstyle: 4.1.0
       data-urls: 5.0.0
       decimal.js: 10.6.0
       form-data: 4.0.6
       html-encoding-sniffer: 4.0.0
-      http-proxy-agent: 7.0.2
-      https-proxy-agent: 7.0.5
+      http-proxy-agent: 7.0.2(supports-color@5.5.0)
+      https-proxy-agent: 7.0.5(supports-color@5.5.0)
       is-potential-custom-element-name: 1.0.1
       nwsapi: 2.2.24
       parse5: 7.1.2
@@ -2004,16 +2008,16 @@ snapshots:
     dependencies:
       moment: 2.30.1
 
-  moment-timezone@0.6.2:
+  moment-timezone@0.6.4:
     dependencies:
       moment: 2.30.1
 
   moment@2.30.1: {}
 
-  morgan@1.11.0:
+  morgan@1.11.0(supports-color@5.5.0):
     dependencies:
       basic-auth: 2.0.1
-      debug: 2.6.9
+      debug: 2.6.9(supports-color@5.5.0)
       depd: 2.0.0
       on-finished: 2.4.1
       on-headers: 1.1.0
@@ -2028,9 +2032,9 @@ snapshots:
 
   negotiator@0.6.4: {}
 
-  nib@1.2.0(stylus@0.62.0):
+  nib@1.2.0(stylus@0.62.0(supports-color@5.5.0)):
     dependencies:
-      stylus: 0.62.0
+      stylus: 0.62.0(supports-color@5.5.0)
 
   no-case@3.0.4:
     dependencies:
@@ -2223,9 +2227,9 @@ snapshots:
     dependencies:
       xmlchars: 2.2.0
 
-  send@0.19.2:
+  send@0.19.2(supports-color@5.5.0):
     dependencies:
-      debug: 2.6.9
+      debug: 2.6.9(supports-color@5.5.0)
       depd: 2.0.0
       destroy: 1.2.0
       encodeurl: 2.0.0
@@ -2241,12 +2245,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  serve-static@1.16.3:
+  serve-static@1.16.3(supports-color@5.5.0):
     dependencies:
       encodeurl: 2.0.0
       escape-html: 1.0.3
       parseurl: 1.3.3
-      send: 0.19.2
+      send: 0.19.2(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -2278,10 +2282,10 @@ snapshots:
     dependencies:
       min-indent: 1.0.1
 
-  stylus@0.62.0:
+  stylus@0.62.0(supports-color@5.5.0):
     dependencies:
       '@adobe/css-tools': 4.3.1
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@5.5.0)
       glob: 7.2.0
       sax: 1.3.0
       source-map: 0.7.6
